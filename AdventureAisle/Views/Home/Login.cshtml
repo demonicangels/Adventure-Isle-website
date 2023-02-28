@@ -1,0 +1,27 @@
+﻿@model User
+@{
+    if (TempData["msg"] != null)
+    {
+        <script>
+            alert('@TempData["msg"]')
+        </script>
+    }
+}
+<form asp-action="Login" method="post">
+<link href="~/css/login.css" rel="stylesheet" type="text/css" />
+ <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="user" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input class="pass" type="password" placeholder="Enter Password" name="passwor" required>
+    
+        <button asp-controller="Home" asp-action="LoginFormValidate" type="submit">Login</button>
+    <h4>Don't have an account yet?<a asp-controller ="Home" asp-action="Register" class="register-link"> Register</a></h4>
+</div>
+</form>
+     
+
+                    
+                
+
