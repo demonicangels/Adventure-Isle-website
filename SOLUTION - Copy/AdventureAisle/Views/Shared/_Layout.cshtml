@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Adventure Aisle</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        
+        <div class="logo">
+            <a asp-area="" asp-controller="Home" asp-action="Index">"Adventure Aisle"</a>
+        </div>
+        
+        <nav>
+        <div class="topnav">
+                <ul>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Login">Login</a></li>
+                    <li><a href="">Travel list</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Countries">Countries</a></li>
+                    <li><a href="">About</a></li>
+                </ul>
+        </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()  
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - Adventure Isle - <a class="privacy-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+</body>
+</html>
