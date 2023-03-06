@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nikol\\OneDrive\\Desktop\\AAClasslibrary\\AAClasslibrary.csproj": {}
+    "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\AAClasslibrary\\AAClasslibrary.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nikol\\OneDrive\\Desktop\\AAClasslibrary\\AAClasslibrary.csproj": {
+    "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\AAClasslibrary\\AAClasslibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nikol\\OneDrive\\Desktop\\AAClasslibrary\\AAClasslibrary.csproj",
+        "projectUniqueName": "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\AAClasslibrary\\AAClasslibrary.csproj",
         "projectName": "AAClasslibrary",
-        "projectPath": "C:\\Users\\nikol\\OneDrive\\Desktop\\AAClasslibrary\\AAClasslibrary.csproj",
+        "projectPath": "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\AAClasslibrary\\AAClasslibrary.csproj",
         "packagesPath": "C:\\Users\\nikol\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nikol\\OneDrive\\Desktop\\AAClasslibrary\\obj\\",
+        "outputPath": "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\AAClasslibrary\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -31,7 +31,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\AdventureAisle\\AdventureAisle.csproj": {
+                "projectPath": "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\AdventureAisle\\AdventureAisle.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

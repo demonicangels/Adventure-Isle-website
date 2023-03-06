@@ -146,33 +146,6 @@
             "rid": "win"
           }
         }
-      },
-      "AAClasslibrary/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "AdventureAisle": "1.0.0",
-          "System.Data.SqlClient": "4.8.5"
-        },
-        "compile": {
-          "bin/placeholder/AAClasslibrary.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/AAClasslibrary.dll": {}
-        }
-      },
-      "AdventureAisle/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "compile": {
-          "bin/placeholder/AdventureAisle.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/AdventureAisle.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
       }
     }
   },
@@ -489,21 +462,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "AAClasslibrary/1.0.0": {
-      "type": "project",
-      "path": "../AAClasslibrary/AAClasslibrary.csproj",
-      "msbuildProject": "../AAClasslibrary/AAClasslibrary.csproj"
-    },
-    "AdventureAisle/1.0.0": {
-      "type": "project",
-      "path": "../AdventureAisle/AdventureAisle.csproj",
-      "msbuildProject": "../AdventureAisle/AdventureAisle.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0-windows7.0": [
-      "AAClasslibrary >= 1.0.0",
+      "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\AAClasslibrary\\AAClasslibrary.csproj",
       "System.Data.SqlClient >= 4.8.5"
     ]
   },
@@ -514,11 +477,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nikol\\OneDrive\\Desktop\\DesktopApp\\DesktopApp.csproj",
+      "projectUniqueName": "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\DesktopApp\\DesktopApp.csproj",
       "projectName": "DesktopApp",
-      "projectPath": "C:\\Users\\nikol\\OneDrive\\Desktop\\DesktopApp\\DesktopApp.csproj",
+      "projectPath": "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\DesktopApp\\DesktopApp.csproj",
       "packagesPath": "C:\\Users\\nikol\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nikol\\OneDrive\\Desktop\\DesktopApp\\obj\\",
+      "outputPath": "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\DesktopApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -539,8 +502,8 @@
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
           "projectReferences": {
-            "C:\\Users\\nikol\\OneDrive\\Desktop\\AAClasslibrary\\AAClasslibrary.csproj": {
-              "projectPath": "C:\\Users\\nikol\\OneDrive\\Desktop\\AAClasslibrary\\AAClasslibrary.csproj"
+            "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\AAClasslibrary\\AAClasslibrary.csproj": {
+              "projectPath": "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\AAClasslibrary\\AAClasslibrary.csproj"
             }
           }
         }
@@ -582,5 +545,16 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1105",
+      "level": "Error",
+      "message": "Unable to find project information for 'C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\AAClasslibrary\\AAClasslibrary.csproj'. If you are using Visual Studio, this may be because the project is unloaded or not part of the current solution so run a restore from the command-line. Otherwise, the project file may be invalid or missing targets required for restore.",
+      "libraryId": "C:\\Users\\nikol\\OneDrive\\Desktop\\SOLUTION\\AAClasslibrary\\AAClasslibrary.csproj",
+      "targetGraphs": [
+        "net7.0-windows7.0"
+      ]
+    }
+  ]
 }

@@ -21,6 +21,9 @@ namespace AdventureAisle.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+
+            Destination destination= new Destination();
+            destination.AvgRating = 0;
         }
 
         public IActionResult Index()

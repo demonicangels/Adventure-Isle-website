@@ -1,14 +1,16 @@
-﻿
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using System.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
-
-using System.Data.SqlClient;
 
 namespace AdventureAisle.Models
 {
 	public class Db
 	{
 		public List<User> userslist = new List<User>();
-		User user = new User("","","");
+		User user = new User();
 
 
 		public void OnGet()
