@@ -2,19 +2,17 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    @model AAClasslibrary.Entities.User
 }
 <link href="~/css/login.css" rel="stylesheet" type="text/css"/>
-<form asp-action="Register" method="post">
+<form method="post">
  <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="username" required>
+    <label asp-for="username"><b>Username</b></label>
+    <input asp-for="username" placeholder="Enter Username" name="username" required>
 
-     <label for="psw"><b>Email</b></label>
-     <input class="pass" type="text" placeholder="Enter Password" name="email" required>
+    <label asp-for="password"><b>Password</b></label>
+        <input asp-for="password" class="pass" type="password" placeholder="Enter Password" name="psw" required>
 
-    <label for="psw"><b>Password</b></label>
-    <input class="pass" type="password" placeholder="Enter Password" name="psw" required>
-
-        <button asp-controller="Home" asp-action="Login" type="submit">Register</button>
+        <button asp-controller="Home" asp-action="LoginFormValidate" type="submit" value="Login">Register</button>
 </div>
 </form>

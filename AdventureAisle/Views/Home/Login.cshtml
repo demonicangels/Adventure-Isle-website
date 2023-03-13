@@ -1,5 +1,4 @@
-﻿@model User
-@{
+﻿@{
     if (TempData["msg"] != null)
     {
         <script>
@@ -14,7 +13,7 @@
     <input type="text" placeholder="Enter Username" name="user" required>
 
     <label for="psw"><b>Password</b></label>
-    <input class="pass" type="password" placeholder="Enter Password" name="passwor" required>
+    <input class="pass" type="password" placeholder="Enter Password" name="pass" required>
     
         <button asp-controller="Home" asp-action="LoginFormValidate" type="submit">Login</button>
     <h4>Don't have an account yet?<a asp-controller ="Home" asp-action="Register" class="register-link"> Register</a></h4>
