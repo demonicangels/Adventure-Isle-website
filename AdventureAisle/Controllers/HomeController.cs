@@ -14,7 +14,7 @@ namespace AdventureAisle.Controllers
 
     public class HomeController : Controller
     {
-        OUserLogin login = new OUserLogin();
+        OUser login = new OUser("");
         
         [BindProperty]
         public User user { get; set; } = new User();

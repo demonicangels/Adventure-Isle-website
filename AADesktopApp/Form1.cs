@@ -176,7 +176,7 @@ namespace DesktopApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CRUD data = new CRUD();
+            CRUDDestinations data = new CRUDDestinations();
             this.Hide();
             data.Show();
         }

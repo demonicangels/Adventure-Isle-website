@@ -1,6 +1,7 @@
 using AAClasslibrary.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text.Json;
 
 namespace AdventureAisle.Views.Home
 {
@@ -8,11 +9,10 @@ namespace AdventureAisle.Views.Home
     {
         [BindProperty]
         public User user { get; set; }
-        public void OnPost()
+        public IActionResult OnPost()
         {
-            user.username = Request.Form["username"];
-            user.password = Request.Form["psw"];
-           
+            TempData["user"] = JsonSerializer.Serialize(user);
+            return RedirectToPage("Login");
         }
     }
 }

@@ -17,7 +17,7 @@
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-.container {
+.cont {
     
     padding: 5px 10px;
     
@@ -50,19 +50,43 @@ a :hover{
     justify-content: center;
     width: 37px;
     position: absolute;
-    margin-left: 170px; 
+    margin-left: 280px; 
+    margin-bottom: 200px;
 }
 .review-score > * {
    text-align: left;
    margin-left: 20px;
 }
-.content {
+.cont {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
+    margin-top: 15px;
+    
     
 }
-.container > h4 {
+.cont > h4 {
     text-align: right;
     margin-left: 50px;
+    font-weight: lighter;
+    margin-top: 50px;
 }
+
+
+
+
+
+
+.cont {
+    position: relative;
+    width: 50%;
+}
+
+.image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+
