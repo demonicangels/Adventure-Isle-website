@@ -1,4 +1,5 @@
-﻿using AAClasslibrary.Operations;
+﻿using AAClasslibrary.DAL__Operations_;
+using AAClasslibrary.Operations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,21 +15,32 @@ namespace DesktopApp
 {
     public partial class CRUDusers : Form
     {
-        OUser userData;
-        string conStr;
+        UserOperation userData = new UserOperation();
+        
         public CRUDusers()
         {
             InitializeComponent();
-            conStr = "Data Source=LAPTOP-1KFDAJ8C\\SQLEXPRESS;Initial Catalog=AdventureAisle;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            userData = new OUser(conStr);
-            
+
+        }
+
+        public void Clear()
+        {
+            usernameUsertxt.Text = string.Empty;
+            passwordUsertxt.Text = string.Empty;
+            emailUsertxt.Text = string.Empty;
+            searchByIdtxt.Text = string.Empty;
         }
 
         private void insert_btn_Click(object sender, EventArgs e)
         {
             var sql = "INSERT INTO Users (username, password, email) VALUES (@username, @password, @email)";
-            userData.Insert(sql, usernameUsertxt.Text, passwordUsertxt.Text, emailUsertxt.Text);
+            UserDTO user = new UserDTO();
+            user.username = usernameUsertxt.Text;
+            user.password = passwordUsertxt.Text;
+            user.email = emailUsertxt.Text;
+            userData.Insert(sql, user);
             MessageBox.Show("Succesful insert of data.");
+            Clear();
         }
 
         private void delete_btn_Click(object sender, EventArgs e)
@@ -53,9 +65,10 @@ namespace DesktopApp
         private void get_btn_Click(object sender, EventArgs e)
         {
             userScreen.Items.Clear();
-            var sql = "SELECT * FROM Users WHERE Id = @Id";
-            var usr = userData.GetById(sql, int.Parse(searchByIdtxt.Text));
+            var sql = $"SELECT * FROM Users WHERE username LIKE '{searchByIdtxt.Text}%'";
+            var usr = userData.Search(sql);
             userScreen.Items.Add(usr);
+            Clear();
         }
 
         private void userScreen_Click(object sender, EventArgs e)

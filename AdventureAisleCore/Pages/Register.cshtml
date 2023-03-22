@@ -1,0 +1,20 @@
+﻿@page
+@model AdventureAisleCore.Pages.RegisterCoreModel
+@{
+}
+<link href="~/css/login.css" rel="stylesheet" type="text/css" />
+<form method="post">
+ <div class="container">
+    <label asp-for="usr.username"><b>Username</b></label>
+        <input asp-for="usr.username" placeholder="Enter Username" required>
+
+        <label asp-for="usr.password"><b>Password</b></label>
+     <input asp-for="usr.password" type="password" placeholder="Enter Password" required>
+
+     <label asp-for="usr.email"><b>Email</b></label>
+     <input asp-for="usr.email" type="email" placeholder="Enter email" required>
+     
+
+        <button type="submit" style="margin-left: 940px;">Register</button>
+    </div>
+</form>

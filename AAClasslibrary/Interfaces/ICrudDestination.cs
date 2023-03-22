@@ -9,15 +9,15 @@ namespace AAClasslibrary.Interfaces
     public interface ICrudDestination<T>
     {
 
-        void Insert(T sql, T country, T name, T currency, T history);
+        void Insert(string sql, T destination);
 
-        void Delete(T sqlCmd, T selectedDes);
+        void Delete(string sqlCmd, string selectedDes);
 
-        T GetById(T sqlCmd, int id);
+        string Search(string sqlCmd);
 
-        List<T> GetAll(T sql);
+        List<string> GetAll(string sql);
 
-        T Selected(T sql, T selectedName);
+        string Selected(string sql, string selectedName);
 
     }
 }

@@ -8,14 +8,16 @@ namespace AAClasslibrary.Interfaces
 {
     public interface ICrudUser<T>
     {
-        void Insert(T sql, T username, T password, T email);
+        void Insert(string sql, T user);
 
-        void Delete(T sqlCmd, T selectedDes);
+        void Delete(string sqlCmd, string selectedDes);
 
-        T GetById(T sqlCmd, int id);
+        string Search(string sqlCmd);
 
-        List<T> GetAll(T sql);
+        List<string> GetAll(string sql);
 
-        T Selected(T sql, T selectedName);
+        string Selected(string sql, string selectedName);
+
+        bool TryLogin(string sql,string username, string password);
     }
 }

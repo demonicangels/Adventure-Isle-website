@@ -1,4 +1,5 @@
-﻿using AAClasslibrary.Operations;
+﻿using AAClasslibrary.Entities;
+using AAClasslibrary.Operations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,12 +16,11 @@ namespace DesktopApp
     public partial class CRUDDestinations : Form
     {
         string conStr;
-        ODestination data;
+        ODestination data = new ODestination();
         public CRUDDestinations()
         {
             InitializeComponent();
-            conStr = "Data Source=LAPTOP-1KFDAJ8C\\SQLEXPRESS;Initial Catalog=AdventureAisle;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            data = new ODestination(conStr);
+             
         }
 
         public void Clear()
@@ -34,7 +34,12 @@ namespace DesktopApp
         private void Put_btn_Click(object sender, EventArgs e) // insert button 
         {
             string sqlCmd = "INSERT INTO Destinations (Country, Name, Currency, History) VALUES (@Country, @Name, @Currency, @History)";
-            data.Insert(sqlCmd, CountryDestxt.Text,nameDestxt.Text,currencyDestxt.Text,descriptionDestxt.Text);
+            DestinationDTO des = new DestinationDTO();
+            des.Name = nameDestxt.Text;
+            des.Country = CountryDestxt.Text;
+            des.Currency = currencyDestxt.Text;
+            des.BriefDescription = descriptionDestxt.Text;
+            data.Insert(sqlCmd, des);
             MessageBox.Show("Successful insert");
             Clear();
         }
@@ -52,8 +57,8 @@ namespace DesktopApp
         private void Get_btn_Click(object sender, EventArgs e)
         {
             desScreen.Items.Clear();
-            var sqlGetById = "SELECT * FROM Destinations WHERE ID = @ID";
-            var des = data.GetById(sqlGetById, int.Parse(searchByIdtxt.Text));
+            var sqlGet = $"SELECT * FROM Destinations WHERE Name LIKE '{searchByIdtxt.Text}%'";
+            var des = data.Search(sqlGet);
             desScreen.Items.Add(des);
             Clear();
         }
