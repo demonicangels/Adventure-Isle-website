@@ -6,8 +6,6 @@
     <title>@ViewData["Title"] - Adventure Aisle</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-   
-    
 </head>
 <body>
     <header>
@@ -31,33 +29,20 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li><a class="dropdown-item" href="#">Italy</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/France">France</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/FranceDestinations">France</a></li>
                                 <li><a class="dropdown-item" href="#">Spain</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Login">Login</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Profile">Profile</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        
-        <!--<div class="topnav">                                                                            -->
-        <!--        <ul>                                                                                    -->
-        <!--            <li><a asp-area="" asp-controller="Home" asp-action="Login">Login</a></li>          -->
-        <!--            <li><a href="">Travel list</a></li>                                                 -->
-        <!--            <li class="dropdown">                                                               -->
-        <!--                <a>Countries</a>                                                                -->
-        <!--                <div class="dropdown-content">                                                  -->
-        <!--                    <p>Hello World!</p>                                                         -->
-        <!--                </div>                                                                          -->
-        <!--            </li>                                                                               -->
-        <!--            <li><a asp-area="" asp-controller="Home" asp-action="Countries">Countries</a></li>  -->
-        <!--            <li><a href="">About</a></li>   -->
-        <!--        </ul> -->
-        <!--</div> -->
-        
     </header>
 
     <div class="container">
@@ -66,6 +51,12 @@
             @RenderBody()  
         </main>
     </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - Adventure Isle - <a class="privacy-link" asp-area="" asp-page="">Privacy</a>

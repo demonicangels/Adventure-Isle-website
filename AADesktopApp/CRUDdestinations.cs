@@ -1,5 +1,5 @@
 ﻿using AAClasslibrary.Entities;
-using AAClasslibrary.Operations;
+using DAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +16,7 @@ namespace DesktopApp
     public partial class CRUDDestinations : Form
     {
         string conStr;
-        ODestination data = new ODestination();
+        DestinationDAO data = new DestinationDAO();
         public CRUDDestinations()
         {
             InitializeComponent();
@@ -34,20 +34,20 @@ namespace DesktopApp
         private void Put_btn_Click(object sender, EventArgs e) // insert button 
         {
             string sqlCmd = "INSERT INTO Destinations (Country, Name, Currency, History) VALUES (@Country, @Name, @Currency, @History)";
-            DestinationDTO des = new DestinationDTO();
+            Destination des = new Destination();
             des.Name = nameDestxt.Text;
             des.Country = CountryDestxt.Text;
             des.Currency = currencyDestxt.Text;
             des.BriefDescription = descriptionDestxt.Text;
-            data.Insert(sqlCmd, des);
+            data.InsertDestination(des);
             MessageBox.Show("Successful insert");
             Clear();
         }
 
         private void Delete_btn_Click(object sender, EventArgs e)
         {
-            var sqlInsert = "DELETE FROM Destinations WHERE NAME = @NAME";
-            data.Delete(sqlInsert, desScreen.SelectedItem.ToString());
+            
+            data.DeleteDestination(desScreen.SelectedItem.ToString());
             desScreen.Items.Remove(desScreen.SelectedItem);
             MessageBox.Show("Successful delete");
             Clear();
@@ -57,8 +57,7 @@ namespace DesktopApp
         private void Get_btn_Click(object sender, EventArgs e)
         {
             desScreen.Items.Clear();
-            var sqlGet = $"SELECT * FROM Destinations WHERE Name LIKE '{searchByIdtxt.Text}%'";
-            var des = data.Search(sqlGet);
+            var des = data.SearchDestination(searchByIdtxt.Text.ToString());
             desScreen.Items.Add(des);
             Clear();
         }
@@ -67,18 +66,17 @@ namespace DesktopApp
         {
             desScreen.Items.Clear();
             var sqlGetAll = "SELECT * FROM Destinations";
-            var des = data.GetAll(sqlGetAll);
+            var des = data.GetAllDestinations();
             for(int i = 0; i < des.Count; i++)
             {
-                desScreen.Items.Add(des[i]);
+                desScreen.Items.Add(des[i].Name);
             }
             
         }
 
         private void desScreen_Click(object sender, EventArgs e)
         {
-            var sqlSelected = "SELECT * FROM Destinations WHERE Name = @Name";
-            var des = data.Selected(sqlSelected, desScreen.SelectedItem.ToString());
+            var des = data.SelectedDestination(desScreen.SelectedItem.ToString());
             MessageBox.Show(des.ToString());
             
         }

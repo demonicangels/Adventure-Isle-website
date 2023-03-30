@@ -3,7 +3,8 @@
 @{
 }
 @{
-    if (TempData["msg"] != null)
+    
+    if (TempData.ContainsKey("msg"))
     {
         <script>
                     alert('@TempData["msg"]')
@@ -12,14 +13,22 @@
 }
 <form asp-action="Login" method="post">
 <link href="~/css/login.css" rel="stylesheet" type="text/css" />
- <div class="container">
-    <label asp-for="Usrname"><b>Username</b></label>
-    <input asp-for="Usrname" placeholder="Enter Username" required>
+ <div class="container-login">
 
-    <label asp-for="Pass"><b>Password</b></label>
-    <input asp-for="Pass" type="password" placeholder="Enter Password" required>
+     
+        <label asp-for="Usr.username"><b>Username</b></label>
+        <input asp-for="Usr.username" placeholder="Enter Username">
+        <span asp-validation-for="Usr.username" class="text-danger"></span>
 
-        <button type="submit" style="margin-left: 940px;">Login</button>
-        <h4>Don't have an account yet?<a asp-page="/Register" class="register-link"> Register</a></h4>
+
+        <label asp-for="Usr.password"><b>Password</b></label>
+        <input asp-for="Usr.password" type="password" placeholder="Enter Password">
+        <span asp-validation-for="Usr.password" class="text-danger"></span>
+
+        <div class="register-link">
+            <button type="submit" style="margin-left: 940px;">Login</button>
+            <h4>Don't have an account yet?<a asp-page="/Register" class="register-link"> Register</a></h4>
+        </div>
+        
 </div>
 </form>

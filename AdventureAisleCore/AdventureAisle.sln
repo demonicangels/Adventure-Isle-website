@@ -7,9 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AAClasslibrary", "..\AAClas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopApp", "..\AADesktopApp\DesktopApp.csproj", "{88A46A72-8CFD-4585-884E-598554EBBE8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureAisleCore", "..\AdventureAisleCore\AdventureAisleCore.csproj", "{2AFB0872-D9AF-4707-A500-C15A3C192729}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureAisleCore", "AdventureAisleCore.csproj", "{2AFB0872-D9AF-4707-A500-C15A3C192729}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "..\DAL\DAL.csproj", "{7BA488CF-6295-49A1-A273-3A241AAEAF4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "..\DAL\DAL.csproj", "{7BA488CF-6295-49A1-A273-3A241AAEAF4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logic layer", "Logic layer", "{D6AA5AAA-EA77-4CC4-8C79-B0F62EA9B4F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data layer", "Data layer", "{41B9AFB1-088B-40AA-9DF7-46825F33DE7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +40,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7A944A74-42DD-4603-A502-C3FBD00095D6} = {D6AA5AAA-EA77-4CC4-8C79-B0F62EA9B4F8}
+		{7BA488CF-6295-49A1-A273-3A241AAEAF4A} = {41B9AFB1-088B-40AA-9DF7-46825F33DE7A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6D4D5C27-6CFC-4B08-86EF-EC3F709E7638}

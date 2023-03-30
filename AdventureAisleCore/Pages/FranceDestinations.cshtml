@@ -1,0 +1,66 @@
+﻿@page
+@model AdventureAisleCore.Pages.FranceDestinationsModel
+@{
+    var defaultImg = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fmuseprintables.com%2Ffiles%2Fsigns%2Fpng%2Ftemporarily-out-of-order-sign.png&tbnid=T4OMAEYw2tNeYM&vet=12ahUKEwiNjdy28vn9AhUNh_0HHS3MBWsQMygAegUIARDQAQ..i&imgrefurl=https%3A%2F%2Fmuseprintables.com%2Fdownload%2Fsign%2Ftemporarily-out-of-order%2F&docid=Y3S66wjOI8zznM&w=600&h=463&q=out%20of%20order&ved=2ahUKEwiNjdy28vn9AhUNh_0HHS3MBWsQMygAegUIARDQAQ";
+}
+
+<link href="~/css/france.css" rel="stylesheet" type="text/css" />
+
+<div class="content">
+    @foreach(var des in Model.Destinations)
+    {
+        <div class="card">
+            
+                @if (!String.IsNullOrEmpty(des.ImgURL))
+                {
+                    <a href="#">
+                        <img src="@des.ImgURL" alt="paris" class="card-image">
+                    </a>
+                }
+                else
+                {
+                    <a href="#">
+                        <img src="~/images/temporarilyoutofservice.jpg" alt="paris" class="card-image">
+                    </a>
+                }
+           
+            <div class="cont">
+                <a href=""><h4><b>@des.Name</b></h4></a>
+                <p class="rating">5.0</p>
+            </div>
+            <div class="review-score">
+                <p> Good </p>
+                <p>557 ratings</p>
+                <p>Climate: Moderate</p>
+            </div>
+        </div>
+        <div class="card">
+            <a href="#"><img src="~/images/provence.jpg" alt="provence" class="card-image"></a>
+            <div class="cont">
+                <a href=""><h4><b>Provence</b></h4></a>
+                <p class="rating">4.6</p>
+
+            </div>
+            <div class="review-score">
+                <p> Good </p>
+                <p>557 ratings</p>
+                <p>Climate: Moderate</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="~/images/versailles.jpg" alt="versailles" class="card-image">
+            <div class="cont">
+                <a href="#"><h4><b>Versailles</b></h4></a>
+                <p>Climate: Moderate</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="~/images/nice.jpg" alt="nice" class="card-image">
+            <div class="cont">
+                <a href=""><h4><b>Nice</b></h4></a>
+                <p>Climate: Moderate</p>
+            </div>
+        </div>
+    }
+    
+</div>

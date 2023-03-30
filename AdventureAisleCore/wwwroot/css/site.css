@@ -2,10 +2,6 @@ html {
   font-size: 14px;
 }
 
-@media (min-width: 768px) {
-  
-}
-
 html {
   position: relative;
   min-height: 100%;
@@ -27,67 +23,22 @@ body::before {
 
 
 /* Header homepage */
-.text-center {
+.text-center1 {
     color: white;
-    padding: 10%;
-    top: -99px;
-    margin-top: 10px;
-    position: relative;
-    font-weight: normal;
+    top: 300px;
+    position: absolute;
+    font-size: 2.5rem;
+    padding-right: 20px;
+    width: 670px;
+
+
 }
 
 
-/* Nav bar (layout) */
-/*header .topnav {
-    background-color: #efefea;
-    text-align: right;
-}
-header .topnav ul {
-    list-style-type: none;
-    max-width: 960px;
-    margin: 0 auto;
-}
-.topnav {
-    overflow: hidden;
-    /*margin-bottom: 20%;
-right: 50px;
-text-align: right;
-scroll-behavior: smooth;
-text-decoration: none;
-z-index: 1;
-}
-
-.topnav ul li {
-    list-style: none;
-    display: inline-block;
-    padding: 8px 12px;
-    position: relative;
-    z-index: 1;
-}
-
-    .topnav ul li a {
-        text-decoration: none;
-    }
-
-.topnav a {
-    color: gray;
-    font-size: 20px;
-}
-
-.topnav ul li::after {
-    content: '';
-    width: 100%;
-    height: 2px;
-    display: block;
-    margin: auto;
-}
-
-li :hover {
-    color: black;
-}*/
 
 
-/* Logo home page */
+
+/* Logo */
 .logo a {
     display: block;
     position: absolute;
@@ -135,7 +86,9 @@ header {
 
 /* Search bar home page */
 .searchbox {
-    padding-right: 250px;
+    top: 300px;
+    position: absolute;
+    padding-left: 700px;
 }
 input {
    
@@ -152,7 +105,7 @@ img {
     grid-template-columns: 50rem 1fr;
     padding-left: 50px;
     padding-top: 50px;
-    margin-top:200px;
+    
 
 }
 form {
@@ -167,11 +120,11 @@ input[type="text"] {
     width: 260px;
 }
 button {
-    padding: 10px;
+    padding: 13px;
     background-color: white;
     color: white;
     border: none;
-    border-radius: 0 5px 5px 0;
+    border-radius: 0 10px 10px 0;
     cursor: pointer;
 }
 button:hover {
@@ -199,7 +152,89 @@ a > .nav-link dropdown-toggle{
     text-decoration-color: black;
 }
 
+.text-center{
+    color: black;
+    padding: 10%;
+    top: -25px;
+    margin-top: 10px;
+    position: relative;
+    font-weight: normal;
+}
 
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
 
+input[type=text] {
+    border: none;
+    border-radius: 5px 0 0 5px;
+    width: 100%;
+    padding: 12px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
 
+input[type=password] {
+    border: none;
+    border-radius: 5px 0 0 5px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
 
+input[type=email] {
+    border: none;
+    border-radius: 5px 0 0 5px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input[type=datetime-local] {
+    border: none;
+    border-radius: 5px 0 0 5px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+@media (max-width: 500px){
+    input[type=datetime-local], input[type=email], input[type=password], input[type=text]{
+        width: 50px;
+    }
+    text-center1 {
+        top: 100px;
+        bottom: 100px;
+        width: 50px;
+    }
+    .searchbox {
+        padding-right: 400px;
+    }
+    button [type=submit] {
+        padding-right: 100px;
+    }
+}
+@media (min-width: 500px){
+    .navbar-expand-sm .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+    }
+}
+
+.container-login > *, .container-register  * {
+    display: block;
+    padding-top: 1%;
+}

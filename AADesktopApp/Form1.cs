@@ -1,21 +1,22 @@
 using AAClasslibrary.Entities;
-using AAClasslibrary.Operations;
+using AAClasslibrary.Enums;
+using DAL;
 using System.Data.SqlClient;
 
 namespace DesktopApp
 {
     public partial class Form1 : Form
     {
-        Data d = new Data();
+       
         List<User> users = new List<User>();
         List<Destination> destinations = new List<Destination>();
         User usr = new User("", "", "");
-        Paris Paris;
-        Rome Rome;
         TravelList travel = new TravelList();
         List<Review> reviews = new List<Review>();
-        string connection = "Data Source=LAPTOP-1KFDAJ8C\\SQLEXPRESS;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        
+        Destination paris;
+        Destination rome;
+
+
         public Form1()
         {
             InitializeComponent();
@@ -28,10 +29,10 @@ namespace DesktopApp
         }
         public void GenerateDestinations()
         {
-            Paris = new Paris("Paris", "France", "Paris is the capital of France", "euro", "moderate");
-            Rome = new Rome("Rome", "Italy", "Rome is the capital of Italy", "euro", "moderate");
-            destinations.Add(Paris);
-            destinations.Add(Rome);
+            paris = new Destination("Paris", "France", "Paris is the capital of France", "euro", "moderate");
+            rome = new Destination("Rome", "Italy", "Rome is the capital of Italy", "euro", "moderate");
+            destinations.Add(paris);
+            destinations.Add(rome);
         }
         public void InitComboDes()
         {
@@ -39,7 +40,7 @@ namespace DesktopApp
             {
                 foreach (Destination des in destinations)
                 {
-                    destinationsCb.Items.Add(des.GetName);
+                    destinationsCb.Items.Add(des.Name);
                 }
             }
             catch (Exception ex) { }
@@ -112,18 +113,18 @@ namespace DesktopApp
             Review rev = new Review(usr.LoggedInAccount, destinationsCb.SelectedItem.ToString(), Convert.ToDouble(ratingtxt.Text), ReviewtxtBox.Text);
             if (destinationsCb.SelectedItem.ToString() == "Paris")
             {
-                Paris.AddRating(Convert.ToDouble(ratingtxt.Text));
-                Paris.AvgRating = Paris.CalculateAverage();
-                Reviews_screen.Items.Add($"{rev.GetReview(Paris.AvgRating)}");
-                Paris.AddReview(rev);
+                paris.AddRating(Convert.ToDouble(ratingtxt.Text));
+                paris.AvgRating = paris.CalculateAverage();
+                Reviews_screen.Items.Add($"{rev.GetReview(paris.AvgRating)}");
+                paris.AddReview(rev);
                 //Reviews_screen.Items.Add(rev.GetReview(Paris.AvgRating).ToString());
             }
             else if (destinationsCb.SelectedItem.ToString() == "Rome")
             {
-                Rome.AddRating(Convert.ToDouble(ratingtxt.Text));
-                Rome.AvgRating = Rome.CalculateAverage();
-                Rome.AddReview(rev);
-                Reviews_screen.Items.Add(rev.GetReview(Rome.AvgRating));
+                rome.AddRating(Convert.ToDouble(ratingtxt.Text));
+                rome.AvgRating = rome.CalculateAverage();
+                rome.AddReview(rev);
+                Reviews_screen.Items.Add(rev.GetReview(rome.AvgRating));
 
             }
             Clear();

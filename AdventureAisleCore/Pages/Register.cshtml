@@ -4,17 +4,35 @@
 }
 <link href="~/css/login.css" rel="stylesheet" type="text/css" />
 <form method="post">
- <div class="container">
-    <label asp-for="usr.username"><b>Username</b></label>
-        <input asp-for="usr.username" placeholder="Enter Username" required>
+ <div class="container-register">
 
-        <label asp-for="usr.password"><b>Password</b></label>
-     <input asp-for="usr.password" type="password" placeholder="Enter Password" required>
+       <div class="username-input">
+            <label asp-for="Usr.username"><b>Username</b></label>
+            <input asp-for="Usr.username" placeholder="Enter Username" default="3">
+            <span asp-validation-for="Usr.username" class="text-danger"></span>
+       </div>
 
-     <label asp-for="usr.email"><b>Email</b></label>
-     <input asp-for="usr.email" type="email" placeholder="Enter email" required>
-     
+        <div class="password-input">
+            <label asp-for="Usr.password"><b>Password</b></label>
+            <input asp-for="Usr.password" type="password" placeholder="Enter Password">
+            <span asp-validation-for="Usr.password" class="text-danger"></span>
+        </div>
+
+        <div class="email-input">
+            <label asp-for="Usr.email"><b>Email</b></label>
+            <input asp-for="Usr.email" type="email" placeholder="Enter email">
+            <span asp-validation-for="Usr.email" class="text-danger"></span>
+        </div>
+
+        <div class="birthday-input">
+            <label asp-for="Usr.birthday"><b>Birthday</b></label>
+            <input asp-for="Usr.birthday" type="datetime-local">
+        </div>
 
         <button type="submit" style="margin-left: 940px;">Register</button>
     </div>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

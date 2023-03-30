@@ -1,6 +1,5 @@
-using AAClasslibrary.DAL__Operations_;
 using AAClasslibrary.Entities;
-using AAClasslibrary.Operations;
+using DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,10 +8,10 @@ namespace AdventureAisleCore.Pages
     public class RegisterCoreModel : PageModel
     {
         [BindProperty]
-        public UserDTO usr { get; set; }
+        public UserDTO Usr { get; set; }
 
 
-        UserOperation usrData = new UserOperation();
+        UserDAO usrData = new UserDAO();
         
 
         public void OnGet()
@@ -20,18 +19,17 @@ namespace AdventureAisleCore.Pages
         }
         public IActionResult OnPost()
         {
-            if (ModelState.IsValid) //makes sure the data is valid before sending it 
-            {
+           
+                if (!ModelState.IsValid)
+                {
+                    return Page();
+                }
+                else
+                {
+                    usrData.InsertUser(Usr);
+                    return RedirectToPage("Login");
+                }
                
-                string sql = "INSERT INTO Users (username,password,email) VALUES (@username,@password,@email)";
-                usrData.Insert(sql, usr);
-                return RedirectToPage("Login");
-            }
-            else
-            {
-                return Page();
-                ViewData["Warning"] = "";
-            }
         }
     }
 }
