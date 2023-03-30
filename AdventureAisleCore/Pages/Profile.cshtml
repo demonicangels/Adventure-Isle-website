@@ -19,8 +19,11 @@
                     <div class="row about-list">
                         <div class="col-md-6">
                             <div class="media">
-                                <label>Birthday</label>
-                                <p>4th april 1998</p>
+                                    @if(Model.Usr?.birthday != null)
+                                    {
+                                        <label>Birthday</label>
+                                        <p>@Model.Usr?.birthday</p>
+                                    }
                             </div>
                             <div class="media">
                                 <label>Address</label>

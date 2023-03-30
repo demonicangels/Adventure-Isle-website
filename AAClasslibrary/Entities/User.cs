@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AAClasslibrary.Entities
+namespace BusinessLogic.Entities
 {
     public class User
     {

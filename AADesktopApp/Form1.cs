@@ -1,5 +1,5 @@
-using AAClasslibrary.Entities;
-using AAClasslibrary.Enums;
+using BusinessLogic.Entities;
+using BusinessLogic.Enums;
 using DAL;
 using System.Data.SqlClient;
 

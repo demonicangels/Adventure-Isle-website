@@ -1,5 +1,7 @@
-using AAClasslibrary.Entities;
+using BusinessLogic;
+using BusinessLogic.Entities;
 using DAL;
+using DAL.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -11,7 +13,7 @@ namespace AdventureAisleCore.Pages
         public UserDTO Usr { get; set; }
 
 
-        UserDAO usrData = new UserDAO();
+        UserService usrData = new UserService();
         
 
         public void OnGet()

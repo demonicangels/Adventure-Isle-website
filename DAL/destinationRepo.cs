@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AAClasslibrary.Entities;
-using AAClasslibrary.Interfaces;
+﻿using Microsoft.Data.SqlClient;
+using BusinessLogic.Interfaces;
+using DAL.DTOs;
 
 namespace DAL
 {
-    public class DestinationDAO : IDatabaseServiceDestinations<Destination>
+    public class destinationRepo : IDestinationRepository<DestinationDTO>
     {
 
         //CRUD
@@ -17,7 +12,7 @@ namespace DAL
         SqlConnection con;
         SqlCommand cmd;
 
-        public void InsertDestination(Destination des)
+        public void InsertDestination(DestinationDTO des)
         {
             var query = "INSERT INTO Destinations (Country, Name, Currency, History) VALUES (@Country, @Name, @Currency, @History)";
             con = new SqlConnection(connection);
@@ -41,13 +36,13 @@ namespace DAL
             con.Close();
         }
 
-        public string SearchDestination(string name)
+        public string GetDestinationByName(string name)
         {
             var query = $"SELECT * FROM Destinations WHERE Name LIKE '{name}%'";
             var info = "";
             con = new SqlConnection(connection);
             con.Open();
-            cmd = new SqlCommand(query,con);
+            cmd = new SqlCommand(query, con);
             cmd.ExecuteNonQuery();
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -58,10 +53,10 @@ namespace DAL
             return info;
         }
 
-        public List<Destination> GetAllDestinations()
+        public List<DestinationDTO> GetAllDestinations()
         {
             var query = "SELECT * FROM Destinations WHERE Country = 'France' ";
-            var destinations = new List<Destination>();
+            var destinations = new List<DestinationDTO>();
             con = new SqlConnection(connection);
             con.Open();
             cmd = new SqlCommand(query, con);
@@ -69,7 +64,7 @@ namespace DAL
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                Destination des = new Destination()
+                DestinationDTO des = new DestinationDTO()
                 {
                     Name = reader["Name"].ToString(),
                     Country = reader["Country"].ToString(),
@@ -81,33 +76,8 @@ namespace DAL
             }
             con.Close();
             return destinations;
-            
+
         }
-
-        public string SelectedDestination(string selectedName)
-        {
-            var query = "SELECT * FROM Destinations WHERE Name = @Name";
-            var selectedInfo = "";
-            con = new SqlConnection(connection);
-            con.Open();
-            cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@Name", selectedName);
-            cmd.ExecuteNonQuery();
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                selectedInfo = reader["Country"] + ":" + " " + reader["Name"] + ", " + "Curency: " + reader["Currency"].ToString() + " - " + reader["History"].ToString();
-
-            }
-            con.Close();
-            return selectedInfo;
-        }
-
-
-
-
-
-
 
     }
 }

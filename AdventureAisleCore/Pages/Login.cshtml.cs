@@ -1,5 +1,7 @@
-using AAClasslibrary.Entities;
+using BusinessLogic;
+using BusinessLogic.Entities;
 using DAL;
+using DAL.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +14,7 @@ namespace AdventureAisleCore.Pages
 {
     public class LoginCoreModel : PageModel
     {
-        UserDAO usrData = new UserDAO();
+        UserService usrData = new UserService();
 
         [BindProperty]
         public UserDTO Usr { get; set; }
@@ -34,7 +36,7 @@ namespace AdventureAisleCore.Pages
             }
             else
             {
-                if (usrData.TryLogin(Usr.username, Usr.password) == true)
+                if (usrData.TryLogin(Usr) == true)
                 {
 
                     Usr = usrData.GetUserByName(Usr.username);

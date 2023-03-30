@@ -1,5 +1,6 @@
-using AAClasslibrary.Entities;
+using BusinessLogic.Entities;
 using DAL;
+using DAL.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,8 +10,8 @@ namespace AdventureAisleCore.Pages
 {
     public class AccountModel : PageModel
     {
-        UserDAO userData = new UserDAO();
-        public User? Usr { get; set; } = new User();
+        userRepo userData = new userRepo();
+        public UserDTO? Usr { get; set; } = new UserDTO();
 
         public IActionResult OnGet()
         {

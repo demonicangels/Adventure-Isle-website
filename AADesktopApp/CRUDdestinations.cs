@@ -1,5 +1,7 @@
-﻿using AAClasslibrary.Entities;
+﻿using BusinessLogic;
+using BusinessLogic.Entities;
 using DAL;
+using DAL.DTOs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +18,7 @@ namespace DesktopApp
     public partial class CRUDDestinations : Form
     {
         string conStr;
-        DestinationDAO data = new DestinationDAO();
+        DestinationService data = new DestinationService();
         public CRUDDestinations()
         {
             InitializeComponent();
@@ -33,8 +35,7 @@ namespace DesktopApp
         }
         private void Put_btn_Click(object sender, EventArgs e) // insert button 
         {
-            string sqlCmd = "INSERT INTO Destinations (Country, Name, Currency, History) VALUES (@Country, @Name, @Currency, @History)";
-            Destination des = new Destination();
+            DestinationDTO des = new DestinationDTO();
             des.Name = nameDestxt.Text;
             des.Country = CountryDestxt.Text;
             des.Currency = currencyDestxt.Text;
@@ -57,7 +58,7 @@ namespace DesktopApp
         private void Get_btn_Click(object sender, EventArgs e)
         {
             desScreen.Items.Clear();
-            var des = data.SearchDestination(searchByIdtxt.Text.ToString());
+            var des = data.GetDestinationByName(searchByIdtxt.Text.ToString());
             desScreen.Items.Add(des);
             Clear();
         }
@@ -76,7 +77,7 @@ namespace DesktopApp
 
         private void desScreen_Click(object sender, EventArgs e)
         {
-            var des = data.SelectedDestination(desScreen.SelectedItem.ToString());
+            var des = data.GetDestinationByName(desScreen.SelectedItem.ToString());
             MessageBox.Show(des.ToString());
             
         }

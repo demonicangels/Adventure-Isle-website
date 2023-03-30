@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AAClasslibrary.Entities
+namespace BusinessLogic.Entities
 {
     public class TravelList
     {

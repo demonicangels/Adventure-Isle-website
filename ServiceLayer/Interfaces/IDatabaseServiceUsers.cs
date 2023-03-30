@@ -1,5 +1,4 @@
-﻿using AAClasslibrary.Entities;
-using DAL;
+﻿
 
 
 namespace AAClasslibrary.Interfaces
@@ -7,7 +6,7 @@ namespace AAClasslibrary.Interfaces
     public interface IDatabaseServiceUsers<T>
     {
        
-        void InsertUser(UserDTO user);
+        void InsertUser(T user);
 
         void DeleteUser(string selectedDes);
 

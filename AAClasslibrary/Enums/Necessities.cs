@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AAClasslibrary.Enums
+namespace BusinessLogic.Enums
 {
     public enum Necessities
     {

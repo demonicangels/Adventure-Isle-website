@@ -1,4 +1,4 @@
-﻿namespace AAClasslibrary.Entities
+﻿namespace BusinessLogic.Entities
 {
     public class Destination
     {

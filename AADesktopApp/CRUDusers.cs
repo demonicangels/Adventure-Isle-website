@@ -1,5 +1,6 @@
-﻿using AAClasslibrary.Entities;
+﻿using BusinessLogic.Entities;
 using DAL;
+using DAL.DTOs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +16,7 @@ namespace DesktopApp
 {
     public partial class CRUDusers : Form
     {
-        UserDAO userData = new UserDAO();
+        userRepo userData = new userRepo();
         
         public CRUDusers()
         {
@@ -62,7 +63,7 @@ namespace DesktopApp
         private void get_btn_Click(object sender, EventArgs e)
         {
             userScreen.Items.Clear();
-            var usr = userData.SearchUserName(searchByIdtxt.Text);
+            var usr = userData.GetUserByName(searchByIdtxt.Text);
             userScreen.Items.Add(usr);
             Clear();
         }
@@ -70,7 +71,7 @@ namespace DesktopApp
         private void userScreen_Click(object sender, EventArgs e)
         {
             
-            var user = userData.SelectedUser(userScreen.SelectedItem.ToString());
+            var user = userData.GetUserByName(userScreen.SelectedItem.ToString());
             MessageBox.Show(user.ToString());
         }
     }
