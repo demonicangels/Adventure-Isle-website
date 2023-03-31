@@ -28,197 +28,216 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.CountryDestxt = new System.Windows.Forms.TextBox();
-            this.descriptionDestxt = new System.Windows.Forms.RichTextBox();
-            this.nameDestxt = new System.Windows.Forms.TextBox();
-            this.currencyDestxt = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.GetAll_btn = new System.Windows.Forms.Button();
-            this.Put_btn = new System.Windows.Forms.Button();
-            this.Delete_btn = new System.Windows.Forms.Button();
-            this.searchByIdtxt = new System.Windows.Forms.TextBox();
-            this.desScreen = new System.Windows.Forms.ListBox();
-            this.accDbFormbtn = new System.Windows.Forms.Button();
-            this.Get_btn = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            // 
-            // CountryDestxt
-            // 
-            this.CountryDestxt.Location = new System.Drawing.Point(176, 157);
-            this.CountryDestxt.Name = "CountryDestxt";
-            this.CountryDestxt.Size = new System.Drawing.Size(150, 31);
-            this.CountryDestxt.TabIndex = 0;
+            descriptionDestxt = new RichTextBox();
+            nameDestxt = new TextBox();
+            currencyDestxt = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            GetAll_btn = new Button();
+            Put_btn = new Button();
+            Delete_btn = new Button();
+            searchByIdtxt = new TextBox();
+            desScreen = new ListBox();
+            accDbFormbtn = new Button();
+            Get_btn = new Button();
+            label4 = new Label();
+            climatetxt = new TextBox();
+            countriesCb = new ComboBox();
+            SuspendLayout();
             // 
             // descriptionDestxt
             // 
-            this.descriptionDestxt.Location = new System.Drawing.Point(176, 282);
-            this.descriptionDestxt.Name = "descriptionDestxt";
-            this.descriptionDestxt.Size = new System.Drawing.Size(328, 183);
-            this.descriptionDestxt.TabIndex = 1;
-            this.descriptionDestxt.Text = "";
+            descriptionDestxt.Location = new Point(176, 282);
+            descriptionDestxt.Name = "descriptionDestxt";
+            descriptionDestxt.Size = new Size(328, 183);
+            descriptionDestxt.TabIndex = 1;
+            descriptionDestxt.Text = "";
             // 
             // nameDestxt
             // 
-            this.nameDestxt.Location = new System.Drawing.Point(176, 117);
-            this.nameDestxt.Name = "nameDestxt";
-            this.nameDestxt.Size = new System.Drawing.Size(150, 31);
-            this.nameDestxt.TabIndex = 2;
+            nameDestxt.Location = new Point(176, 94);
+            nameDestxt.Name = "nameDestxt";
+            nameDestxt.Size = new Size(182, 31);
+            nameDestxt.TabIndex = 2;
             // 
             // currencyDestxt
             // 
-            this.currencyDestxt.Location = new System.Drawing.Point(176, 204);
-            this.currencyDestxt.Name = "currencyDestxt";
-            this.currencyDestxt.Size = new System.Drawing.Size(150, 31);
-            this.currencyDestxt.TabIndex = 3;
+            currencyDestxt.Location = new Point(176, 173);
+            currencyDestxt.Name = "currencyDestxt";
+            currencyDestxt.Size = new Size(182, 31);
+            currencyDestxt.TabIndex = 3;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe Print", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(336, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(477, 77);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "ADD DESTINATION";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe Print", 22F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(336, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(477, 77);
+            label1.TabIndex = 5;
+            label1.Text = "ADD DESTINATION";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 123);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 25);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Name";
+            label2.AutoSize = true;
+            label2.Location = new Point(30, 100);
+            label2.Name = "label2";
+            label2.Size = new Size(59, 25);
+            label2.TabIndex = 6;
+            label2.Text = "Name";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 163);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 25);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Country";
+            label3.AutoSize = true;
+            label3.Location = new Point(30, 142);
+            label3.Name = "label3";
+            label3.Size = new Size(75, 25);
+            label3.TabIndex = 7;
+            label3.Text = "Country";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(30, 204);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(81, 25);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Currency";
+            label5.AutoSize = true;
+            label5.Location = new Point(30, 179);
+            label5.Name = "label5";
+            label5.Size = new Size(81, 25);
+            label5.TabIndex = 9;
+            label5.Text = "Currency";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(30, 282);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(140, 25);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Brief description";
+            label6.AutoSize = true;
+            label6.Location = new Point(30, 282);
+            label6.Name = "label6";
+            label6.Size = new Size(140, 25);
+            label6.TabIndex = 10;
+            label6.Text = "Brief description";
             // 
             // GetAll_btn
             // 
-            this.GetAll_btn.Location = new System.Drawing.Point(392, 173);
-            this.GetAll_btn.Name = "GetAll_btn";
-            this.GetAll_btn.Size = new System.Drawing.Size(112, 64);
-            this.GetAll_btn.TabIndex = 11;
-            this.GetAll_btn.Text = "GetAll";
-            this.GetAll_btn.UseVisualStyleBackColor = true;
-            this.GetAll_btn.Click += new System.EventHandler(this.GetAll_btn_Click);
+            GetAll_btn.Location = new Point(392, 173);
+            GetAll_btn.Name = "GetAll_btn";
+            GetAll_btn.Size = new Size(112, 64);
+            GetAll_btn.TabIndex = 11;
+            GetAll_btn.Text = "GetAll";
+            GetAll_btn.UseVisualStyleBackColor = true;
+            GetAll_btn.Click += GetAll_btn_Click;
             // 
             // Put_btn
             // 
-            this.Put_btn.Location = new System.Drawing.Point(392, 103);
-            this.Put_btn.Name = "Put_btn";
-            this.Put_btn.Size = new System.Drawing.Size(112, 64);
-            this.Put_btn.TabIndex = 12;
-            this.Put_btn.Text = "Insert";
-            this.Put_btn.UseVisualStyleBackColor = true;
-            this.Put_btn.Click += new System.EventHandler(this.Put_btn_Click);
+            Put_btn.Location = new Point(392, 103);
+            Put_btn.Name = "Put_btn";
+            Put_btn.Size = new Size(112, 64);
+            Put_btn.TabIndex = 12;
+            Put_btn.Text = "Insert";
+            Put_btn.UseVisualStyleBackColor = true;
+            Put_btn.Click += Put_btn_Click;
             // 
             // Delete_btn
             // 
-            this.Delete_btn.Location = new System.Drawing.Point(510, 103);
-            this.Delete_btn.Name = "Delete_btn";
-            this.Delete_btn.Size = new System.Drawing.Size(112, 64);
-            this.Delete_btn.TabIndex = 14;
-            this.Delete_btn.Text = "Delete";
-            this.Delete_btn.UseVisualStyleBackColor = true;
-            this.Delete_btn.Click += new System.EventHandler(this.Delete_btn_Click);
+            Delete_btn.Location = new Point(510, 103);
+            Delete_btn.Name = "Delete_btn";
+            Delete_btn.Size = new Size(112, 64);
+            Delete_btn.TabIndex = 14;
+            Delete_btn.Text = "Delete";
+            Delete_btn.UseVisualStyleBackColor = true;
+            Delete_btn.Click += Delete_btn_Click;
             // 
             // searchByIdtxt
             // 
-            this.searchByIdtxt.Location = new System.Drawing.Point(510, 241);
-            this.searchByIdtxt.Name = "searchByIdtxt";
-            this.searchByIdtxt.Size = new System.Drawing.Size(112, 31);
-            this.searchByIdtxt.TabIndex = 15;
+            searchByIdtxt.Location = new Point(510, 241);
+            searchByIdtxt.Name = "searchByIdtxt";
+            searchByIdtxt.Size = new Size(112, 31);
+            searchByIdtxt.TabIndex = 15;
             // 
             // desScreen
             // 
-            this.desScreen.FormattingEnabled = true;
-            this.desScreen.ItemHeight = 25;
-            this.desScreen.Location = new System.Drawing.Point(651, 114);
-            this.desScreen.Name = "desScreen";
-            this.desScreen.Size = new System.Drawing.Size(451, 354);
-            this.desScreen.TabIndex = 16;
-            this.desScreen.Click += new System.EventHandler(this.desScreen_Click);
+            desScreen.FormattingEnabled = true;
+            desScreen.ItemHeight = 25;
+            desScreen.Location = new Point(651, 114);
+            desScreen.Name = "desScreen";
+            desScreen.Size = new Size(451, 354);
+            desScreen.TabIndex = 16;
+            desScreen.Click += desScreen_Click;
             // 
             // accDbFormbtn
             // 
-            this.accDbFormbtn.Location = new System.Drawing.Point(909, 74);
-            this.accDbFormbtn.Name = "accDbFormbtn";
-            this.accDbFormbtn.Size = new System.Drawing.Size(193, 34);
-            this.accDbFormbtn.TabIndex = 17;
-            this.accDbFormbtn.Text = "account managment";
-            this.accDbFormbtn.UseVisualStyleBackColor = true;
-            this.accDbFormbtn.Click += new System.EventHandler(this.accDbFormbtn_Click);
+            accDbFormbtn.Location = new Point(909, 74);
+            accDbFormbtn.Name = "accDbFormbtn";
+            accDbFormbtn.Size = new Size(193, 34);
+            accDbFormbtn.TabIndex = 17;
+            accDbFormbtn.Text = "account managment";
+            accDbFormbtn.UseVisualStyleBackColor = true;
+            accDbFormbtn.Click += accDbFormbtn_Click;
             // 
             // Get_btn
             // 
-            this.Get_btn.Location = new System.Drawing.Point(510, 171);
-            this.Get_btn.Name = "Get_btn";
-            this.Get_btn.Size = new System.Drawing.Size(112, 64);
-            this.Get_btn.TabIndex = 13;
-            this.Get_btn.Text = "Get";
-            this.Get_btn.UseVisualStyleBackColor = true;
-            this.Get_btn.Click += new System.EventHandler(this.Get_btn_Click);
+            Get_btn.Location = new Point(510, 171);
+            Get_btn.Name = "Get_btn";
+            Get_btn.Size = new Size(112, 64);
+            Get_btn.TabIndex = 13;
+            Get_btn.Text = "Get";
+            Get_btn.UseVisualStyleBackColor = true;
+            Get_btn.Click += Get_btn_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(30, 216);
+            label4.Name = "label4";
+            label4.Size = new Size(71, 25);
+            label4.TabIndex = 18;
+            label4.Text = "Climate";
+            // 
+            // climatetxt
+            // 
+            climatetxt.Location = new Point(176, 210);
+            climatetxt.Name = "climatetxt";
+            climatetxt.Size = new Size(182, 31);
+            climatetxt.TabIndex = 19;
+            // 
+            // countriesCb
+            // 
+            countriesCb.FormattingEnabled = true;
+            countriesCb.Items.AddRange(new object[] { "France,", "Italy" });
+            countriesCb.Location = new Point(176, 134);
+            countriesCb.Name = "countriesCb";
+            countriesCb.Size = new Size(182, 33);
+            countriesCb.TabIndex = 20;
             // 
             // CRUDDestinations
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1114, 477);
-            this.Controls.Add(this.accDbFormbtn);
-            this.Controls.Add(this.desScreen);
-            this.Controls.Add(this.searchByIdtxt);
-            this.Controls.Add(this.Delete_btn);
-            this.Controls.Add(this.Get_btn);
-            this.Controls.Add(this.Put_btn);
-            this.Controls.Add(this.GetAll_btn);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.currencyDestxt);
-            this.Controls.Add(this.nameDestxt);
-            this.Controls.Add(this.descriptionDestxt);
-            this.Controls.Add(this.CountryDestxt);
-            this.Name = "CRUDDestinations";
-            this.Text = "Login";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1114, 477);
+            Controls.Add(countriesCb);
+            Controls.Add(climatetxt);
+            Controls.Add(label4);
+            Controls.Add(accDbFormbtn);
+            Controls.Add(desScreen);
+            Controls.Add(searchByIdtxt);
+            Controls.Add(Delete_btn);
+            Controls.Add(Get_btn);
+            Controls.Add(Put_btn);
+            Controls.Add(GetAll_btn);
+            Controls.Add(label6);
+            Controls.Add(label5);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(currencyDestxt);
+            Controls.Add(nameDestxt);
+            Controls.Add(descriptionDestxt);
+            Name = "CRUDDestinations";
+            Text = "Login";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-
-        private TextBox CountryDestxt;
         private RichTextBox descriptionDestxt;
         private TextBox nameDestxt;
         private TextBox currencyDestxt;
@@ -234,5 +253,8 @@
         private ListBox desScreen;
         private Button accDbFormbtn;
         private Button Get_btn;
+        private Label label4;
+        private TextBox climatetxt;
+        private ComboBox countriesCb;
     }
 }

@@ -12,7 +12,7 @@ namespace AdventureAisleCore.Pages
         public List<DestinationDTO> Destinations { get; set; }
         public void OnGet()
         {
-            DestinationService des = new DestinationService();
+            DestinationService des = new DestinationService("France");
             Destinations = des.GetAllDestinations();
         }
     }

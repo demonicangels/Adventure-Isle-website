@@ -10,7 +10,15 @@ namespace BusinessLogic
 {
     public class DestinationService
     {
-        destinationRepo data = new destinationRepo();
+        string dbTable = "";
+        destinationRepo data;
+        public DestinationService(string _dbTable)
+        {
+            dbTable = _dbTable;
+            data = new destinationRepo(_dbTable);
+        }
+
+        
         public void InsertDestination(DestinationDTO des)
         {
             data.InsertDestination(des);

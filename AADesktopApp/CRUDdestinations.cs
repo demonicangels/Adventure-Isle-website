@@ -17,29 +17,32 @@ namespace DesktopApp
 {
     public partial class CRUDDestinations : Form
     {
-        string conStr;
-        DestinationService data = new DestinationService();
+        string dbTable = "";
+        DestinationService data;
         public CRUDDestinations()
         {
             InitializeComponent();
-             
+
         }
 
         public void Clear()
         {
             nameDestxt.Text = string.Empty;
-            CountryDestxt.Text = string.Empty;
+            countriesCb.Text = string.Empty;
             currencyDestxt.Text = string.Empty;
             descriptionDestxt.Text = string.Empty;
             searchByIdtxt.Text = string.Empty;
+            climatetxt.Text = string.Empty;
         }
         private void Put_btn_Click(object sender, EventArgs e) // insert button 
         {
+            data = new DestinationService(countriesCb.SelectedItem.ToString());
             DestinationDTO des = new DestinationDTO();
             des.Name = nameDestxt.Text;
-            des.Country = CountryDestxt.Text;
+            des.Country = countriesCb.SelectedItem.ToString();
             des.Currency = currencyDestxt.Text;
             des.BriefDescription = descriptionDestxt.Text;
+            des.Climate = climatetxt.Text;
             data.InsertDestination(des);
             MessageBox.Show("Successful insert");
             Clear();
@@ -47,7 +50,7 @@ namespace DesktopApp
 
         private void Delete_btn_Click(object sender, EventArgs e)
         {
-            
+
             data.DeleteDestination(desScreen.SelectedItem.ToString());
             desScreen.Items.Remove(desScreen.SelectedItem);
             MessageBox.Show("Successful delete");
@@ -66,20 +69,19 @@ namespace DesktopApp
         private void GetAll_btn_Click(object sender, EventArgs e)
         {
             desScreen.Items.Clear();
-            var sqlGetAll = "SELECT * FROM Destinations";
             var des = data.GetAllDestinations();
-            for(int i = 0; i < des.Count; i++)
+            for (int i = 0; i < des.Count; i++)
             {
                 desScreen.Items.Add(des[i].Name);
             }
-            
+
         }
 
         private void desScreen_Click(object sender, EventArgs e)
         {
             var des = data.GetDestinationByName(desScreen.SelectedItem.ToString());
             MessageBox.Show(des.ToString());
-            
+
         }
 
         private void accDbFormbtn_Click(object sender, EventArgs e)
