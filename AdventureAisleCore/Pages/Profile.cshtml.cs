@@ -1,3 +1,4 @@
+using BusinessLogic;
 using BusinessLogic.Entities;
 using DAL;
 using DAL.DTOs;
@@ -10,7 +11,7 @@ namespace AdventureAisleCore.Pages
 {
     public class AccountModel : PageModel
     {
-        userRepo userData = new userRepo();
+        UserService userData = new UserService();
         public UserDTO? Usr { get; set; } = new UserDTO();
 
         public IActionResult OnGet()
