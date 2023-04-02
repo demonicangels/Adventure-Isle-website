@@ -1,7 +1,7 @@
 ﻿@page
+@model AdventureAisleCore.Pages.IndexModel
 @{
-    Layout = "_Layout"; 
-    // "RenderBody" the position in which the html file is pasted in the layout
+	Layout = "_Layout";
 }
 <html>
 <head>
@@ -12,21 +12,18 @@
         <video autoplay loop muted play-inline class="back-video">
             <source src="~/images/northenLights.mp4" type="video/mp4" />
         </video>
-    <div class="two-columns">
+        <div class="two-columns">
             <div class="text-center1">
                 <h1 class="font-weight-normal">Discover your next favorite destination.</h1>
-        </div>
+            </div>
 
-        <div class="searchbox">
-            <form>
-                <input type="text" placeholder="Search...">
-                <button type="submit"><img src="../images/search.png" alt="search icon image" /></button>
-            </form>
+            <div class="searchbox">
+                <form method="post">
+                    <input type="text" asp-for="@Model.Search" placeholder="Search...">
+                    <button type="submit"><img src="../images/search.png" alt="search icon image" /></button>
+                </form>
+            </div>
         </div>
-    </div>
     </div>
 </body>
 </html>
-
-
-

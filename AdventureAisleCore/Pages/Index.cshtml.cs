@@ -1,20 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace Adventure_Aisle.Pages
+namespace AdventureAisleCore.Pages
 {
+    
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
+        
+        [BindProperty]
+        public string? Search { get; set; }
 
         public void OnGet()
         {
-
+        }
+        public IActionResult OnPost()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            else
+            {
+                HttpContext.Session.SetString("search", Search);
+                return RedirectToPage("/DestinationResult");
+            }
         }
     }
 }

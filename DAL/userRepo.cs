@@ -28,14 +28,14 @@ namespace DAL
             }
 
         }
-        public void DeleteUser(string userEmail)
+        public void DeleteUser(string username)
         {
-            var query = "DELETE FROM Users WHERE email = @email";
+            var query = "DELETE FROM Users WHERE username = @username";
             using (con = new SqlConnection(connection))
             {
                 con.Open();
                 cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@email", userEmail);
+                cmd.Parameters.AddWithValue("@username", username);
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
@@ -56,6 +56,7 @@ namespace DAL
                     usr.username = reader["username"].ToString();
                     usr.password = reader["password"].ToString();
                     usr.email = reader["email"].ToString();
+                    usr.birthday = (DateTime)reader["birthday"];
                     if (usr != null)
                     {
                         users.Add(usr);
@@ -107,6 +108,7 @@ namespace DAL
                     u.username = reader["username"].ToString();
                     u.password = reader["password"].ToString();
                     u.email = reader["email"].ToString();
+                    u.birthday = (DateTime)reader["birthday"];
                 }
 
             }
@@ -131,6 +133,7 @@ namespace DAL
                     u.email = reader["email"].ToString();
                     u.userSince = (DateTime)reader["created_at"];
                     u.birthday = (DateTime)reader["birthday"];
+                    u.Bio = reader["bio"].ToString();
                 }
 
             }

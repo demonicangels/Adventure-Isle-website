@@ -13,9 +13,9 @@ namespace BusinessLogic.Interfaces
 
         void DeleteDestination(string selectedDes);
 
-        public string GetDestinationByName(string name);
+        public T GetDestinationByName(string name);
 
-        List<T> GetAllDestinations();
+        List<T> GetAllDestinations(string country);
 
     }
 }

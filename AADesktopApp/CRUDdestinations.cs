@@ -22,7 +22,7 @@ namespace DesktopApp
         public CRUDDestinations()
         {
             InitializeComponent();
-
+            data = new DestinationService("");
         }
 
         public void Clear()
@@ -36,7 +36,7 @@ namespace DesktopApp
         }
         private void Put_btn_Click(object sender, EventArgs e) // insert button 
         {
-            data = new DestinationService(countriesCb.SelectedItem.ToString());
+            
             DestinationDTO des = new DestinationDTO();
             des.Name = nameDestxt.Text;
             des.Country = countriesCb.SelectedItem.ToString();
@@ -60,6 +60,7 @@ namespace DesktopApp
 
         private void Get_btn_Click(object sender, EventArgs e)
         {
+
             desScreen.Items.Clear();
             var des = data.GetDestinationByName(searchByIdtxt.Text.ToString());
             desScreen.Items.Add(des);
@@ -68,6 +69,7 @@ namespace DesktopApp
 
         private void GetAll_btn_Click(object sender, EventArgs e)
         {
+            data = new DestinationService(countriesCb.SelectedItem.ToString());
             desScreen.Items.Clear();
             var des = data.GetAllDestinations();
             for (int i = 0; i < des.Count; i++)
@@ -80,7 +82,7 @@ namespace DesktopApp
         private void desScreen_Click(object sender, EventArgs e)
         {
             var des = data.GetDestinationByName(desScreen.SelectedItem.ToString());
-            MessageBox.Show(des.ToString());
+            MessageBox.Show(des.DesInfo());
 
         }
 

@@ -10,12 +10,12 @@ namespace BusinessLogic
 {
     public class DestinationService
     {
-        string dbTable = "";
+        string dbCountry = "";
         destinationRepo data;
-        public DestinationService(string _dbTable)
+        public DestinationService(string _dbCountry)
         {
-            dbTable = _dbTable;
-            data = new destinationRepo(_dbTable);
+            dbCountry = _dbCountry;
+            data = new destinationRepo();
         }
 
         
@@ -29,10 +29,10 @@ namespace BusinessLogic
         }
         public List<DestinationDTO> GetAllDestinations()
         {
-            var destinationList = data.GetAllDestinations();
+            var destinationList = data.GetAllDestinations(dbCountry);
             return destinationList;
         }
-        public string GetDestinationByName(string desName)
+        public DestinationDTO GetDestinationByName(string desName)
         {
             var des = data.GetDestinationByName(desName);
             return des;

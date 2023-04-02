@@ -202,7 +202,7 @@
             // countriesCb
             // 
             countriesCb.FormattingEnabled = true;
-            countriesCb.Items.AddRange(new object[] { "France,", "Italy" });
+            countriesCb.Items.AddRange(new object[] { "France", "Italy" });
             countriesCb.Location = new Point(176, 134);
             countriesCb.Name = "countriesCb";
             countriesCb.Size = new Size(182, 33);

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.DTOs
 {
+  
     public class UserDTO
     {
 
@@ -24,8 +25,14 @@ namespace DAL.DTOs
         public string? email { get; set; }
 
         public int Id { get; set; }
-        public DateTime birthday { get; set; }
+        public DateTime? birthday { get; set; }
 
-        public DateTime userSince { get; set; }
+        public DateTime? userSince { get; set; }
+
+        public string? Bio { get; set; }
+        public string UserInfo()
+        {
+            return $"{username}, birthday: {birthday}, email:{email}";
+        }
     }
 }

@@ -1,12 +1,11 @@
 ﻿@page
 @model AdventureAisleCore.Pages.FranceDestinationsModel
 @{
-    var defaultImg = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fmuseprintables.com%2Ffiles%2Fsigns%2Fpng%2Ftemporarily-out-of-order-sign.png&tbnid=T4OMAEYw2tNeYM&vet=12ahUKEwiNjdy28vn9AhUNh_0HHS3MBWsQMygAegUIARDQAQ..i&imgrefurl=https%3A%2F%2Fmuseprintables.com%2Fdownload%2Fsign%2Ftemporarily-out-of-order%2F&docid=Y3S66wjOI8zznM&w=600&h=463&q=out%20of%20order&ved=2ahUKEwiNjdy28vn9AhUNh_0HHS3MBWsQMygAegUIARDQAQ";
 }
 
 <link href="~/css/france.css" rel="stylesheet" type="text/css" />
 
-<div class="content">
+<div class="content-destinationCards">
     @for(int i = 0; i < Model.Destinations.Count;i++)
     {
         <div class="card">
@@ -26,7 +25,7 @@
            
             <div class="cont">
                 <a href=""><h4><b>@Model.Destinations[i].Name</b></h4></a>
-                <p class="rating">5.0</p>
+                <p class="rating" style="margin-left: 240px;">5.0</p>
             </div>
             <div class="review-score">
                 <p> Good </p>

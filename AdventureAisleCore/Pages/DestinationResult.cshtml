@@ -1,0 +1,36 @@
+﻿@page
+@model AdventureAisleCore.Pages.DestinationResultModel
+@{
+}
+<link rel="stylesheet" href="~/css/france.css" />
+<div class="content-destinationCards">
+        @for (int i = 0; i < Model.Destination.Count; i++)
+        {
+            <div class="card">
+
+                @if (!String.IsNullOrEmpty(Model.Destination[i].ImgURL))
+                {
+                    <a href="#">
+                        <img src="@Model.Destination[i].ImgURL" alt="paris" class="card-image">
+                    </a>
+                }
+                else
+                {
+                    <a href="#">
+                        <img src="~/images/temporarilyoutofservice.jpg" alt="paris" class="card-image">
+                    </a>
+                }
+
+                <div class="cont">
+                    <a href=""><h4><b>@Model.Destination[i].Name</b></h4></a>
+                <p class="rating" style="margin-left: 240px;">5.0</p>
+                </div>
+                <div class="review-score">
+                    <p> Good </p>
+                    <p>557 ratings</p>
+                    <p>Climate: @Model.Destination[i].Climate</p>
+                </div>
+            </div>
+        }
+
+    </div>

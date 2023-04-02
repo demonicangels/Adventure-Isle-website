@@ -17,7 +17,7 @@ namespace DesktopApp
     public partial class CRUDusers : Form
     {
         userRepo userData = new userRepo();
-        
+
         public CRUDusers()
         {
             InitializeComponent();
@@ -38,6 +38,7 @@ namespace DesktopApp
             user.username = usernameUsertxt.Text;
             user.password = passwordUsertxt.Text;
             user.email = emailUsertxt.Text;
+            user.birthday = birthdayDtp.Value;
             userData.InsertUser(user);
             MessageBox.Show("Succesful insert of data.");
             Clear();
@@ -54,7 +55,7 @@ namespace DesktopApp
         {
             userScreen.Items.Clear();
             var users = userData.GetAllUsers();
-            for(int i =0; i < users.Count; i++)
+            for (int i = 0; i < users.Count; i++)
             {
                 userScreen.Items.Add(users[i].username);
             }
@@ -64,15 +65,15 @@ namespace DesktopApp
         {
             userScreen.Items.Clear();
             var usr = userData.GetUserByName(searchByIdtxt.Text);
-            userScreen.Items.Add(usr);
+            userScreen.Items.Add(usr.UserInfo());
             Clear();
         }
 
         private void userScreen_Click(object sender, EventArgs e)
         {
-            
+
             var user = userData.GetUserByName(userScreen.SelectedItem.ToString());
-            MessageBox.Show(user.ToString());
+            MessageBox.Show(user.UserInfo());
         }
     }
 }
