@@ -14,7 +14,6 @@
 <form asp-action="Login" method="post">
 <link href="~/css/login.css" rel="stylesheet" type="text/css" />
  <div class="container-login">
-
      
         <label asp-for="Usr.username"><b>Username</b></label>
         <input asp-for="Usr.username" placeholder="Enter Username">
@@ -32,3 +31,7 @@
         
 </div>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

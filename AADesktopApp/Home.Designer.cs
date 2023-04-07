@@ -28,113 +28,126 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
+            pictureBox1 = new PictureBox();
+            loginRegisterBtn = new PictureBox();
+            TravellistButton = new PictureBox();
+            destinationsButton = new PictureBox();
+            label1 = new Label();
+            textBox1 = new TextBox();
+            searchBtn = new Button();
+            profileBtn = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)loginRegisterBtn).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)TravellistButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)destinationsButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)profileBtn).BeginInit();
+            SuspendLayout();
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::DesktopApp.Properties.Resources.homepage;
-            this.pictureBox1.Location = new System.Drawing.Point(-3, -1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(806, 450);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            pictureBox1.Image = Properties.Resources.homepage;
+            pictureBox1.Location = new Point(-3, -1);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(806, 450);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
-            // pictureBox2
+            // loginRegisterBtn
             // 
-            this.pictureBox2.Image = global::DesktopApp.Properties.Resources.loginIcon;
-            this.pictureBox2.Location = new System.Drawing.Point(12, 134);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(97, 77);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            loginRegisterBtn.Image = Properties.Resources.loginIcon;
+            loginRegisterBtn.Location = new Point(12, 39);
+            loginRegisterBtn.Name = "loginRegisterBtn";
+            loginRegisterBtn.Size = new Size(97, 77);
+            loginRegisterBtn.SizeMode = PictureBoxSizeMode.StretchImage;
+            loginRegisterBtn.TabIndex = 1;
+            loginRegisterBtn.TabStop = false;
+            loginRegisterBtn.Click += loginRegisterBtn_Click;
             // 
-            // pictureBox3
+            // TravellistButton
             // 
-            this.pictureBox3.Image = global::DesktopApp.Properties.Resources.list;
-            this.pictureBox3.Location = new System.Drawing.Point(12, 233);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(97, 88);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 2;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            TravellistButton.Image = Properties.Resources.list;
+            TravellistButton.Location = new Point(12, 138);
+            TravellistButton.Name = "TravellistButton";
+            TravellistButton.Size = new Size(97, 88);
+            TravellistButton.SizeMode = PictureBoxSizeMode.StretchImage;
+            TravellistButton.TabIndex = 2;
+            TravellistButton.TabStop = false;
+            TravellistButton.Click += pictureBox3_Click;
             // 
-            // pictureBox4
+            // destinationsButton
             // 
-            this.pictureBox4.Image = global::DesktopApp.Properties.Resources.plane;
-            this.pictureBox4.Location = new System.Drawing.Point(12, 339);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(97, 90);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 3;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
+            destinationsButton.Image = Properties.Resources.plane;
+            destinationsButton.Location = new Point(12, 251);
+            destinationsButton.Name = "destinationsButton";
+            destinationsButton.Size = new Size(97, 90);
+            destinationsButton.SizeMode = PictureBoxSizeMode.StretchImage;
+            destinationsButton.TabIndex = 3;
+            destinationsButton.TabStop = false;
+            destinationsButton.Click += pictureBox4_Click;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(163, 210);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(317, 25);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Discover your next favorite destination";
+            label1.AutoSize = true;
+            label1.Location = new Point(163, 210);
+            label1.Name = "label1";
+            label1.Size = new Size(317, 25);
+            label1.TabIndex = 4;
+            label1.Text = "Discover your next favorite destination";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(512, 207);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(220, 31);
-            this.textBox1.TabIndex = 5;
+            textBox1.Location = new Point(512, 207);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(220, 31);
+            textBox1.TabIndex = 5;
             // 
-            // pictureBox5
+            // searchBtn
             // 
-            this.pictureBox5.Image = global::DesktopApp.Properties.Resources.logo;
-            this.pictureBox5.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(113, 104);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox5.TabIndex = 6;
-            this.pictureBox5.TabStop = false;
-            this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
+            searchBtn.Location = new Point(675, 251);
+            searchBtn.Name = "searchBtn";
+            searchBtn.Size = new Size(112, 34);
+            searchBtn.TabIndex = 7;
+            searchBtn.Text = "Search";
+            searchBtn.UseVisualStyleBackColor = true;
             // 
-            // Form2
+            // profileBtn
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pictureBox5);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox4);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
-            this.Name = "Form2";
-            this.Text = "Form2";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            profileBtn.Enabled = false;
+            profileBtn.Image = (Image)resources.GetObject("profileBtn.Image");
+            profileBtn.Location = new Point(12, 39);
+            profileBtn.Name = "profileBtn";
+            profileBtn.Size = new Size(97, 77);
+            profileBtn.SizeMode = PictureBoxSizeMode.StretchImage;
+            profileBtn.TabIndex = 8;
+            profileBtn.TabStop = false;
+            profileBtn.Visible = false;
+            profileBtn.Click += profileBtn_Click;
+            // 
+            // Home
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(profileBtn);
+            Controls.Add(searchBtn);
+            Controls.Add(textBox1);
+            Controls.Add(label1);
+            Controls.Add(destinationsButton);
+            Controls.Add(TravellistButton);
+            Controls.Add(loginRegisterBtn);
+            Controls.Add(pictureBox1);
+            Name = "Home";
+            Text = "Form2";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)loginRegisterBtn).EndInit();
+            ((System.ComponentModel.ISupportInitialize)TravellistButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)destinationsButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)profileBtn).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -160,11 +173,12 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox3;
-        private PictureBox pictureBox4;
+        private PictureBox loginRegisterBtn;
+        private PictureBox TravellistButton;
+        private PictureBox destinationsButton;
         private Label label1;
         private TextBox textBox1;
-        private PictureBox pictureBox5;
+        private Button searchBtn;
+        private PictureBox profileBtn;
     }
 }

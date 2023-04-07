@@ -15,7 +15,28 @@ img{
 .row > h6{
     color:black;
 }
+.upload{
+    padding-right: 2%
+}
+.btnUpload {
+    padding: 13px;
+    background-color: lightblue;
+    color: black;
+    border: none;
+    border-radius: 0 0px 0px 0;
+    cursor: pointer;
+    width: 10%;
+}
+.container-profile {
+    padding-top: 10%;
+    padding-left: 10%
+}
 
+input[type=file] {
+    display: inline-block;
+    box-sizing: border-box;
+    padding-right: 5%;
+}
 
 
 

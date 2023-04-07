@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BusinessLogic.Interfaces;
 using DAL;
 using DAL.DTOs;
 
@@ -10,37 +6,47 @@ namespace BusinessLogic
 {
     public class UserService 
     {
-        userRepo data = new userRepo();
+        private IUserRepository _userRepository;
+        
+
+        public UserService(IUserRepository userRepository) 
+        { 
+            _userRepository = userRepository;
+        }
 
         public void InsertUser(UserDTO user)
         {
-            data.InsertUser(user);
+            _userRepository.InsertUser(user);
         }
         public void DeleteUser(string userEmail)
         {
-            data.DeleteUser(userEmail);
+            _userRepository.DeleteUser(userEmail);
         }
         public List<UserDTO> GetAllUsers()
         {
-            var userList = data.GetAllUsers();
+            var userList = _userRepository.GetAllUsers();
             return userList;
         }
 
         public bool TryLogin(UserDTO userCredentials)
         {
-            var result = data.TryLogin(userCredentials.username, userCredentials.password);
+            var result = _userRepository.Authentication(userCredentials);
             return result;
         }
 
         public UserDTO GetUserByName(string username)
         {
-            var user = data.GetUserByName(username);
+            var user = _userRepository.GetUserByName(username);
             return user;
         }
         public UserDTO GetUserById(int id)
         {
-            var user = data.GetUserById(id);
+            var user = _userRepository.GetUserById(id);
             return user;
+        }
+        public void InsertImage(byte[] image, string username)
+        {
+            _userRepository.InsertImage(image, username);
         }
     }
 }

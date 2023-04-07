@@ -1,7 +1,13 @@
 ﻿@page
 @model AdventureAisleCore.Pages.IndexModel
 @{
-	Layout = "_Layout";
+    Layout = "_Layout";
+    if (TempData.ContainsKey("Logout"))
+    {
+        <script>
+            alert('@TempData["Logout"]')
+        </script>
+    }
 }
 <html>
 <head>
@@ -18,7 +24,7 @@
             </div>
 
             <div class="searchbox">
-                <form method="post">
+                <form class="searchfunction" method="post">
                     <input type="text" asp-for="@Model.Search" placeholder="Search...">
                     <button type="submit"><img src="../images/search.png" alt="search icon image" /></button>
                 </form>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Interfaces
 {
-    public interface IDestinationRepository<T>
+    public interface IDestinationRepository
     {
 
-        void InsertDestination(T destination);
+        void InsertDestination(DestinationDTO destination);
 
         void DeleteDestination(string selectedDes);
 
-        public T GetDestinationByName(string name);
+        public DestinationDTO GetDestinationByName(string name);
 
-        List<T> GetAllDestinations(string country);
+        List<DestinationDTO> GetAllDestinations(string country);
 
     }
 }

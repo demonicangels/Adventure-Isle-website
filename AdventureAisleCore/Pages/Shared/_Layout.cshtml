@@ -21,24 +21,34 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Paris">Travel List</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/TravelList">Travel List</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" asp-area="" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Countries
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" asp-page="/ItalyDestinations">Italy</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/FranceDestinations">France</a></li>
+                                <li><a class="dropdown-item" asp-page="/Destinations" asp-route-country="Italy">Italy</a></li>
+                                <li><a class="dropdown-item" asp-page="/Destinations" asp-route-country="France">France</a></li>
                                 <li><a class="dropdown-item" href="#">Spain</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Profile">Profile</a>
-                        </li>
+                        @if(Context.Session.GetInt32("userId") != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Profile">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Logout">Logout</a>
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Login">Login</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -59,7 +69,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - Adventure Isle - <a class="privacy-link" asp-area="" asp-page="">Privacy</a>
+            &copy; 2023 - Adventure Isle - <a class="privacy-link" asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 </body>

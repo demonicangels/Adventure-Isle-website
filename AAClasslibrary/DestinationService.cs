@@ -1,4 +1,5 @@
-﻿using DAL;
+﻿using BusinessLogic.Interfaces;
+using DAL;
 using DAL.DTOs;
 using System;
 using System.Collections.Generic;
@@ -11,30 +12,30 @@ namespace BusinessLogic
     public class DestinationService
     {
         string dbCountry = "";
-        destinationRepo data;
-        public DestinationService(string _dbCountry)
+        IDestinationRepository _destinationRepository;
+        public DestinationService(string _dbCountry, IDestinationRepository destinationRepository)
         {
             dbCountry = _dbCountry;
-            data = new destinationRepo();
+            _destinationRepository = destinationRepository;
         }
 
         
         public void InsertDestination(DestinationDTO des)
         {
-            data.InsertDestination(des);
+            _destinationRepository.InsertDestination(des);
         }
         public void DeleteDestination(string desName)
         {
-            data.DeleteDestination(desName);
+            _destinationRepository.DeleteDestination(desName);
         }
         public List<DestinationDTO> GetAllDestinations()
         {
-            var destinationList = data.GetAllDestinations(dbCountry);
+            var destinationList = _destinationRepository.GetAllDestinations(dbCountry);
             return destinationList;
         }
         public DestinationDTO GetDestinationByName(string desName)
         {
-            var des = data.GetDestinationByName(desName);
+            var des = _destinationRepository.GetDestinationByName(desName);
             return des;
         }
     }

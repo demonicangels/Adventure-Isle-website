@@ -2,19 +2,21 @@
 
 namespace BusinessLogic.Interfaces
 {
-    public interface IUserRepository<T>
+    public interface IUserRepository
     {
        
-        void InsertUser(T user);
+        void InsertUser(UserDTO user);
 
         void DeleteUser(string userEmail);
 
-        List<T> GetAllUsers();
+        List<UserDTO> GetAllUsers();
 
-        bool TryLogin(string username, string password);
+        bool Authentication(UserDTO usr);
 
         UserDTO GetUserByName(string username);
 
-        T GetUserById(int id);
+        UserDTO GetUserById(int id);
+
+        void InsertImage(byte[] image, string username);
     }
 }

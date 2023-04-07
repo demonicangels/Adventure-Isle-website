@@ -4,7 +4,7 @@ using DAL.DTOs;
 
 namespace DAL
 {
-    public class destinationRepo : IDestinationRepository<DestinationDTO>
+    public class DestinationRepository : IDestinationRepository
     {
 
         //CRUD

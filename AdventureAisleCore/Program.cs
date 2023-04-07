@@ -1,17 +1,32 @@
+using BusinessLogic.Interfaces;
+using DAL;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login";
+        options.AccessDeniedPath = "/Error";
+    });
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IDestinationRepository, DestinationRepository>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(30);
+    options.IdleTimeout = TimeSpan.FromSeconds(120);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 }
 );
 
 var app = builder.Build();
+
 
 
 // Configure the HTTP request pipeline.
@@ -29,6 +44,7 @@ app.UseRouting();
 
 app.UseSession();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

@@ -16,7 +16,7 @@ namespace DesktopApp
 {
     public partial class CRUDusers : Form
     {
-        userRepo userData = new userRepo();
+        UserRepository userData = new UserRepository();
 
         public CRUDusers()
         {

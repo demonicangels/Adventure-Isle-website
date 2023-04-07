@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.DTOs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,16 +13,36 @@ namespace DesktopApp
 {
     public partial class Home : Form
     {
+        UserDTO user;
+        public Home(UserDTO loggedIn)
+        {
+            InitializeComponent();
+            user = loggedIn;
+            if (loggedIn != null)
+            {
+                profileBtn.Visible = true;
+                profileBtn.Enabled = true;
+                loginRegisterBtn.Visible = false;
+                loginRegisterBtn.Enabled = false;
+            }
+        }
         public Home()
         {
             InitializeComponent();
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e) //logo
+        private void loginRegisterBtn_Click(object sender, EventArgs e)
         {
-            Home home = new Home();
-            home.Show();
+            Login log = new Login();
+            this.Hide();
+            log.Show();
         }
 
+        private void profileBtn_Click(object sender, EventArgs e)
+        {
+            Profile p = new Profile(user);
+            this.Close();
+            p.Show();
+        }
     }
 }

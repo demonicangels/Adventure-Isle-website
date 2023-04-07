@@ -1,11 +1,10 @@
-﻿
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using BusinessLogic.Interfaces;
 using DAL.DTOs;
 
 namespace DAL
 {
-    public class userRepo : IUserRepository<UserDTO>
+    public class UserRepository : IUserRepository
     {
         private string connection = "Data Source=mssqlstud.fhict.local;User ID=dbi482269_aas2;Password=Ior7dh8Nrr;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         SqlConnection con;
@@ -67,7 +66,7 @@ namespace DAL
             }
         }
         
-        public bool TryLogin(string username, string password)
+        public bool Authentication(UserDTO usr)
         {
             var boolValue = false;
             var query = "SELECT username, password FROM Users";
@@ -79,7 +78,7 @@ namespace DAL
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    if (username == reader["username"].ToString() && password == reader["password"].ToString())
+                    if (usr.username == reader["username"].ToString() && usr.password == reader["password"].ToString())
                     {
                         boolValue = true;
                         return boolValue;
@@ -109,6 +108,8 @@ namespace DAL
                     u.password = reader["password"].ToString();
                     u.email = reader["email"].ToString();
                     u.birthday = (DateTime)reader["birthday"];
+                    u.Bio = reader["bio"].ToString();
+                    u.userSince = (DateTime)reader["created_at"];
                 }
 
             }
@@ -134,10 +135,25 @@ namespace DAL
                     u.userSince = (DateTime)reader["created_at"];
                     u.birthday = (DateTime)reader["birthday"];
                     u.Bio = reader["bio"].ToString();
+                    //u.profilePic = (byte[]?)((byte[])reader["ProfilePicture"] == null ? (object)DBNull.Value : reader["ProfilePicture"]);
                 }
 
             }
             return u;
+        }
+        public void InsertImage(byte[] image, string username)
+        {
+            var query = @"UPDATE Users SET ProfilePicture = @pp WHERE username = @username";
+            using (con = new SqlConnection(connection))
+            {
+
+                con.Open();
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@pp", image);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
         }
     }
 }

@@ -29,6 +29,8 @@ namespace DAL.DTOs
 
         public DateTime? userSince { get; set; }
 
+        public byte[]? profilePic { get; set; }
+
         public string? Bio { get; set; }
         public string UserInfo()
         {

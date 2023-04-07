@@ -1,5 +1,6 @@
 using BusinessLogic;
 using BusinessLogic.Entities;
+using BusinessLogic.Interfaces;
 using DAL;
 using DAL.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,13 @@ namespace AdventureAisleCore.Pages
     {
         [BindProperty]
         public UserDTO Usr { get; set; }
+        IUserRepository _userRepository;
 
 
-        UserService usrData = new UserService();
-        
+        public RegisterCoreModel(IUserRepository userRepository) 
+        { 
+            _userRepository = userRepository;
+        }
 
         public void OnGet()
         {
@@ -28,7 +32,7 @@ namespace AdventureAisleCore.Pages
                 }
                 else
                 {
-                    usrData.InsertUser(Usr);
+                    _userRepository.InsertUser(Usr);
                     return RedirectToPage("Login");
                 }
                
