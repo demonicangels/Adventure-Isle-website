@@ -4,11 +4,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AdventureAisleCore.Pages
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class TravelListModel : PageModel
     {
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (User.IsInRole("User"))
+            {
+                return Page();
+            }
+            return Unauthorized();
         }
     }
 }

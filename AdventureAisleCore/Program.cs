@@ -8,12 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.LoginPath = "/Login";
+        options.LogoutPath = "/Logout";
         options.AccessDeniedPath = "/Error";
     });
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDestinationRepository, DestinationRepository>();
 builder.Services.AddDistributedMemoryCache();
