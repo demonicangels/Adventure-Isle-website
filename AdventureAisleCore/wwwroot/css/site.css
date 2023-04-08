@@ -30,18 +30,19 @@ body::before {
 }
 
 /* Logo */
-.logo a {
-    display: block;
-    position: absolute;
-    width: 125px;
-    height: 190px;
-    left: 10px;
-    background-image: url('../images/travellogo.png');
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    text-indent: 100%;
-    overflow: hidden;
-    white-space: nowrap;
+
+img.logoImg{
+    max-width: 50%;
+}
+button.logobtn {
+    position: relative;
+    max-width: 15%;
+    right: 10%;
+    background-color: white;
+    color: white;
+    border: none;
+    border-radius: 0 0px 0px 0;
+    cursor: pointer;
 }
 header {
     background-color: white;
@@ -86,7 +87,7 @@ input {
     background-color: white;
     width: 200px;
 }
-img {
+img.searchIcon{
     width: 10px; 
     height: 10px;
 }
@@ -98,7 +99,7 @@ img {
     
 
 }
-form {
+form.searchfunction {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -109,7 +110,7 @@ input[type="text"] {
     border-radius: 5px 0 0 5px;
     width: 260px;
 }
-button {
+button.searchbtn {
     padding: 13px;
     background-color: white;
     color: white;
@@ -117,7 +118,7 @@ button {
     border-radius: 0 0px 0px 0;
     cursor: pointer;
 }
-button:hover {
+button:hover.searchIcon {
     background-color: gray;
 }
 
@@ -149,7 +150,7 @@ a > .nav-link dropdown-toggle{
 }
 
 
-/*Text profile page */
+/* Profile page */
 .text-center{
     color: black;
     padding: 10%;
@@ -158,9 +159,15 @@ a > .nav-link dropdown-toggle{
     position: relative;
     font-weight: normal;
 }
+#avatar {
+    width: 60%;
+    height: 20%;
+    margin-bottom: 5%;
+    margin-left: 20%;
+}
 
 
-/* Login and register forms */
+/* Register form */
 input[type=text] {
     border: none;
     border-radius: 5px 0 0 5px;
@@ -204,7 +211,7 @@ input[type=datetime-local] {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-.container-login > *, .container-register * {
+.container-register * {
     display: block;
     padding-top: 1%;
 }
@@ -288,3 +295,59 @@ form .upload > .btnUpload {
     padding-top: 10%;
     padding-left: 15%
 }
+
+
+
+
+
+/*Login form*/
+
+.login_form_container > form {
+    box-shadow: 0px 0px 8px black;
+    border-radius: 4px;
+    padding: 40px;
+    display: block;
+}
+.login_form_container span {
+    color: red;
+    display: block;
+}
+
+.login_form_container h1 {
+    text-align: center;
+}
+
+.login_form_container input {
+    display: block;
+    box-shadow: none;
+    outline: none;
+    border: 0px solid;
+    padding: 0.5em;
+}
+
+.login_form_container input[type="text"], .login_form_container input[type="password"], .login_form_container input[type="email"], .login_form_container input[type="datetime-local"] {
+    border-radius: 40px;
+    background-color: aliceblue;
+}
+
+.login_form_container input[type="submit"] {
+    transition: linear 0.1s;
+    background-color: mediumpurple;
+    color: white;
+    border-radius: 60px;
+    border-style: solid;
+    box-shadow: none;
+    padding: 0.5em 20%;
+    margin: 0 auto;
+    margin-top: 5%;
+}
+
+.login_form_container input[type="submit"]:hover {
+    background-color: rebeccapurple;
+    transition: linear 0.1s;
+}
+
+.register-link > *{
+    margin-top: 2%;
+}
+

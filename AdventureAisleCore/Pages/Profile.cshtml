@@ -53,9 +53,10 @@
                 <div class="about-avatar">
                         @if (@Model.Usr?.profilePic != null)
                         {
-                            <img src="data:image/png;base64,@System.Convert.ToBase64String(@Model.Usr?.profilePic)" title="" alt="">
+                            <img src="data:image/png;base64,@System.Convert.ToBase64String(@Model.Usr?.profilePic)" title="" id="avatar">
                         }
                 </div>
+                    
             </div>
         </div>
         <div class="counter">

@@ -2,36 +2,29 @@
 @model AdventureAisleCore.Pages.RegisterCoreModel
 @{
 }
-<link href="~/css/login.css" rel="stylesheet" type="text/css" />
-<form method="post">
- <div class="container-register">
 
-       <div class="username-input">
-            <label asp-for="Usr.username"><b>Username</b></label>
-            <input asp-for="Usr.username" placeholder="Enter Username" default="3">
-            <span asp-validation-for="Usr.username" class="text-danger"></span>
-       </div>
+<div class="login_form_container">
 
-        <div class="password-input">
-            <label asp-for="Usr.password"><b>Password</b></label>
-            <input asp-for="Usr.password" type="password" placeholder="Enter Password">
-            <span asp-validation-for="Usr.password" class="text-danger"></span>
-        </div>
+    <form method="post" class="login_form">
+        <h1>Register</h1>
+        <label asp-for="Usr.username">Username:</label>
+        <input asp-for="Usr.username" type="text" />
+        <span asp-validation-for="Usr.username" class="text-danger"></span>
 
-        <div class="email-input">
-            <label asp-for="Usr.email"><b>Email</b></label>
-            <input asp-for="Usr.email" type="email" placeholder="Enter email">
-            <span asp-validation-for="Usr.email" class="text-danger"></span>
-        </div>
+        <label asp-for="Usr.password">Password:</label>
+        <input asp-for="Usr.password" type="password" />
+        <span asp-validation-for="Usr.password" class="text-danger"></span>
 
-        <div class="birthday-input">
-            <label asp-for="Usr.birthday"><b>Birthday</b></label>
-            <input asp-for="Usr.birthday" type="datetime-local">
-        </div>
+        <label asp-for="Usr.email">Email:</label>
+        <input asp-for="Usr.email" type="email" />
+        <span asp-validation-for="Usr.email" class="text-danger"></span>
 
-        <button type="submit" style="margin-left: 940px;">Register</button>
-    </div>
-</form>
+        <label asp-for="Usr.birthday"><b>Birthday</b></label>
+        <input asp-for="Usr.birthday" type="datetime-local">
+
+        <input type="submit" value="Register" />
+    </form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

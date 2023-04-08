@@ -1,8 +1,6 @@
 ﻿@page
 @model AdventureAisleCore.Pages.LoginCoreModel
 @{
-}
-@{
     
     if (TempData.ContainsKey("msg"))
     {
@@ -11,26 +9,23 @@
         </script>
     }
 }
-<form asp-action="Login" method="post">
-<link href="~/css/login.css" rel="stylesheet" type="text/css" />
- <div class="container-login">
-     
-        <label asp-for="Usr.username"><b>Username</b></label>
-        <input asp-for="Usr.username" placeholder="Enter Username">
-        <span asp-validation-for="Usr.username" class="text-danger"></span>
+<div class="login_form_container">
+	
+	<form method="post" class="login_form">
+		<h1>Log in</h1>
+		<label asp-for="Usr.username">Username:</label>
+		<input asp-for="Usr.username" type="text" />
+		<span asp-validation-for="Usr.username"></span>
+		<label asp-for="Usr.password">Password:</label>
+		<input asp-for="Usr.password" type="password" />
+		<span asp-validation-for="Usr.password"></span>
+		<input type="submit" value="Login" />
 
-
-        <label asp-for="Usr.password"><b>Password</b></label>
-        <input asp-for="Usr.password" type="password" placeholder="Enter Password">
-        <span asp-validation-for="Usr.password" class="text-danger"></span>
-
-        <div class="register-link">
-            <button type="submit" style="margin-left: 940px;">Login</button>
-            <h4>Don't have an account yet?<a asp-page="/Register" class="register-link"> Register</a></h4>
-        </div>
-        
+		<div class="register-link">
+			<h4>Don't have an account yet?<a asp-page="/Register"> Register</a></h4>
+		</div>
+	</form>
 </div>
-</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

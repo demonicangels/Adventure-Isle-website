@@ -9,7 +9,6 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\countries.css" />
     <_ContentIncludedByDefault Remove="wwwroot\css\france.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\css\login.css" />
     <_ContentIncludedByDefault Remove="wwwroot\css\privacy.css" />
   </ItemGroup>
 

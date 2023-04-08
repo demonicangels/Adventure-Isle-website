@@ -4,10 +4,6 @@ body > .container{
     bottom: 0px;
     border-inline: none;
 }
-img{
-    width: 40%;
-    height: 20%;
-}
 
 .counter > h6, p{
     color: black;
