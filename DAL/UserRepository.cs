@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using BusinessLogic.Interfaces;
+using DAL.Interfaces;
 using DAL.DTOs;
 
 namespace DAL
@@ -27,19 +27,19 @@ namespace DAL
             }
 
         }
-        public void DeleteUser(string username)
+        public void DeleteUser(string email)
         {
-            var query = "DELETE FROM Users WHERE username = @username";
+            var query = "DELETE FROM Users WHERE email = @email";
             using (con = new SqlConnection(connection))
             {
                 con.Open();
                 cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@email", email);
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
         }
-        public List<UserDTO> GetAllUsers()
+        public UserDTO[] GetAllUsers()
         {
             var users = new List<UserDTO>();
             var query = "SELECT * FROM Users";
@@ -62,14 +62,14 @@ namespace DAL
                     }
                 }
                 con.Close();
-                return users;
+                return users.ToArray();
             }
         }
         
         public bool Authentication(UserDTO usr)
         {
             var boolValue = false;
-            var query = "SELECT username, password FROM Users";
+            var query = "SELECT email, password FROM Users";
             using (con = new SqlConnection(connection))
             {
                 con.Open();
@@ -78,7 +78,7 @@ namespace DAL
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    if (usr.username == reader["username"].ToString() && usr.password == reader["password"].ToString())
+                    if (usr.username == reader["email"].ToString() && usr.password == reader["password"].ToString())
                     {
                         boolValue = true;
                         return boolValue;
@@ -89,16 +89,15 @@ namespace DAL
                 return boolValue;
             }
         }
-        public UserDTO GetUserByName(string username)
+        public UserDTO GetUserByName(string name)
         {
-
-            var query = "SELECT * FROM Users WHERE username = @username";
+            var query = "SELECT * FROM Users WHERE username LIKE @username + '%'";
             UserDTO u = new UserDTO();
             using (con = new SqlConnection(connection))
             {
                 con.Open();
                 cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@username", name);
                 cmd.ExecuteNonQuery();
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -110,8 +109,31 @@ namespace DAL
                     u.birthday = (DateTime)reader["birthday"];
                     u.Bio = reader["bio"].ToString();
                     u.userSince = (DateTime)reader["created_at"];
-                }
-
+                };
+            }
+            return u;
+        }
+        public UserDTO GetUserByEmail(string email)
+        {
+            var query = "SELECT * FROM Users WHERE email LIKE @email + '%'";
+            UserDTO u = new UserDTO();
+            using (con = new SqlConnection(connection))
+            {
+                con.Open();
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.ExecuteNonQuery();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    u.Id = Convert.ToInt32(reader["Id"]);
+                    u.username = reader["username"].ToString();
+                    u.password = reader["password"].ToString();
+                    u.email = reader["email"].ToString();
+                    u.birthday = (DateTime)reader["birthday"];
+                    u.Bio = reader["bio"].ToString();
+                    u.userSince = (DateTime)reader["created_at"];
+                };
             }
             return u;
         }
@@ -155,5 +177,7 @@ namespace DAL
                 con.Close();
             }
         }
+
+        
     }
 }

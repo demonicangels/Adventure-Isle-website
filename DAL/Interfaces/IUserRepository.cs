@@ -1,21 +1,23 @@
 ﻿using DAL.DTOs;
 
-namespace BusinessLogic.Interfaces
+namespace DAL.Interfaces
 {
     public interface IUserRepository
     {
        
         void InsertUser(UserDTO user);
 
-        void DeleteUser(string userEmail);
+        void DeleteUser(string email);
 
-        List<UserDTO> GetAllUsers();
+        UserDTO[] GetAllUsers();
 
         bool Authentication(UserDTO usr);
 
-        UserDTO GetUserByName(string username);
+        UserDTO GetUserByEmail(string email);
 
         UserDTO GetUserById(int id);
+
+        UserDTO GetUserByName(string name);
 
         void InsertImage(byte[] image, string username);
     }

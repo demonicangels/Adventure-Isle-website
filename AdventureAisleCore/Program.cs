@@ -1,4 +1,4 @@
-using BusinessLogic.Interfaces;
+using DAL.Interfaces;
 using DAL;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;

@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Factory", "..\Factory\Facto
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Factory Layer", "Factory Layer", "{C4282982-A4F0-4719-9959-51C237046100}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "..\UnitTests\UnitTests.csproj", "{EF57A68D-1459-435F-B448-AF5710E55D43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{767410B9-314E-4B2C-8667-F40A1873EFF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{767410B9-314E-4B2C-8667-F40A1873EFF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{767410B9-314E-4B2C-8667-F40A1873EFF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF57A68D-1459-435F-B448-AF5710E55D43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF57A68D-1459-435F-B448-AF5710E55D43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF57A68D-1459-435F-B448-AF5710E55D43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF57A68D-1459-435F-B448-AF5710E55D43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

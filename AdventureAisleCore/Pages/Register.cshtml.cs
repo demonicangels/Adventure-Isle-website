@@ -1,7 +1,6 @@
 using BusinessLogic;
 using BusinessLogic.Entities;
-using BusinessLogic.Interfaces;
-using DAL;
+using DAL.Interfaces;
 using DAL.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

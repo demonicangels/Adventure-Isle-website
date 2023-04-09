@@ -1,11 +1,6 @@
 ﻿using BusinessLogic;
-using BusinessLogic.Interfaces;
+using DAL.Interfaces;
 using DAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Factory
 {
@@ -16,8 +11,8 @@ namespace Factory
 
         public FactoryService() 
         {
-            UserService userService = new UserService(_userRepository);
-            DestinationService desService = new DestinationService("",_destinationRepository);
+             _userRepository = new UserRepository();
+            _destinationRepository = new DestinationRepository();
         }
     }
 }

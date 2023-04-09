@@ -20,21 +20,18 @@ namespace DAL.DTOs
         [StringLength(20, MinimumLength = 3, ErrorMessage = "Password must be between 3 and 20 characters")]
         public string password { get; set; }
 
-
+        [Required]
         [DataType(DataType.EmailAddress)]
         public string? email { get; set; }
 
         public int Id { get; set; }
-        public DateTime? birthday { get; set; }
+        public DateTime birthday { get; set; }
 
-        public DateTime? userSince { get; set; }
+        public DateTime userSince { get; set; }
 
         public byte[]? profilePic { get; set; }
 
         public string? Bio { get; set; }
-        public string UserInfo()
-        {
-            return $"{username}, birthday: {birthday}, email:{email}";
-        }
+        
     }
 }

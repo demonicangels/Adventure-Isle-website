@@ -2,13 +2,13 @@
 {
     public class Review
     {
-        User owner;
+        Users owner;
         string destination;
         double rating;
         string reviewtxt;
 
 
-        public Review(User ow, string des, double rat, string txt)
+        public Review(Users ow, string des, double rat, string txt)
         {
             owner = ow;
             destination = des;

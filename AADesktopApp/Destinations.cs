@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using DAL.DTOs;
+using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,15 +15,15 @@ namespace DesktopApp
 {
     public partial class Destinations : Form
     {
-        DestinationService desData = new DestinationService("");
+        IDestinationRepository destinationRepository;
         List<DestinationDTO> desList = new List<DestinationDTO>();
         public Destinations()
         {
-            desList = desData.GetAllDestinations();
-            for (int i = 0; i < desList.Count; i++)
-            {
-
-            }
+            //desList = destinationRepository.GetAllDestinations();
+            //for (int i = 0; i < desList.Count; i++)
+            //{
+            //
+            //}
             InitializeComponent();
         }
 

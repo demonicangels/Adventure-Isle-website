@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using BusinessLogic.Interfaces;
+using DAL.Interfaces;
 using DAL.DTOs;
 
 namespace DAL

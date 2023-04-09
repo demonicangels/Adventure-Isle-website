@@ -10,7 +10,7 @@ namespace BusinessLogic.Entities
     {
         List<string> necessities = new List<string>();
         List<string> custom = new List<string>();
-        User owner;
+        Users owner;
 
         public void AddToTravelList(string nes)
         {

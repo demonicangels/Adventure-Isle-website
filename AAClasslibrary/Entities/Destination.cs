@@ -42,7 +42,8 @@
         public double CalculateAverage()
         {
             var average = ratingList.Average();
-            return average;
+            var roundedResult = Math.Round(average, 2, MidpointRounding.AwayFromZero);
+            return roundedResult;
         }
 
     }

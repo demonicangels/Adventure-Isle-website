@@ -1,15 +1,12 @@
 using BusinessLogic;
 using BusinessLogic.Entities;
-using BusinessLogic.Interfaces;
-using DAL;
+using DAL.Interfaces;
 using DAL.DTOs;
+using BusinessLogic.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Session;
 using System.Security.Claims;
 
 namespace AdventureAisleCore.Pages
@@ -17,16 +14,7 @@ namespace AdventureAisleCore.Pages
     public class LoginCoreModel : PageModel
     {
         [BindProperty]
-        public UserDTO Usr { get; set; }
-
-        IUserRepository _userRepository;
-
-
-        public LoginCoreModel(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
-
+        public Users Usr { get; set; }
 
 
 
@@ -37,16 +25,17 @@ namespace AdventureAisleCore.Pages
         }
         public async Task<IActionResult> OnPostAsync() 
         {
-            if (ModelState.IsValid && _userRepository.Authentication(Usr) == true)
+            if (ModelState.IsValid && Users.Authenticate(Usr) == true)
             {
-                    Usr = _userRepository.GetUserByName(Usr.username);
-                    HttpContext.Session.SetInt32("userId", Usr.Id);
+                    
+                    Usr = Users.GetUserByEmail(Usr.Email);
+                    HttpContext.Session.SetInt32("userId", (int)Usr.Id);
 
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(
                     new Claim[]
                     {
-                        new Claim("id", Usr.email),
-                        new Claim(ClaimTypes.Name,Usr.username ),
+                        new Claim("id", Usr.Email),
+                        new Claim(ClaimTypes.Name,Usr.Username ),
                         new Claim(ClaimTypes.Role, "User"),
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
                     ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);

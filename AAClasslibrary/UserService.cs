@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Interfaces;
+﻿using DAL.Interfaces;
 using DAL;
 using DAL.DTOs;
 
@@ -22,11 +22,11 @@ namespace BusinessLogic
         {
             _userRepository.DeleteUser(userEmail);
         }
-        public List<UserDTO> GetAllUsers()
-        {
-            var userList = _userRepository.GetAllUsers();
-            return userList;
-        }
+        //public List<UserDTO> GetAllUsers()
+        //{
+        //    var userList = _userRepository.GetAllUsers();
+        //    return userList;
+        //}
 
         public bool TryLogin(UserDTO userCredentials)
         {
@@ -34,9 +34,9 @@ namespace BusinessLogic
             return result;
         }
 
-        public UserDTO GetUserByName(string username)
+        public UserDTO GetUserByName(string email)
         {
-            var user = _userRepository.GetUserByName(username);
+            var user = _userRepository.GetUserByEmail(email);
             return user;
         }
         public UserDTO GetUserById(int id)

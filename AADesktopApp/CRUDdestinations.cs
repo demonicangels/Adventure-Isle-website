@@ -2,6 +2,7 @@
 using BusinessLogic.Entities;
 using DAL;
 using DAL.DTOs;
+using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,11 +19,12 @@ namespace DesktopApp
     public partial class CRUDDestinations : Form
     {
         string dbTable = "";
-        DestinationService data;
+        IDestinationRepository _desRepository;
+
         public CRUDDestinations()
         {
             InitializeComponent();
-            data = new DestinationService("");
+            //_desRepository = User.GetDAO();
         }
 
         public void Clear()
@@ -43,7 +45,7 @@ namespace DesktopApp
             des.Currency = currencyDestxt.Text;
             des.BriefDescription = descriptionDestxt.Text;
             des.Climate = climatetxt.Text;
-            data.InsertDestination(des);
+            _desRepository.InsertDestination(des);
             MessageBox.Show("Successful insert");
             Clear();
         }
@@ -51,7 +53,7 @@ namespace DesktopApp
         private void Delete_btn_Click(object sender, EventArgs e)
         {
 
-            data.DeleteDestination(desScreen.SelectedItem.ToString());
+            _desRepository.DeleteDestination(desScreen.SelectedItem.ToString());
             desScreen.Items.Remove(desScreen.SelectedItem);
             MessageBox.Show("Successful delete");
             Clear();
@@ -62,16 +64,16 @@ namespace DesktopApp
         {
 
             desScreen.Items.Clear();
-            var des = data.GetDestinationByName(searchByIdtxt.Text.ToString());
+            var des = _desRepository.GetDestinationByName(searchByIdtxt.Text.ToString());
             desScreen.Items.Add(des);
             Clear();
         }
 
         private void GetAll_btn_Click(object sender, EventArgs e)
         {
-            data = new DestinationService(countriesCb.SelectedItem.ToString());
+            
             desScreen.Items.Clear();
-            var des = data.GetAllDestinations();
+            var des = _desRepository.GetAllDestinations(desScreen.SelectedItem.ToString());
             for (int i = 0; i < des.Count; i++)
             {
                 desScreen.Items.Add(des[i].Name);
@@ -81,7 +83,7 @@ namespace DesktopApp
 
         private void desScreen_Click(object sender, EventArgs e)
         {
-            var des = data.GetDestinationByName(desScreen.SelectedItem.ToString());
+            var des = _desRepository.GetDestinationByName(desScreen.SelectedItem.ToString());
             MessageBox.Show(des.DesInfo());
 
         }

@@ -1,5 +1,7 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Entities;
 using DAL.DTOs;
+using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,14 +16,15 @@ namespace DesktopApp
 {
     public partial class Profile : Form
     {
-        UserService userData = new UserService();
+        IUserRepository _userRepository;
         UserDTO user = new UserDTO();
         public Profile(UserDTO loggedInusr)
         {
             InitializeComponent();
+            _userRepository = Users.GetDAO();
             if (loggedInusr != null)
             {
-                user = userData.GetUserByName(loggedInusr.username);
+                user = _userRepository.GetUserByEmail(loggedInusr.email);
                 label6.Text = user.username.ToString();
                 label7.Text = user.email.ToString();
                 label8.Text = user.birthday.ToString();
