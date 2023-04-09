@@ -30,10 +30,6 @@ namespace BusinessLogic.Entities
         public string? Bio { get; set; }
 
         public Users() { }
-        public string GetUserName { get { return Username; } }
-        public string GetPassword { get { return Password; } }
-
-        
         public static IUserRepository GetDAO()
         {
             IUserRepository userRepository = new UserRepository();

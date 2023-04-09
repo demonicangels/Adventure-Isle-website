@@ -78,7 +78,7 @@ namespace DAL
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    if (usr.username == reader["email"].ToString() && usr.password == reader["password"].ToString())
+                    if (usr.email == reader["email"].ToString() && usr.password == reader["password"].ToString())
                     {
                         boolValue = true;
                         return boolValue;

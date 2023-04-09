@@ -15,10 +15,10 @@
             rating = rat;
             reviewtxt = txt;
         }
-        public string GetReview(double avg)
-        {
-            return $"{owner.GetUserName} - {destination} avg rating: {avg} Review: {reviewtxt}";
-        }
+       // public string GetReview(double avg)
+       // {
+       //     //return $"{owner.GetUserName} - {destination} avg rating: {avg} Review: {reviewtxt}";
+       // }
 
 
     }
