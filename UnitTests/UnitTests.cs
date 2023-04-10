@@ -1,5 +1,7 @@
 using BusinessLogic.Entities;
+using DAL;
 using DAL.DTOs;
+using DAL.Interfaces;
 
 namespace UnitTests
 {
@@ -7,6 +9,7 @@ namespace UnitTests
     public class UnitTests
     {
         private string connectionStr = "Data Source=mssqlstud.fhict.local;User ID=dbi482269_aas2;Password=Ior7dh8Nrr;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        IDestinationRepository _destinationRepository = new DestinationRepository();
 
         [TestMethod]
         public void GetUserByEmail()
@@ -60,6 +63,19 @@ namespace UnitTests
 
             Assert.IsNotNull(actualResult);
             Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        [TestMethod]
+        public void SearchDestination()
+        {
+            var search = "Pa";
+            var expectedDes = new Destination { Name = "Paris", Country = "France" };
+
+            var actualDes = _destinationRepository.GetDestinationByName(search);
+
+            Assert.IsNotNull(actualDes);
+            Assert.AreEqual(expectedDes.Name, actualDes.Name);
+            Assert.AreEqual(expectedDes.Country, actualDes.Country);
         }
 
         [TestMethod]
