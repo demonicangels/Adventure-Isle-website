@@ -14,9 +14,9 @@ namespace UnitTests
             var email = "demonic@gmail.com";
             var created_at = DateTime.Parse("3/30/2023 4:12:44 PM");
             var birthday = DateTime.Parse("10/4/2002 4:20:00 PM");
-            var expectedUser = new Users { Username = "demonic", Email = email, Password = "123", UserSince = created_at, Birthday = birthday, Bio = "If you are not travelling then what are you doing?" };
+            var expectedUser = new User { Username = "demonic", Email = email, Password = "123", UserSince = created_at, Birthday = birthday, Bio = "If you are not travelling then what are you doing?" };
 
-            var actualUser = Users.GetUserByEmail(email);
+            var actualUser = User.GetUserByEmail(email);
 
             Assert.IsNotNull(actualUser);
             Assert.AreEqual(expectedUser.Username, actualUser.Username);
@@ -32,20 +32,34 @@ namespace UnitTests
             var name = "test";
             var birthday = DateTime.Parse("10/4/2002 4:20:00 PM");
             UserDTO user = new UserDTO { username = name, email = "test@gmail.com", password = "123", birthday = birthday, Bio = "Testing for bugs and eradicating them." };
-            Users.InsertUser(user);
+            User.InsertUser(user);
             var email = "test@gmail.com";
 
 
-            Users.DeleteUser(email);
+            User.DeleteUser(email);
 
-            var deletedUser = new Users();
+            var deletedUser = new User();
             try
             {
-                deletedUser = Users.GetUserByName(name);
+                deletedUser = User.GetUserByName(name);
             }
             catch { }
 
             Assert.IsNotNull(deletedUser);
+        }
+        [TestMethod]
+        public void UserAuthentication()
+        {
+            var email = "demonic@gmail.com";
+            var pass = "123";
+
+            var credentials = new User { Email = email, Password = pass };
+
+            var expectedResult = true;
+            var actualResult = User.Authenticate(credentials);
+
+            Assert.IsNotNull(actualResult);
+            Assert.AreEqual(expectedResult, actualResult);
         }
 
         [TestMethod]
@@ -65,6 +79,25 @@ namespace UnitTests
 
             Assert.IsNotNull(actual);
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void CreateUserInstanceFromDTO()
+        {
+            var userDTO = new UserDTO
+            {
+                username = "test",
+                email = "test@gmail.com",
+                password = "123"
+            };
+
+            var result = User.FromDTO(userDTO);
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(User));
+            Assert.AreEqual(userDTO.username, result.Username);
+            Assert.AreEqual(userDTO.email, result.Email);
+            Assert.AreEqual(userDTO.password, result.Password);
         }
 
     }

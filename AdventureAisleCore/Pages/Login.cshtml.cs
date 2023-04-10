@@ -14,7 +14,7 @@ namespace AdventureAisleCore.Pages
     public class LoginCoreModel : PageModel
     {
         [BindProperty]
-        public Users Usr { get; set; }
+        public User Usr { get; set; }
 
 
 
@@ -25,29 +25,29 @@ namespace AdventureAisleCore.Pages
         }
         public async Task<IActionResult> OnPostAsync() 
         {
-            if (ModelState.IsValid && Users.Authenticate(Usr) == true)
+            if (ModelState.IsValid && BusinessLogic.Entities.User.Authenticate(Usr) == true)
             {
-                    
-                    Usr = Users.GetUserByEmail(Usr.Email);
-                    HttpContext.Session.SetInt32("userId", (int)Usr.Id);
 
-                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(
+                Usr = BusinessLogic.Entities.User.GetUserByEmail(Usr.Email);
+                HttpContext.Session.SetInt32("userId", (int)Usr.Id);
+
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(
                     new Claim[]
                     {
                         new Claim("id", Usr.Email),
-                        new Claim(ClaimTypes.Name,Usr.Username ),
+                        new Claim(ClaimTypes.Name, Usr.Username),
                         new Claim(ClaimTypes.Role, "User"),
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
-                    ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                     await HttpContext.SignInAsync(claimsPrincipal);
 
-                    return RedirectToPage("/Profile");
+                    return base.RedirectToPage("/Profile");
 
             }
             else
             {
                 TempData["msg"] = "Login failed! Incorrect username or password.";
-                return Page();
+                return base.Page();
             }
 
         }

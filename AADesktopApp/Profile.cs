@@ -21,7 +21,7 @@ namespace DesktopApp
         public Profile(UserDTO loggedInusr)
         {
             InitializeComponent();
-            _userRepository = Users.GetDAO();
+            _userRepository = User.GetDAO();
             if (loggedInusr != null)
             {
                 user = _userRepository.GetUserByEmail(loggedInusr.email);

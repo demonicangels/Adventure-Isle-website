@@ -18,7 +18,7 @@
 
         public string ImgURL { get; set; }
 
-        public Destination() { }
+       public Destination() { }
        public Destination(string name, string country, string briefDescription, string currency, string climate)
        {
            Name = name;

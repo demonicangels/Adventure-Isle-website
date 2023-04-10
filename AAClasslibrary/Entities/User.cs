@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BusinessLogic.Entities
 {
-    public class Users
+    public class User
     {
         static IUserRepository _userRepository;
         
@@ -23,21 +23,21 @@ namespace BusinessLogic.Entities
 
         public DateTime UserSince { get; set; }
 
-        public Users? LoggedInAccount { get; set; }
+        public User? LoggedInAccount { get; set; }
 
         public DateTime Birthday { get; set; }
 
         public string? Bio { get; set; }
 
-        public Users() { }
+        public User() { }
         public static IUserRepository GetDAO()
         {
             IUserRepository userRepository = new UserRepository();
             return userRepository;
         }
-        public static Users FromDTO(UserDTO user)
+        public static User FromDTO(UserDTO user)
         {
-            Users user1 = new Users()
+            User user1 = new User()
             {
                 Id = user.Id,
                 Username = user.username,
@@ -49,7 +49,7 @@ namespace BusinessLogic.Entities
             };
             return user1;
         }
-        private static UserDTO ToDTO(Users user)
+        private static UserDTO ToDTO(User user)
         {
             UserDTO userDTO = new UserDTO()
             {
@@ -75,17 +75,17 @@ namespace BusinessLogic.Entities
             _userRepository = GetDAO();
             _userRepository.DeleteUser(email);
         }
-        public static Users GetUserByName(string name)
+        public static User GetUserByName(string name)
         {
             _userRepository = GetDAO();
             return FromDTO(_userRepository.GetUserByName(name));
         }
-        public static Users GetUserByEmail(string email)
+        public static User GetUserByEmail(string email)
         {
             _userRepository = GetDAO();
             return FromDTO(_userRepository.GetUserByEmail(email));
         }
-        public static Users GetUserById(int id)
+        public static User GetUserById(int id)
         {
             _userRepository = GetDAO();
             return FromDTO(_userRepository.GetUserById(id));
@@ -96,7 +96,7 @@ namespace BusinessLogic.Entities
             var users = _userRepository.GetAllUsers();
             return users.ToArray();
         }
-        public static bool Authenticate(Users user)
+        public static bool Authenticate(User user)
         {
             _userRepository = GetDAO();
             var result = _userRepository.Authentication(ToDTO(user));

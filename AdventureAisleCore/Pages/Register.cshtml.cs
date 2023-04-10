@@ -11,30 +11,22 @@ namespace AdventureAisleCore.Pages
     {
         [BindProperty]
         public UserDTO Usr { get; set; }
-        IUserRepository _userRepository;
 
-
-        public RegisterCoreModel(IUserRepository userRepository) 
-        { 
-            _userRepository = userRepository;
-        }
-
+       
         public void OnGet()
         {
         }
         public IActionResult OnPost()
         {
-           
                 if (!ModelState.IsValid)
                 {
                     return Page();
                 }
                 else
                 {
-                    _userRepository.InsertUser(Usr);
+                BusinessLogic.Entities.User.InsertUser(Usr);
                     return RedirectToPage("Login");
                 }
-               
         }
     }
 }

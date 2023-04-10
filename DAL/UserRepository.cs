@@ -157,7 +157,7 @@ namespace DAL
                     u.userSince = (DateTime)reader["created_at"];
                     u.birthday = (DateTime)reader["birthday"];
                     u.Bio = reader["bio"].ToString();
-                    u.profilePic = /*(byte[]?)((byte[])reader["ProfilePicture"] == null ? (object)DBNull.Value :*/ (byte[])reader["ProfilePicture"];
+                    //u.profilePic = /*(byte[]?)((byte[])reader["ProfilePicture"] == null ? (object)DBNull.Value :*/ (byte[])reader["ProfilePicture"];
                 }
 
             }
