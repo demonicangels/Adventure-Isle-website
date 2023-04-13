@@ -1,8 +1,4 @@
 using BusinessLogic;
-using BusinessLogic.Entities;
-using DAL.Interfaces;
-using DAL.DTOs;
-using BusinessLogic.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -25,10 +21,10 @@ namespace AdventureAisleCore.Pages
         }
         public async Task<IActionResult> OnPostAsync() 
         {
-            if (ModelState.IsValid && BusinessLogic.Entities.User.Authenticate(Usr) == true)
+            if (ModelState.IsValid && UserService.Authenticate(Usr) == true)
             {
 
-                Usr = BusinessLogic.Entities.User.GetUserByEmail(Usr.Email);
+                Usr = UserService.GetUserByEmail(Usr.Email);
                 HttpContext.Session.SetInt32("userId", (int)Usr.Id);
 
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(
@@ -46,6 +42,7 @@ namespace AdventureAisleCore.Pages
             }
             else
             {
+                await HttpContext.ForbidAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 TempData["msg"] = "Login failed! Incorrect username or password.";
                 return base.Page();
             }

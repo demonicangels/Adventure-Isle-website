@@ -1,7 +1,4 @@
 using BusinessLogic;
-using BusinessLogic.Entities;
-using DAL.Interfaces;
-using DAL.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -24,7 +21,7 @@ namespace AdventureAisleCore.Pages
                 }
                 else
                 {
-                BusinessLogic.Entities.User.InsertUser(Usr);
+                    UserService.InsertUser(Usr);
                     return RedirectToPage("Login");
                 }
         }

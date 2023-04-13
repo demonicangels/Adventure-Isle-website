@@ -1,5 +1,5 @@
-using BusinessLogic.Entities;
-using BusinessLogic.Enums;
+
+using BusinessLogic;
 using DAL;
 using System.Data.SqlClient;
 

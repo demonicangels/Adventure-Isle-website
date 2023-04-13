@@ -1,16 +1,4 @@
 ﻿using BusinessLogic;
-using BusinessLogic.Entities;
-using DAL.DTOs;
-using DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace DesktopApp
 {
@@ -21,7 +9,6 @@ namespace DesktopApp
         public Profile(UserDTO loggedInusr)
         {
             InitializeComponent();
-            _userRepository = User.GetDAO();
             if (loggedInusr != null)
             {
                 user = _userRepository.GetUserByEmail(loggedInusr.email);

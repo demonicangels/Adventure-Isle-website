@@ -1,5 +1,4 @@
-using DAL.Interfaces;
-using DAL.DTOs;
+using BusinessLogic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

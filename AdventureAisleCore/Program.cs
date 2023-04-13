@@ -1,10 +1,13 @@
-using DAL.Interfaces;
-using DAL;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using BusinessLogic;
+using DAL;
 
 var builder = WebApplication.CreateBuilder(args);
+
+IUserRepository userRepository = new UserRepository();
+UserService.Initialize(userRepository);
+IDestinationRepository _destinationRepository = new DestinationRepository();
+DestinationService.Initialize(_destinationRepository);
 
 // Add services to the container.
 builder.Services.AddRazorPages();

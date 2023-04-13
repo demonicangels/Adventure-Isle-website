@@ -1,6 +1,5 @@
 ﻿using BusinessLogic;
-using DAL.Interfaces;
-using DAL.DTOs;
+
 
 
 namespace DesktopApp

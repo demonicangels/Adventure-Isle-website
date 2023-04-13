@@ -1,5 +1,4 @@
-using DAL.Interfaces;
-using DAL.DTOs;
+using BusinessLogic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -12,17 +11,24 @@ namespace AdventureAisleCore.Pages
 
         IDestinationRepository _destinationRepository;
         public List<DestinationDTO>? Destination { get; set; } = new List<DestinationDTO>();
-        public DestinationsModel(IDestinationRepository destinationRepository)
+
+        public DestinationsModel(IDestinationRepository destinationRepository) 
         {
             _destinationRepository = destinationRepository;
         }
-
+       
         public void OnGet()
         {
-            if (!String.IsNullOrEmpty(Country))
+			var result = HttpContext.Session.GetString("search");
+
+			if (!String.IsNullOrEmpty(Country))
             {
-                Destination = (_destinationRepository.GetAllDestinations(Country));
+                Destination = (_destinationRepository.GetAllDestinationsByCountry(Country));
             }
-        }
+            else if (!String.IsNullOrEmpty(result))
+            {
+				Destination.Add(_destinationRepository.GetDestinationByName(result));
+			}
+		}
     }
 }

@@ -1,0 +1,36 @@
+﻿body {
+    background-image: url("../images/parisBack.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+}
+
+page-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+img {
+    grid-column: 1;
+    width: 450px;
+    height: 300px;
+    margin-left: 18%;
+}
+h1,h5{
+    color:white;
+}
+.flex-container {
+    display: flex;
+}
+.text {
+    grid-column: 2;
+    margin-left: 50px;
+    width: 150px;
+}
+
+.buttons {
+    width: 150px;
+}
+
+

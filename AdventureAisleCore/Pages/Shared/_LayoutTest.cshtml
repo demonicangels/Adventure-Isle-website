@@ -1,0 +1,394 @@
+﻿@page
+@model AdventureAisleCore.Pages.Shared._LayoutTestModel
+@{
+}
+<link rel="stylesheet" href="~/css/Test.css" />
+<header class="header">
+    <div class="logo">
+        <a href="/">
+            <img src="/Content/dist/img/themes/Default/logo.svg?v=1.0.0.20123.1" alt="World nature Fund" width="137" height="137">
+        </a>
+        <script type="application/ld+json">{"": "http://schema.org","": "Organization","url": "https://www.wwf.nl","logo": "https://www.wwf.nl/Content/dist/img/wnf.jpg"}</script>
+    </div>
+
+    <div class="container header__topmenu">
+        <div class="header__meta">
+            <nav class="personal-nav">
+                <ul>
+                    <li><a href="/contact"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contact</font></font></a></li>
+                    <li><a href="/wat-we-doen/over-wwf"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">About WWF</font></font></a></li>
+                    <li><a href="https://vrijwilligers.wwf.nl/" target="_blank" title="Volunteers"><i class="icon-profile"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Volunteers</font></font></a></li>
+                    <li id="cartLink" class="cart-link">
+                        <a href="/winkelwagen">
+                            <span class="cart-n-items"></span>
+                            <i class="icon-cart-rounded"></i><font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">
+                                    Shopping cart
+                                </font>
+                            </font>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <nav class="second-nav">
+                <ul>
+                    <li><a class="btn btn--small btn--ghost-gradient" href="/kom-in-actie" title="Take action"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Join</font></font></a></li>
+                    <li><a class="btn btn--small u-text-white btn--min-width--small btn--gradient btn--gradient-secondary" href="/kom-in-actie/met-een-donatie" title="Take action with a donation"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Donate</font></font></a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="header__main">
+            <nav class="main-nav">
+                <ul class="main-nav__depth-1">
+                    <li class="">
+                        <a href="/wat-we-doen" title="What we do"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">What we do</font></font></a>
+                        <div class="main-nav__submenu">
+                            <div class="container">
+                                <ul class="main-nav__depth-2">
+                                    <li class="">
+                                        <a href="/wat-we-doen/aanpak" title="How we work"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">How we work</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="/wat-we-doen/aanpak/lokale-partners" title="Together with local partners"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Together with local partners</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/kom-in-actie/met-een-donatie/steun-wwf-met-je-bedrijf/samen-met-bedrijven" title="Together with companies"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Together with companies</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/wat-we-doen/aanpak/internationaal/lokale-bevolking" title="Together with local people"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Together with local people</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/wat-we-doen/aanpak/internationaal" title="WWF International"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">WWF International</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/wat-we-doen/aanpak/mensenrechten" title="WWF and human rights"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">WWF and human rights</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/wat-we-doen/over-wwf/regels-en-gedragscodes" title="Rules and Codes of Conduct"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Rules and Codes of Conduct</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="">
+                                        <a href="/wat-we-doen/resultaten" title="Our results"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Our results</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="/wat-we-doen/resultaten/projecten" title="Our projects"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Our projects</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/wat-we-doen/resultaten/updates" title="updates"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">updates</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="">
+                                        <a href="/wat-we-doen/focus" title="Our focus"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Our focus</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="/wat-we-doen/focus/biodiversiteit" title="Biodiversity"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Biodiversity</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/wat-we-doen/focus/bossen" title="Forests"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Forests</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/wat-we-doen/focus/klimaatverandering" title="Climate change"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Climate change</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/wat-we-doen/focus/oceanen" title="Oceans"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Oceans</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/wat-we-doen/focus/voedsel" title="Food"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Food</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/wat-we-doen/focus/wildlife" title="Wildlife"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Wildlife</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/wat-we-doen/focus/zoetwater" title="Fresh water"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fresh water</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="">
+                                        <a href="/wat-we-doen/waar-zijn-we-actief" title="Where do we operate"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Where do we operate</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/wat-we-doen/actueel" title="Topical"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Topical</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="/wat-we-doen/actueel/nieuws" title="News"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">News</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/wat-we-doen/actueel/blog" title="Employee blogging"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Employee blogging</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <a href="/kom-in-actie" title="Take action"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Take action</font></font></a>
+                        <div class="main-nav__submenu">
+                            <div class="container">
+                                <ul class="main-nav__depth-2">
+                                    <li class="">
+                                        <a href="/kom-in-actie/met-tijd" title="With time"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">With time</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="https://voetafdruktest.wwf.nl/" title="Take the footprint test" target="_BLANK"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Take the footprint test</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/kom-in-actie/met-tijd/tips-gedrag" title="Behavior change tips"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Behavior change tips</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/kom-in-actie/met-tijd/word-vrijwilliger" title="Become volunteer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Become volunteer</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="https://kominactie.wnf.nl/" title="Start your own action" target="_BLANK"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Start your own action</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="">
+                                        <a href="/kom-in-actie/met-een-donatie" title="With a donation"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">With a donation</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="/kom-in-actie/met-een-donatie/word-donateur" title="Become a donor"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Become a donor</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/kom-in-actie/met-een-donatie/geef-een-gift" title="Give a gift"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Give a gift</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/kom-in-actie/met-een-donatie/testament" title="Leave by will"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Leave by will</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/kom-in-actie/met-een-donatie/cadeau-lidmaatschap" title="Gift Membership"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Gift Membership</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/kom-in-actie/met-een-donatie/belastingvrij-schenken" title="Donate tax-free"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Donate tax-free</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/kom-in-actie/met-een-donatie/groot-schenken" title="Donate big"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Donate big</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/kom-in-actie/met-een-donatie/steun-wwf-met-je-bedrijf" title="With your company"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">With your company</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="">
+                                        <a href="/activiteiten" title="Activities"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Activities</font></font></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <a href="/dieren" title="Endangered animals"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Endangered animals</font></font></a>
+                        <div class="main-nav__submenu">
+                            <div class="container">
+                                <ul class="main-nav__depth-2">
+                                    <li class="">
+                                        <a href="/dieren/dolfijn" title="Dolphin"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Dolphin</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/haai" title="Shark"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Shark</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/jaguar" title="Jaguar"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Jaguar</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/koraal" title="Coral"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Coral</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/leeuw" title="Lion"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lion</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/luipaard" title="Leopard"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Leopard</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/neushoorn" title="Rhino"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Rhino</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/olifant" title="Elephant"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Elephant</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/orang-oetan" title="Orang-utan"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Orang-utan</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/panda" title="Panda"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Panda</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/tijger" title="Tiger"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tiger</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/walvis" title="Whale"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Whale</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/ijsbeer" title="Polar bear"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Polar bear</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/dieren/zeeschildpad" title="Sea turtle"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sea turtle</font></font></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <a href="/jeugd" title="Youth"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Youth</font></font></a>
+                        <div class="main-nav__submenu">
+                            <div class="container">
+                                <ul class="main-nav__depth-2">
+                                    <li class="">
+                                        <a href="/jeugd/word-wwf-ranger/maak-je-keuze" title="WWF Rangers (3-12)"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">WWF Rangers (3-12)</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="/jeugd/word-wwf-ranger/wereldvragen" title="World questions"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">World questions</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/jeugd/word-wwf-ranger/maak-je-keuze" title="Make your child Ranger"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Make your child Ranger</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="">
+                                        <a href="/jeugd/YOUTH" title="WWF YOUTH (12-20)"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">WWF YOUTH (12-20)</font></font></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="/jeugd/educatie" title="Education"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Education</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="/jeugd/educatie/toekomstkunde" title="Futures lessons"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Futures lessons</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/jeugd/educatie/gastlessen" title="Guest lessons"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Guest lessons</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/jeugd/educatie/how-to" title="Making schools more sustainable"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Making schools more sustainable</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/jeugd/educatie/in-actie-voor-wwf" title="Take action with your school"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Take action with your school</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="https://rangers.wwf.nl/spreekbeurten" title="speaking engagements"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">speaking engagements</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <a href="/webshop" title="Online store"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Online store</font></font></a>
+                        <div class="main-nav__submenu">
+                            <div class="container">
+                                <ul class="main-nav__depth-2">
+                                    <li class="">
+                                        <a href="/webshop/symbolische-cadeaus-2" title="Symbolic gifts"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Symbolic gifts</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="/webshop/symbolische-cadeaus-2/adopteer-een-dier" title="Adoption Packages"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Adoption Packages</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/symbolische-cadeaus-2/bosje-bomen" title="Bunch of Trees"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Bunch of Trees</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="">
+                                        <a href="/webshop/duurzaam" title="Durable"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Durable</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="/webshop/duurzaam/plasticvervangers" title="Plastic substitutes"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Plastic substitutes</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/duurzaam/gerecycled-materiaal" title="Recycled material"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Recycled material</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="">
+                                        <a href="/webshop/huis-kantoor" title="Home &amp; office"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Home &amp; office</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="/webshop/huis-kantoor/Kalenders" title="Calendars"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Calendars</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/huis-kantoor/kantoorartikelen/ansichtkaarten" title="Postcards"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Postcards</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/huis-kantoor/verzorging" title="Care"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Care</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/huis-kantoor/eet-en-drinkgerei" title="Eating and drinking utensils"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Eating and drinking utensils</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/huis-kantoor/boeken" title="Books"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Books</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/huis-kantoor/kinderboeken" title="Children's books"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Children's books</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/huis-kantoor/tuin" title="Garden"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Garden</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/huis-kantoor/huishouden" title="Households"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Households</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/huis-kantoor/kantoorartikelen/notitieboekjes" title="Notebooks"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Notebooks</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="">
+                                        <a href="/webshop/kleding-accessoires" title="Clothing &amp; Accessories"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Clothing &amp; Accessories</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="/webshop/kleding-accessoires/duurzame-tassen" title="Bags"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Bags</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/kleding-accessoires/sokken" title="Socks"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Socks</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/kleding-accessoires/accessoires" title="accessories"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">accessories</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/kleding-accessoires/dameskleding" title="Women's clothing"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Women's clothing</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/kleding-accessoires/herenkleding" title="Menswear"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Menswear</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/kleding-accessoires/kinderkleding" title="Children's clothing"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Children's clothing</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="">
+                                        <a href="/webshop/speelgoed" title="Toys"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Toys</font></font></a>
+                                        <ul class="main-nav__depth-3">
+                                            <li class="">
+                                                <a href="/webshop/speelgoed/knuffels" title="Cuddly toys"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cuddly toys</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/speelgoed/puzzels" title="Puzzles"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Puzzles</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/speelgoed/spellen" title="Games"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Games</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/speelgoed/constructiespeelgoed" title="Construction toys"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Construction toys</font></font></a>
+                                            </li>
+                                            <li class="">
+                                                <a href="/webshop/speelgoed/schoolschriften" title="School notebooks"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">School notebooks</font></font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </nav>
+            <div class="search-toggle js-search-toggle">
+                <i class="icon-search"></i>
+                <i class="icon-plus"></i>
+            </div>
+        </div>
+
+
+    </div>
+    <div id="search" class="search"><form method="get" action="/zoeken"><div class="container"><div class="search__input"><label for="q"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Search</font></font></font></font></label> <input type="search" name="q" id="q" value="" autocomplete="off" placeholder="" class="js-search-input" style="width: 997.938px;"> <span class="search__value"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></span> <span class="search__suggest" style="left: 0px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></span> <button type="submit" class="search__submit js-search-submit" style="left: 1154.17px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Search</font></font></font></font></button></div></div> <div class="search__results"><div class="container"><!----> <!----></div> <ul style="display: none;"></ul></div></form></div>
+</header>

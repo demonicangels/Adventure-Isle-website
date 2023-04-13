@@ -1,4 +1,6 @@
-﻿namespace BusinessLogic.Entities
+﻿
+
+namespace BusinessLogic
 {
     public class Destination
     {
@@ -15,18 +17,9 @@
         public double AvgRating { get; set; }
         public string Currency { get; set; }
         public string Climate { get; set; }
-
         public string ImgURL { get; set; }
 
-       public Destination() { }
-       public Destination(string name, string country, string briefDescription, string currency, string climate)
-       {
-           Name = name;
-           Country = country;
-           BriefDescription = briefDescription;
-           Currency = currency;
-           Climate = climate;
-       }
+       
 
         public void AddReview(Review r)
         {

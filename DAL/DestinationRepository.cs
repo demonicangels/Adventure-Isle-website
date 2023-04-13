@@ -1,8 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
-using DAL.Interfaces;
-using DAL.DTOs;
+using BusinessLogic;
 
-namespace DAL
+namespace BusinessLogic 
 {
     public class DestinationRepository : IDestinationRepository
     {
@@ -62,7 +61,7 @@ namespace DAL
             return d;
         }
 
-        public List<DestinationDTO> GetAllDestinations(string country)
+        public List<DestinationDTO> GetAllDestinationsByCountry(string country)
         {
             var query = $"SELECT * FROM Destinations where Country = @Country";
             var destinations = new List<DestinationDTO>();
