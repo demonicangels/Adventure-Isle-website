@@ -15,10 +15,18 @@ namespace AdventureAisleCore.Pages
 
         [BindProperty]
         public IFormFile? Imagebytes { get; set; }
-        
-        public UserDTO? Usr { get; set; } = new UserDTO();
 
-        public IActionResult OnGet()
+        [BindProperty]
+        public string Username { get; set; }
+
+        [BindProperty]
+        public string Bio { get; set; }
+
+        public UserDTO Usr { get; set; }= new UserDTO();
+
+        [BindProperty]
+        public string IsInEditMode { get; set; }
+        public void OnGet()
         {
             int? userId = HttpContext.Session.GetInt32("userId");
 
@@ -26,14 +34,13 @@ namespace AdventureAisleCore.Pages
             {
                 Usr = _userRepository.GetUserById((int)userId);
             }
-            return Page();
+            
         }
-
 
         public void OnPost()
         {
             int? userId = HttpContext.Session.GetInt32("userId");
-
+            
             if (userId.HasValue)
             {
                 Usr = _userRepository.GetUserById((int)userId);
@@ -46,6 +53,16 @@ namespace AdventureAisleCore.Pages
                 byte[] bindata = memoryStream.ToArray();
                 _userRepository.InsertImage(bindata, Usr.Username);
             }
+
+            if (IsInEditMode == "Submit")
+            {
+                Usr.Username = Username;
+                Usr.Bio = Bio;
+                var user = UserService.FromDTO(Usr);
+                UserService.UpdateUser(user);
+            }
+            
+            
         }
     }
 }

@@ -14,6 +14,15 @@
 						<button>Been</button>
 						<button>Going to</button>
 					</div>	
+				<div class="review">
+					<h5> Username </h5>
+					@foreach(var review in Model.Reviews)
+					{
+						<p>@review.ReviewTxt</p>
+					}
+					
+				</div>
+			</div>
 			</div>
 		</div>
 	</div>

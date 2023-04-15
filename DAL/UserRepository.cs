@@ -27,7 +27,21 @@ namespace DAL
             }
 
         }
-        public void DeleteUser(string email)
+		public void Update(UserDTO user)
+		{
+			var query = "UPDATE Users SET username = @us, email = @em, birthday = @birth, bio = @bio WHERE email = @em ";
+			using (SqlConnection con = new SqlConnection(connection))
+			{
+				con.Open();
+				SqlCommand cmd = new SqlCommand(query, con);
+				cmd.Parameters.AddWithValue("@em", user.Email);
+				cmd.Parameters.AddWithValue("@us", user.Username);
+				cmd.Parameters.AddWithValue("@birth", user.Birthday);
+				cmd.Parameters.AddWithValue("@bio", user.Bio);
+				cmd.ExecuteNonQuery();
+			}
+		}
+		public void DeleteUser(string email)
         {
             var query = "DELETE FROM Users WHERE email = @email";
             using (con = new SqlConnection(connection))
@@ -39,7 +53,7 @@ namespace DAL
                 con.Close();
             }
         }
-        public UserDTO[] GetAllUsers()
+		public UserDTO[] GetAllUsers()
         {
             var users = new List<UserDTO>();
             var query = "SELECT * FROM Users";
@@ -180,6 +194,6 @@ namespace DAL
             }
         }
 
-        
-    }
+		
+	}
 }

@@ -6,9 +6,8 @@ namespace BusinessLogic
     {
        
         void InsertUser(UserDTO user, string salt, string hash);
-
-        void DeleteUser(string email);
-
+		void Update(UserDTO user);
+		void DeleteUser(string email);
         UserDTO[] GetAllUsers();
 
         bool Authentication(UserDTO usr);

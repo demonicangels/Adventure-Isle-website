@@ -5,88 +5,81 @@
    
     
 }
-<body>
 <link rel="stylesheet" href="~/css/profile.css" />
-<section class="section about-section gray-bg" id="about">
-    <div class="container-profile">
-        <div class="row align-items-center flex-row-reverse">
-            <div class="col-lg-6">
-                <div class="about-text go-to">
-                    @if (!String.IsNullOrEmpty(@Model.Usr?.Username))
-                    {
-                        <h3 class="dark-color">@Model.Usr.Username</h3>
-                    }
-                    <div class="row about-list">
-                        <div class="col-md-6">
-                            <div class="media">
-                                    @if(Model.Usr?.Birthday != null)
-                                    {
-                                        <label>Birthday</label>
-                                        <p>@Model.Usr?.Birthday</p>
-                                    }
-                            </div>
-                            <div class="media">
-                                <label>Bio</label>
-                                    <p>@Model.Usr?.Bio</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="media">
-                                    @if (!String.IsNullOrEmpty(@Model.Usr?.Email))
-                                    {
-                                        <label>E-mail</label>
-                                        <p>@Model.Usr.Email</p>
-                                    }
-                            </div>
+<body>
+    <section class="section about-section gray-bg" id="about">
+        <div class="container-profile">
+            <div class="row align-items-center flex-row-reverse">
+                <form method="post" class="col-lg-6">
+                    <div class="about-text go-to">
+                        @if (!String.IsNullOrEmpty(@Model.Usr.Username))
+                        {
+                            <h3 class="dark-color">@Model.Usr.Username</h3>
+                        }
+                        <div class="row about-list">
+                            <div class="col-md-6">
                                 <div class="media">
-                                    @if (@Model.Usr?.UserSince != null)
+                                    <label>Email: </label>
+                                    @if (!String.IsNullOrEmpty(@Model.Usr.Email))
                                     {
-                                        <label>User since</label>
+                                        @if (Model.IsInEditMode == "Edit")
+                                        {
+                                            <input asp-for="@Model.Username" type="text" value="@Model.Usr.Username" />
+                                        }
+                                        else
+                                        {
+                                            <p>@Model.Usr.Username</p>
+                                        }
+                                    }
+                                </div>
+                                <div class="media">
+                                    <label>Bio</label>
+                                    @if (Model.IsInEditMode == "Edit")
+                                    {
+                                        <input asp-for="@Model.Bio" type="text" value="@Model.Usr.Bio" />
+                                    }
+                                    else
+                                    {
+                                        <p>@Model.Usr.Bio</p>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="media">
+                                    <label>BirthDay: </label>
+                                    @if (@Model.Usr.Birthday != null)
+                                    {
+                                        <p>@Model.Usr.Birthday</p>
+                                    }
+                                </div>
+                                <div class="media">
+                                    <label>User since</label>
+                                    @if (@Model.Usr.UserSince != null)
+                                    {
                                         <p>@Model.Usr?.UserSince</p>
                                     }
                                 </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="about-avatar">
-                        @if (@Model.Usr?.ProfilePic != null)
+                        <div class="about-avatar">
+                            @if (@Model.Usr?.ProfilePic != null)
+                            {
+                                <img src="data:image/png;base64,@System.Convert.ToBase64String(@Model.Usr?.ProfilePic)" title="" id="avatar">
+                            }
+                        </div>
+
+                        @if (Model.IsInEditMode == "Edit")
                         {
-                            <img src="data:image/png;base64,@System.Convert.ToBase64String(@Model.Usr?.ProfilePic)" title="" id="avatar">
+                            <input type="submit" value="Submit" asp-for="IsInEditMode" />
+
                         }
-                </div>
-                    
+                        else
+                        {
+                            <input type="submit" value="Edit" asp-for="IsInEditMode" />
+                        }
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="counter">
-            <div class="row">
-                <div class="col-6 col-lg-3">
-                    <div class="count-data text-center">
-                        <h6 class="count h2"> 60 </h6>
-                        <p class="m-0px font-w-600"> Destinations been</p>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="count-data text-center">
-                        <h6 class="count h2">150</h6>
-                        <p class="m-0px font-w-600">Destinations going to</p>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="count-data text-center">
-                        <h6 class="count h2" data-to="850" data-speed="850">20</h6>
-                        <p class="m-0px font-w-600">Travel Lists</p>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="count-data text-center">
-                        <h6 class="count h2" data-to="190" data-speed="190">190</h6>
-                        <p class="m-0px font-w-600">Reviews</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 </body>

@@ -33,7 +33,7 @@ namespace BusinessLogic
 			};
             return user1;
         }
-        private static UserDTO ToDTO(User user)
+        public static UserDTO ToDTO(User user)
         {
             UserDTO userDTO = new UserDTO()
             {
@@ -55,39 +55,34 @@ namespace BusinessLogic
             var userInstance = FromDTO(user);
 
             // validate user object and copy user to userdto
-            if (!Validate(userInstance))
-            {
-                return;
-            }
+            if (!Validate(userInstance)) {return;}
             // if all ok? then insert into database with userDto 
             _userRepository.InsertUser(user,salt,hash);
 
         }
         public static void DeleteUser(string email)
         {
-            var dto = _userRepository.GetUserByEmail(email);
-
-            var userInstance = FromDTO(dto);
-
-            if (!Validate(userInstance))
-            {
-                return;
-            }
+            //var dto = _userRepository.GetUserByEmail(email);
+            //
+            //var userInstance = FromDTO(dto);
+            //
+            //if (!Validate(userInstance)) {return;}
 
             _userRepository.DeleteUser(email);
         }
+        public static void UpdateUser(User user)
+        {
+			_userRepository.Update(ToDTO(user));
+		}
         public static User GetUserByName(string name)
         {
             var userDTO = _userRepository.GetUserByName(name);
             
              var userInstance = FromDTO(userDTO);
             
-            if (Validate(userInstance) == true)
-            {
-                userDTO = ToDTO(userInstance);
-            }
+            if (!Validate(userInstance)) {return null;}
             
-            return FromDTO(_userRepository.GetUserByName(name));
+            return userInstance;
         }
         public static User GetUserByEmail(string email)
         {
@@ -95,22 +90,27 @@ namespace BusinessLogic
             
             var userInstance = FromDTO(userDTO);
             
-            if (Validate(userInstance) == true)
-            {
-                return FromDTO(_userRepository.GetUserByEmail(email));
-            }
-            return null;
+            if (!Validate(userInstance)) {return null;}
+
+            return userInstance;
             
         }
         public static User GetUserById(int id)
         {
-            return FromDTO(_userRepository.GetUserById(id));
+            var userDTO = _userRepository.GetUserById(id);
+
+            var userInstance = FromDTO(userDTO);
+
+            if (!Validate(userInstance)) {return null;}
+
+			return userInstance;
         }
         public static UserDTO[] GetUsers()
         {
             var users = _userRepository.GetAllUsers();
             return users.ToArray();
         }
+
         public static bool Authenticate(string email,string pass,string salt, string hashedPassword )
         {
             var result = false;

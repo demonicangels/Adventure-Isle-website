@@ -16,7 +16,7 @@ namespace BusinessLogic
         }
         public static void InsertDestination(DestinationDTO destination)
         {
-
+           
 
         }
 
