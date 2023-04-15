@@ -11,13 +11,13 @@ namespace UnitTests
         {
             return true;
         }
-		public void InsertUser(UserDTO user)
+		public void InsertUser(UserDTO user, string salt, string hash)
 		{
 			users.Add(user);
 		}
 		public void DeleteUser(string email)
         {
-			var userDto = users.Where(x => x.email == email).FirstOrDefault();
+			var userDto = users.Where(x => x.Email == email).FirstOrDefault();
             users.Remove(userDto);
 		}
 
@@ -28,7 +28,7 @@ namespace UnitTests
 
         public UserDTO GetUserByEmail(string email)
         {
-			var userDto = users.Where(x => x.email == email).FirstOrDefault();
+			var userDto = users.Where(x => x.Email == email).FirstOrDefault();
             return userDto;
         }
 

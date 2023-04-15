@@ -26,13 +26,13 @@ namespace DesktopApp
         {
             UserDTO user = new UserDTO()
             {
-                username = usernameUsertxt.Text,
-                password = passwordUsertxt.Text,
-                email = emailUsertxt.Text,
-                birthday = birthdayDtp.Value,
+                Username = usernameUsertxt.Text,
+                Password = passwordUsertxt.Text,
+                Email = emailUsertxt.Text,
+                Birthday = birthdayDtp.Value,
             };
 
-            UserService.InsertUser(user);
+            UserService.InsertUser(user,"","");
             MessageBox.Show("Succesful insert of data.");
             Clear();
         }
@@ -50,7 +50,7 @@ namespace DesktopApp
             var users = UserService.GetUsers();
             for (int i = 0; i < users.Length; i++)
             {
-                userScreen.Items.Add(users[i].email);
+                userScreen.Items.Add(users[i].Email);
             }
         }
 
@@ -65,8 +65,9 @@ namespace DesktopApp
 
         private void userScreen_Click(object sender, EventArgs e)
         {
-            var user = UserService.GetUserByEmail(userScreen.SelectedItem.ToString());
-            MessageBox.Show(user.UserInfo());
+            //var usr = UserService.GetUserByEmail(userScreen.SelectedItem.ToString());
+            //var user = UserService.FromDTO(usr);
+            //MessageBox.Show(user.UserInfo());
         }
     }
 }

@@ -16,9 +16,6 @@ namespace BusinessLogic
         {
             necessities.Add(nes);
         }
-        public List<string> GetTravelList()
-        {
-            return necessities;
-        }
+        public List<string> GetTravelList { get { return necessities; } }
     }
 }

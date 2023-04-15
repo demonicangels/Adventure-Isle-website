@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,13 +23,14 @@ namespace BusinessLogic
             User user1 = new User()
             {
                 Id = user.Id,
-                Username = user.username,
-                Password = user.password,
-                Email = user.email,
-                UserSince = user.userSince,
-                Birthday = user.birthday,
+                Username = user.Username,
+                Email = user.Email,
+                UserSince = user.UserSince,
+                Birthday = user.Birthday,
                 Bio = user.Bio,
-            };
+				Salt = user.Salt,
+				HashedPass = user.HashedPass
+			};
             return user1;
         }
         private static UserDTO ToDTO(User user)
@@ -36,17 +38,18 @@ namespace BusinessLogic
             UserDTO userDTO = new UserDTO()
             {
                 Id = user.Id,
-                username = user.Username,
-                password = user.Password,
-                email = user.Email,
-                userSince = user.UserSince,
-                birthday = user.Birthday,
+                Username = user.Username,
+                Email = user.Email,
+                UserSince = user.UserSince,
+                Birthday = user.Birthday,
                 Bio = user.Bio,
+                Salt = user.Salt,
+                HashedPass = user.HashedPass
             };
             return userDTO;
 
         }
-        public static void InsertUser(UserDTO user)
+        public static void InsertUser(UserDTO user, string salt, string hash)
         {
             // userDto copy to user
             var userInstance = FromDTO(user);
@@ -57,7 +60,7 @@ namespace BusinessLogic
                 return;
             }
             // if all ok? then insert into database with userDto 
-            _userRepository.InsertUser(user);
+            _userRepository.InsertUser(user,salt,hash);
 
         }
         public static void DeleteUser(string email)
@@ -76,12 +79,11 @@ namespace BusinessLogic
         public static User GetUserByName(string name)
         {
             var userDTO = _userRepository.GetUserByName(name);
-            // userDto copy to user
+            
              var userInstance = FromDTO(userDTO);
-            // validate user object and copy user to userdto
+            
             if (Validate(userInstance) == true)
             {
-                // copy user to userDto
                 userDTO = ToDTO(userInstance);
             }
             
@@ -90,12 +92,11 @@ namespace BusinessLogic
         public static User GetUserByEmail(string email)
         {
             var userDTO = _userRepository.GetUserByEmail(email);
-            // userDto copy to user
+            
             var userInstance = FromDTO(userDTO);
-            // validate user object and copy user to userdto
+            
             if (Validate(userInstance) == true)
             {
-                userDTO = ToDTO(userInstance);
                 return FromDTO(_userRepository.GetUserByEmail(email));
             }
             return null;
@@ -110,9 +111,16 @@ namespace BusinessLogic
             var users = _userRepository.GetAllUsers();
             return users.ToArray();
         }
-        public static bool Authenticate(User user)
+        public static bool Authenticate(string email,string pass,string salt, string hashedPassword )
         {
-            var result = _userRepository.Authentication(ToDTO(user));
+            var result = false;
+			var expectedHash = Security.CreateHash(salt, pass);
+            var actualHash = UserService.GetUserByEmail(email).HashedPass;
+
+            if(expectedHash == actualHash)
+            {
+                result = true;
+            }
             return result;
         }
 

@@ -12,6 +12,8 @@ namespace AdventureAisleCore.Pages
         [BindProperty]
         public User Usr { get; set; }
 
+        public User LoggedInUser { get; set; } = new User();
+
 
 
 
@@ -21,17 +23,17 @@ namespace AdventureAisleCore.Pages
         }
         public async Task<IActionResult> OnPostAsync() 
         {
-            if (ModelState.IsValid && UserService.Authenticate(Usr) == true)
+			LoggedInUser = UserService.GetUserByEmail(Usr.Email);
+			if (ModelState.IsValid && UserService.Authenticate(Usr.Email, Usr.Password, LoggedInUser.Salt, LoggedInUser.HashedPass) == true)
             {
-
-                Usr = UserService.GetUserByEmail(Usr.Email);
-                HttpContext.Session.SetInt32("userId", (int)Usr.Id);
+				
+				HttpContext.Session.SetInt32("userId", (int)LoggedInUser.Id);
 
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(
                     new Claim[]
                     {
-                        new Claim("id", Usr.Email),
-                        new Claim(ClaimTypes.Name, Usr.Username),
+                        new Claim("id", LoggedInUser.Email),
+                        new Claim(ClaimTypes.Name, LoggedInUser.Username),
                         new Claim(ClaimTypes.Role, "User"),
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);

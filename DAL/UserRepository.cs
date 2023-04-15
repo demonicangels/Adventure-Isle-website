@@ -9,19 +9,20 @@ namespace DAL
         SqlConnection con;
         SqlCommand cmd;
 
-        public void InsertUser(UserDTO user)
+        public void InsertUser(UserDTO user, string salt, string hash)
         {
-            var query = "INSERT INTO Users (username, password, email, birthday) VALUES (@username, @password, @email,@birthday)";
+            var query = "INSERT INTO Users (username, email, birthday, Salt, Hash) VALUES (@username, @email,@birthday, @salt, @hash)";
             using (con = new SqlConnection(connection))
             {
 
                 con.Open();
                 cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@username", user.username);
-                cmd.Parameters.AddWithValue("@password", user.password);
-                cmd.Parameters.AddWithValue("@email", user.email);
-                cmd.Parameters.AddWithValue("@birthday", user.birthday);
-                cmd.ExecuteNonQuery();
+                cmd.Parameters.AddWithValue("@username", user.Username);
+                cmd.Parameters.AddWithValue("@email", user.Email);
+                cmd.Parameters.AddWithValue("@birthday", user.Birthday);
+				cmd.Parameters.AddWithValue("@salt", salt);
+                cmd.Parameters.AddWithValue("@hash", hash);
+				cmd.ExecuteNonQuery();
                 con.Close();
             }
 
@@ -51,10 +52,10 @@ namespace DAL
                 while (reader.Read())
                 {
                     UserDTO usr = new UserDTO();
-                    usr.username = reader["username"].ToString();
-                    usr.password = reader["password"].ToString();
-                    usr.email = reader["email"].ToString();
-                    usr.birthday = (DateTime)reader["birthday"];
+                    usr.Username = reader["username"].ToString();
+                    usr.Password = null;
+                    usr.Email = reader["email"].ToString();
+                    usr.Birthday = (DateTime)reader["birthday"];
                     if (usr != null)
                     {
                         users.Add(usr);
@@ -77,7 +78,7 @@ namespace DAL
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    if (usr.email == reader["email"].ToString() && usr.password == reader["password"].ToString())
+                    if (usr.Email == reader["email"].ToString() && usr.HashedPass == reader["Hash"].ToString())
                     {
                         boolValue = true;
                         return boolValue;
@@ -102,12 +103,12 @@ namespace DAL
                 while (reader.Read())
                 {
                     u.Id = Convert.ToInt32(reader["Id"]);
-                    u.username = reader["username"].ToString();
-                    u.password = reader["password"].ToString();
-                    u.email = reader["email"].ToString();
-                    u.birthday = (DateTime)reader["birthday"];
+                    u.Username = reader["username"].ToString();
+					u.Password = null;
+					u.Email = reader["email"].ToString();
+                    u.Birthday = (DateTime)reader["birthday"];
                     u.Bio = reader["bio"].ToString();
-                    u.userSince = (DateTime)reader["created_at"];
+                    u.UserSince = (DateTime)reader["created_at"];
                 };
             }
             return u;
@@ -126,13 +127,15 @@ namespace DAL
                 while (reader.Read())
                 {
                     u.Id = Convert.ToInt32(reader["Id"]);
-                    u.username = reader["username"].ToString();
-                    u.password = reader["password"].ToString();
-                    u.email = reader["email"].ToString();
-                    u.birthday = (DateTime)reader["birthday"];
+                    u.Username = reader["username"].ToString();
+                    u.Password = null;
+                    u.Email = reader["email"].ToString();
+                    u.Birthday = (DateTime)reader["birthday"];
                     u.Bio = reader["bio"].ToString();
-                    u.userSince = (DateTime)reader["created_at"];
-                };
+                    u.UserSince = (DateTime)reader["created_at"];
+                    u.Salt = reader["Salt"].ToString() ;
+                    u.HashedPass = reader["Hash"].ToString();
+				};
             }
             return u;
         }
@@ -150,11 +153,11 @@ namespace DAL
                 while (reader.Read())
                 {
                     u.Id = id;
-                    u.username = reader["username"].ToString();
-                    u.password = reader["password"].ToString();
-                    u.email = reader["email"].ToString();
-                    u.userSince = (DateTime)reader["created_at"];
-                    u.birthday = (DateTime)reader["birthday"];
+                    u.Username = reader["username"].ToString();
+                    u.Password = null;
+                    u.Email = reader["email"].ToString();
+                    u.UserSince = (DateTime)reader["created_at"];
+                    u.Birthday = (DateTime)reader["birthday"];
                     u.Bio = reader["bio"].ToString();
                     //u.profilePic = /*(byte[]?)((byte[])reader["ProfilePicture"] == null ? (object)DBNull.Value :*/ (byte[])reader["ProfilePicture"];
                 }

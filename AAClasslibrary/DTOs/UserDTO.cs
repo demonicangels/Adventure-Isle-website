@@ -10,24 +10,26 @@ namespace BusinessLogic
 
         [Required]
         [StringLength(20, MinimumLength = 3, ErrorMessage = "Username must be between 3 and 20 characters")]
-        public string username { get; set; }
+        public string Username { get; set; }
 
         [Required]
         [StringLength(20, MinimumLength = 3, ErrorMessage = "Password must be between 3 and 20 characters")]
-        public string password { get; set; }
+        public string Password { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        public string? email { get; set; }
+        public string? Email { get; set; }
 
         public int Id { get; set; }
-        public DateTime birthday { get; set; }
+        public DateTime Birthday { get; set; }
 
-        public DateTime userSince { get; set; }
+        public DateTime UserSince { get; set; }
 
-        public byte[]? profilePic { get; set; }
+        public byte[]? ProfilePic { get; set; }
 
         public string? Bio { get; set; }
+        public string? Salt { get; set; }
+        public string? HashedPass { get; set; }
         
     }
 }

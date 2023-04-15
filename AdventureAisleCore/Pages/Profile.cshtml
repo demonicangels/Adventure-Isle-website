@@ -12,17 +12,17 @@
         <div class="row align-items-center flex-row-reverse">
             <div class="col-lg-6">
                 <div class="about-text go-to">
-                    @if (!String.IsNullOrEmpty(@Model.Usr?.username))
+                    @if (!String.IsNullOrEmpty(@Model.Usr?.Username))
                     {
-                        <h3 class="dark-color">@Model.Usr.username</h3>
+                        <h3 class="dark-color">@Model.Usr.Username</h3>
                     }
                     <div class="row about-list">
                         <div class="col-md-6">
                             <div class="media">
-                                    @if(Model.Usr?.birthday != null)
+                                    @if(Model.Usr?.Birthday != null)
                                     {
                                         <label>Birthday</label>
-                                        <p>@Model.Usr?.birthday</p>
+                                        <p>@Model.Usr?.Birthday</p>
                                     }
                             </div>
                             <div class="media">
@@ -32,17 +32,17 @@
                         </div>
                         <div class="col-md-6">
                             <div class="media">
-                                    @if (!String.IsNullOrEmpty(@Model.Usr?.email))
+                                    @if (!String.IsNullOrEmpty(@Model.Usr?.Email))
                                     {
                                         <label>E-mail</label>
-                                        <p>@Model.Usr.email</p>
+                                        <p>@Model.Usr.Email</p>
                                     }
                             </div>
                                 <div class="media">
-                                    @if (@Model.Usr?.userSince != null)
+                                    @if (@Model.Usr?.UserSince != null)
                                     {
                                         <label>User since</label>
-                                        <p>@Model.Usr?.userSince</p>
+                                        <p>@Model.Usr?.UserSince</p>
                                     }
                                 </div>
                         </div>
@@ -51,9 +51,9 @@
             </div>
             <div class="col-lg-6">
                 <div class="about-avatar">
-                        @if (@Model.Usr?.profilePic != null)
+                        @if (@Model.Usr?.ProfilePic != null)
                         {
-                            <img src="data:image/png;base64,@System.Convert.ToBase64String(@Model.Usr?.profilePic)" title="" id="avatar">
+                            <img src="data:image/png;base64,@System.Convert.ToBase64String(@Model.Usr?.ProfilePic)" title="" id="avatar">
                         }
                 </div>
                     

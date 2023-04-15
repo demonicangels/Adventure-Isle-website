@@ -7,20 +7,20 @@
 
     <form method="post" class="login_form">
         <h1>Register</h1>
-        <label asp-for="Usr.username">Username:</label>
-        <input asp-for="Usr.username" type="text" />
-        <span asp-validation-for="Usr.username" class="text-danger"></span>
+        <label asp-for="Usr.Username">Username:</label>
+        <input asp-for="Usr.Username" type="text" />
+        <span asp-validation-for="Usr.Username" class="text-danger"></span>
 
-        <label asp-for="Usr.password">Password:</label>
-        <input asp-for="Usr.password" type="password" />
-        <span asp-validation-for="Usr.password" class="text-danger"></span>
+        <label asp-for="Usr.Password">Password:</label>
+        <input asp-for="Usr.Password" type="password" />
+        <span asp-validation-for="Usr.Password" class="text-danger"></span>
 
-        <label asp-for="Usr.email">Email:</label>
-        <input asp-for="Usr.email" type="email" />
-        <span asp-validation-for="Usr.email" class="text-danger"></span>
+        <label asp-for="Usr.Email">Email:</label>
+        <input asp-for="Usr.Email" type="email" />
+        <span asp-validation-for="Usr.Email" class="text-danger"></span>
 
-        <label asp-for="Usr.birthday"><b>Birthday</b></label>
-        <input asp-for="Usr.birthday" type="datetime-local">
+        <label asp-for="Usr.Birthday"><b>Birthday</b></label>
+        <input asp-for="Usr.Birthday" type="date">
 
         <input type="submit" value="Register" />
     </form>

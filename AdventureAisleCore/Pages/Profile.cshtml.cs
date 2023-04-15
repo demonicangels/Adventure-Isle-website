@@ -44,7 +44,7 @@ namespace AdventureAisleCore.Pages
                 var memoryStream = new MemoryStream();
                 Imagebytes.CopyTo(memoryStream);
                 byte[] bindata = memoryStream.ToArray();
-                _userRepository.InsertImage(bindata, Usr.username);
+                _userRepository.InsertImage(bindata, Usr.Username);
             }
         }
     }

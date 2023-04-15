@@ -5,7 +5,7 @@ namespace BusinessLogic
     public interface IUserRepository
     {
        
-        void InsertUser(UserDTO user);
+        void InsertUser(UserDTO user, string salt, string hash);
 
         void DeleteUser(string email);
 
