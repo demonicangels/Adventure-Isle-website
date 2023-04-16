@@ -47,6 +47,9 @@ namespace UnitTests
             throw new NotImplementedException();
         }
 
-        
+        public void Update(UserDTO user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

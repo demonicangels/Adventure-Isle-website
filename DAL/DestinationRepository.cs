@@ -39,10 +39,10 @@ namespace BusinessLogic
             con.Close();
         }
 
-        public DestinationDTO GetDestinationByName(string name)
+        public List<DestinationDTO> GetDestinationByName(string name)
         {
             var query = $"SELECT * FROM Destinations WHERE Name LIKE '{name}%'";
-            DestinationDTO d = new DestinationDTO();
+            List<DestinationDTO> list = new List<DestinationDTO>();
             con = new SqlConnection(connection);
             con.Open();
             cmd = new SqlCommand(query, con);
@@ -50,15 +50,17 @@ namespace BusinessLogic
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
+                DestinationDTO d = new DestinationDTO();
                 d.Name = reader["Name"].ToString();
                 d.Country = reader["Country"].ToString();
                 d.Currency = reader["Currency"].ToString();
                 d.BriefDescription = reader["History"].ToString();
                 d.Climate = reader["Climate"].ToString();
                 d.ImgURL = reader["ImgURL"].ToString();
+                list.Add(d);
             }
             con.Close();
-            return d;
+            return list;
         }
 
         public List<DestinationDTO> GetAllDestinationsByCountry(string country)

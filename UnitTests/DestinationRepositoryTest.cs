@@ -16,7 +16,7 @@ namespace UnitTests
             throw new NotImplementedException();
         }
 
-        public List<DestinationDTO> GetAllDestinations(string country)
+        public DestinationDTO[] GetAllDestinations(string country)
         {
             throw new NotImplementedException();
         }
@@ -26,17 +26,18 @@ namespace UnitTests
 			throw new NotImplementedException();
 		}
 
-		public DestinationDTO GetDestinationByName(string name)
+		public List<DestinationDTO> GetDestinationByName(string name)
         {
-            DestinationDTO desi = null;
+            var destinations = new List<DestinationDTO>();
             foreach(DestinationDTO d in desList)
             {
                 if (d.Name.Contains(name))
                 {
-                    desi = d;
+                    
+                    destinations.Add(d);
                 }
             }
-            return desi;
+            return destinations;
         }
 
         

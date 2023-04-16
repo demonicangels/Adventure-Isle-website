@@ -14,7 +14,14 @@
                     <div class="about-text go-to">
                         @if (!String.IsNullOrEmpty(@Model.Usr.Username))
                         {
-                            <h3 class="dark-color">@Model.Usr.Username</h3>
+                            @if (Model.IsInEditMode == "Edit")
+                            {
+                                <input asp-for="@Model.Username" type="text" value="@Model.Usr.Username" />
+                            }
+                            else
+                            {
+                                <h3 class="dark-color">@Model.Usr.Username</h3>
+                            }
                         }
                         <div class="row about-list">
                             <div class="col-md-6">
@@ -22,14 +29,7 @@
                                     <label>Email: </label>
                                     @if (!String.IsNullOrEmpty(@Model.Usr.Email))
                                     {
-                                        @if (Model.IsInEditMode == "Edit")
-                                        {
-                                            <input asp-for="@Model.Username" type="text" value="@Model.Usr.Username" />
-                                        }
-                                        else
-                                        {
-                                            <p>@Model.Usr.Username</p>
-                                        }
+                                            <p>@Model.Usr.Email</p>
                                     }
                                 </div>
                                 <div class="media">

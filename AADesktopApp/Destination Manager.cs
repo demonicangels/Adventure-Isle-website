@@ -70,7 +70,7 @@ namespace DesktopApp
         private void desScreen_Click(object sender, EventArgs e)
         {
             var des = _desRepository.GetDestinationByName(desScreen.SelectedItem.ToString());
-            MessageBox.Show(des.DesInfo());
+            //MessageBox.Show(des.DesInfo());
 
         }
 

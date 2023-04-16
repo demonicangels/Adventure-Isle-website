@@ -1,5 +1,6 @@
 using BusinessLogic;
 using Microsoft.IdentityModel.Tokens;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -135,8 +136,12 @@ namespace UnitTests
 			var actualDes = _destinationRepository.GetDestinationByName(search);
 
 			Assert.IsNotNull(actualDes);
-			Assert.AreEqual(expectedDes.Name, actualDes.Name);
-			Assert.AreEqual(expectedDes.Country, actualDes.Country);
+            foreach(var des in actualDes)
+            {
+                Assert.AreEqual(expectedDes.Name, des.Name);
+                Assert.AreEqual(expectedDes.Country, des.Country);
+            }
+			
 		}
 
 		[TestMethod]

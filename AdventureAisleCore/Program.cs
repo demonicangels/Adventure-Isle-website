@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using BusinessLogic;
 using DAL;
+using BusinessLogic.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ IUserRepository userRepository = new UserRepository();
 UserService.Initialize(userRepository);
 IDestinationRepository _destinationRepository = new DestinationRepository();
 DestinationService.Initialize(_destinationRepository);
+IReviewRepository _reviewRepository = new ReviewRepository();
+ReviewService.Initialize(_reviewRepository);
 
 // Add services to the container.
 builder.Services.AddRazorPages();

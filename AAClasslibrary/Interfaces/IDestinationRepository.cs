@@ -9,7 +9,7 @@ namespace BusinessLogic
 
         void DeleteDestination(string selectedDes);
 
-        public DestinationDTO GetDestinationByName(string name);
+        public List<DestinationDTO> GetDestinationByName(string name);
 
         List<DestinationDTO> GetAllDestinationsByCountry(string country);
 

@@ -9,13 +9,8 @@ namespace AdventureAisleCore.Pages
         [BindProperty(SupportsGet = true)]
         public string Country { get; set; }
 
-        IDestinationRepository _destinationRepository;
-        public List<DestinationDTO>? Destination { get; set; } = new List<DestinationDTO>();
 
-        public DestinationsModel(IDestinationRepository destinationRepository) 
-        {
-            _destinationRepository = destinationRepository;
-        }
+        public List<Destination>? Destination { get; set; } 
        
         public void OnGet()
         {
@@ -23,11 +18,11 @@ namespace AdventureAisleCore.Pages
 
 			if (!String.IsNullOrEmpty(Country))
             {
-                Destination = (_destinationRepository.GetAllDestinationsByCountry(Country));
+                Destination = DestinationService.GetAllDestinationsByCountry(Country);
             }
             else if (!String.IsNullOrEmpty(result))
             {
-				Destination.Add(_destinationRepository.GetDestinationByName(result));
+				Destination = DestinationService.GetDestinationByName(result);
 			}
 		}
     }

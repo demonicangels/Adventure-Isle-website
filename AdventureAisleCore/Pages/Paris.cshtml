@@ -15,12 +15,20 @@
 						<button>Going to</button>
 					</div>	
 				<div class="review">
-					<h5> Username </h5>
-					@foreach(var review in Model.Reviews)
-					{
-						<p>@review.ReviewTxt</p>
-					}
-					
+				@foreach(var r in Model.Reviews)
+				{
+					<h5> @r.UserEmail </h5>
+					<p>@r.ReviewTxt</p>
+				}
+				@if(Model.User != null)
+				{
+					<form method="post">
+						<h4> My review </h4>
+						<textarea cols="15" rows="5" placeholder="Enter your opinion here..." asp-for="Review.ReviewTxt"></textarea>
+						<button type="submit">Submit</button>
+					</form>
+				}
+
 				</div>
 			</div>
 			</div>

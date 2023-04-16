@@ -23,7 +23,7 @@
 
             <div class="cont">
 
-                <a asp-page="/@Model.Destination[i].Name"><h4><b>@Model.Destination[i].Name</b></h4></a>
+                <a asp-page="/@Model.Destination[i].Name" asp-route-destination="@Model.Destination[i].Name"><h4><b>@Model.Destination[i].Name</b></h4></a>
                 <p class="rating" style="margin-left: 240px;">5.0</p>
             </div>
             <div class="review-score">
