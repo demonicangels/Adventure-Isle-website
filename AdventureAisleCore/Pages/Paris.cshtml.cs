@@ -4,17 +4,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AdventureAisleCore.Pages
 {
-    //@if()
-    //{
-    //
-    //                < form method = "post" >
-    //
-    //                    < textarea ></ textarea >
-    //
-    //                </ form >
-    //
-    //            }
-
     public class ParisModel : PageModel
     {
         [BindProperty(SupportsGet = true)]
@@ -44,11 +33,12 @@ namespace AdventureAisleCore.Pages
         {
             var id = (int)HttpContext.Session.GetInt32("userId");
             User = UserService.GetUserById(id);
-            Reviews = ReviewService.GetReviews(Destination);
+            
 
             Review.UserEmail = User.Email;
             Review.DestinationName = Destination;
             ReviewService.Insert(Review);
+            Reviews = ReviewService.GetReviews(Destination);
 
             return Page();
         }

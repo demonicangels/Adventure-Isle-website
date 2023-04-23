@@ -149,7 +149,8 @@ namespace DAL
                     u.UserSince = (DateTime)reader["created_at"];
                     u.Salt = reader["Salt"].ToString() ;
                     u.HashedPass = reader["Hash"].ToString();
-				};
+                    u.ProfilePic = (reader["ProfilePicture"] == DBNull.Value) ? null : (byte[])reader["ProfilePicture"];
+                };
             }
             return u;
         }
@@ -173,8 +174,8 @@ namespace DAL
                     u.UserSince = (DateTime)reader["created_at"];
                     u.Birthday = (DateTime)reader["birthday"];
                     u.Bio = reader["bio"].ToString();
-                    //u.profilePic = /*(byte[]?)((byte[])reader["ProfilePicture"] == null ? (object)DBNull.Value :*/ (byte[])reader["ProfilePicture"];
-                }
+					u.ProfilePic = (reader["ProfilePicture"] == DBNull.Value) ? null : (byte[])reader["ProfilePicture"];
+				}
 
             }
             return u;

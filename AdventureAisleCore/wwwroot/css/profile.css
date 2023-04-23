@@ -1,9 +1,9 @@
 ﻿
-body > .container{
+/*body > .container{
     position:absolute;
     bottom: 0px;
     border-inline: none;
-}
+}*/
 
 .counter > h6, p{
     color: black;
@@ -24,8 +24,20 @@ body > .container{
     width: 10%;
 }
 .container-profile {
+    display: flex;
+    flex-wrap: wrap;
     padding-top: 10%;
-    padding-left: 10%
+    padding-left: 10%;
+    grid-template-columns: repeat(2, 1fr);
+    /*grid-gap: 20px;
+    column-gap: 0px;*/
+}
+
+.about-text.go-to {
+    margin-bottom: 15%;
+}
+.ProfilePic {
+    margin-top: 5%
 }
 
 input[type=file] {
@@ -34,5 +46,32 @@ input[type=file] {
     padding-right: 5%;
 }
 
+.about-text go-to, .media {
+    grid-column: 2;
+}
+row align-items-center flex-row-reverse{
+    margin-top: 20%;
+}
 
 
+.row align-items-center profile-info > * {
+    grid-column: 2
+}
+.profile-info {
+    display: grid;
+}
+input#uploadBtn {
+    border-radius: 0;
+    width: 10%;
+    border-width: thin;
+}
+input#editBtn {
+    border-radius: 0;
+    width: 10%;
+    border-width: thin;
+}
+input#submitBtn {
+    border-radius: 0;
+    width: 15%;
+    border-width: thin;
+}

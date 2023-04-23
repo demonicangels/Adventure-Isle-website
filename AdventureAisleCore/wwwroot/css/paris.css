@@ -15,14 +15,35 @@ img {
     grid-column: 1;
     width: 450px;
     height: 300px;
-    margin-left: 18%;
+    /* margin-left: 18%; */
 }
 h1,h5,p{
     color:white;
 }
+
+.city-name {
+    font-size: 8em;
+}
+
+.city-rating {
+    font-size: 3em;
+}
+
+.review-prof-pic {
+    width: 2em;
+    height: 2em;
+    border-radius: 50px;
+}
+
+
 .flex-container {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    column-gap: 8%;
+    row-gap: 10px;
 }
+
 .text {
     grid-column: 2;
     margin-left: 50px;
@@ -31,10 +52,13 @@ h1,h5,p{
 
 .buttons {
     width: 150px;
+    margin-top: 50px;
 }
+
 .review > *{
  color:white;
 }
+
 form input {
     width: 100%;
     height: 50px;
@@ -64,9 +88,9 @@ form textarea:focus {
     transition: all 0.3s ease;
 }
 
-    form input :focus::placeholder,
-    form textarea:focus::placeholder {
-        padding-left: 4px;
-        color: black;
-        transition: all 0.3s ease;
-    }
+form input :focus::placeholder,
+form textarea:focus::placeholder {
+    padding-left: 4px;
+    color: black;
+    transition: all 0.3s ease;
+}

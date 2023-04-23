@@ -9,7 +9,16 @@
 <body>
     <section class="section about-section gray-bg" id="about">
         <div class="container-profile">
-            <div class="row align-items-center flex-row-reverse">
+            <div class="avatar-container">
+                <div class="ProfilePic">
+				    @if (Model.Usr != null && Model.Usr.ProfilePic != null)
+				    {
+				    	<img src="data:image/png;base64,@System.Convert.ToBase64String(@Model.Usr?.ProfilePic)" title="" id="avatar">
+				    }
+                </div>
+            </div>
+
+            <div class="row align-items-center profile-info">
                 <form method="post" class="col-lg-6">
                     <div class="about-text go-to">
                         @if (!String.IsNullOrEmpty(@Model.Usr.Username))
@@ -61,25 +70,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="about-avatar">
-                            @if (@Model.Usr?.ProfilePic != null)
-                            {
-                                <img src="data:image/png;base64,@System.Convert.ToBase64String(@Model.Usr?.ProfilePic)" title="" id="avatar">
-                            }
-                        </div>
-
                         @if (Model.IsInEditMode == "Edit")
                         {
-                            <input type="submit" value="Submit" asp-for="IsInEditMode" />
+                            <input type="submit" value="Submit" asp-for="IsInEditMode" id="submitBtn" />
 
                         }
                         else
                         {
-                            <input type="submit" value="Edit" asp-for="IsInEditMode" />
+                            <input type="submit" value="Edit" asp-for="IsInEditMode" id="editBtn" />
                         }
                     </div>
                 </form>
             </div>
+		    <div class="about-avatar">
+		    	<form method="post" enctype="multipart/form-data" id="uploadPictureForm">
+		    		<input type="file" name="ImageBytes" asp-for="Imagebytes" id="browseBtn" />
+		    		<input type="submit" value="Upload" id="uploadBtn" />
+		    	</form>
+		    </div>
         </div>
     </section>
 </body>

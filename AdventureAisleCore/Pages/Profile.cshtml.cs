@@ -13,6 +13,7 @@ namespace AdventureAisleCore.Pages
             _userRepository = userRepository;
         }
 
+
         [BindProperty]
         public IFormFile? Imagebytes { get; set; }
 
@@ -37,7 +38,8 @@ namespace AdventureAisleCore.Pages
             
         }
 
-        public void OnPost()
+       
+        public IActionResult OnPost()
         {
             int? userId = HttpContext.Session.GetInt32("userId");
             
@@ -46,7 +48,7 @@ namespace AdventureAisleCore.Pages
                 Usr = _userRepository.GetUserById((int)userId);
             }
 
-            if (Imagebytes != null)
+            if (Imagebytes != null && Imagebytes.Length > 0)
             {
                 var memoryStream = new MemoryStream();
                 Imagebytes.CopyTo(memoryStream);
@@ -61,7 +63,7 @@ namespace AdventureAisleCore.Pages
                 var user = UserService.FromDTO(Usr);
                 UserService.UpdateUser(user);
             }
-            
+            return Page();
             
         }
     }

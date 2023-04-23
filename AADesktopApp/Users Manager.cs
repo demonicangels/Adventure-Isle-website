@@ -1,17 +1,16 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Entities;
 using DAL;
 
 namespace DesktopApp
 {
     public partial class CRUDusers : Form
     {
-        
-        
+
+
         public CRUDusers()
         {
             InitializeComponent();
-            
-
         }
 
         public void Clear()
@@ -30,9 +29,12 @@ namespace DesktopApp
                 Password = passwordUsertxt.Text,
                 Email = emailUsertxt.Text,
                 Birthday = birthdayDtp.Value,
+                Bio = biotxt.Text
             };
 
-            UserService.InsertUser(user,"","");
+            var salt = Security.CreateSalt();
+            var hash = Security.CreateHash(salt, passwordUsertxt.Text);
+            UserService.InsertUser(user, salt, hash);
             MessageBox.Show("Succesful insert of data.");
             Clear();
         }

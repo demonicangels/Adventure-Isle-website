@@ -9,6 +9,10 @@ namespace AdventureAisleCore.Pages
         [BindProperty(SupportsGet = true)]
         public string Country { get; set; }
 
+        //[FromQuery(Name = "number")]
+        // .../Destination?number=1
+
+
 
         public List<Destination>? Destination { get; set; } 
        

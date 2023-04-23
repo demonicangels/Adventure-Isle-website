@@ -92,6 +92,8 @@ namespace UnitTests
         [TestMethod]
         public void Hashing()
         {
+            //security test
+
             var keysize = 20;
             var iterations = 350000;
             var hashAlgorithm = HashAlgorithmName.SHA512;

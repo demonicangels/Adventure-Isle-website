@@ -43,6 +43,8 @@
             searchByIdtxt = new TextBox();
             label5 = new Label();
             birthdayDtp = new DateTimePicker();
+            biotxt = new TextBox();
+            label6 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -115,7 +117,7 @@
             // 
             // insert_btn
             // 
-            insert_btn.Location = new Point(29, 288);
+            insert_btn.Location = new Point(43, 350);
             insert_btn.Name = "insert_btn";
             insert_btn.Size = new Size(112, 64);
             insert_btn.TabIndex = 18;
@@ -125,7 +127,7 @@
             // 
             // delete_btn
             // 
-            delete_btn.Location = new Point(147, 288);
+            delete_btn.Location = new Point(171, 350);
             delete_btn.Name = "delete_btn";
             delete_btn.Size = new Size(112, 64);
             delete_btn.TabIndex = 19;
@@ -135,7 +137,7 @@
             // 
             // getAll_btn
             // 
-            getAll_btn.Location = new Point(29, 358);
+            getAll_btn.Location = new Point(43, 420);
             getAll_btn.Name = "getAll_btn";
             getAll_btn.Size = new Size(112, 64);
             getAll_btn.TabIndex = 20;
@@ -145,7 +147,7 @@
             // 
             // get_btn
             // 
-            get_btn.Location = new Point(147, 358);
+            get_btn.Location = new Point(171, 420);
             get_btn.Name = "get_btn";
             get_btn.Size = new Size(112, 64);
             get_btn.TabIndex = 21;
@@ -155,7 +157,7 @@
             // 
             // searchByIdtxt
             // 
-            searchByIdtxt.Location = new Point(147, 428);
+            searchByIdtxt.Location = new Point(171, 490);
             searchByIdtxt.Name = "searchByIdtxt";
             searchByIdtxt.Size = new Size(112, 31);
             searchByIdtxt.TabIndex = 22;
@@ -163,7 +165,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(122, 212);
+            label5.Location = new Point(122, 268);
             label5.Name = "label5";
             label5.Size = new Size(77, 25);
             label5.TabIndex = 23;
@@ -171,16 +173,34 @@
             // 
             // birthdayDtp
             // 
-            birthdayDtp.Location = new Point(29, 240);
+            birthdayDtp.Location = new Point(29, 296);
             birthdayDtp.Name = "birthdayDtp";
             birthdayDtp.Size = new Size(298, 31);
             birthdayDtp.TabIndex = 24;
+            // 
+            // biotxt
+            // 
+            biotxt.Location = new Point(122, 214);
+            biotxt.Name = "biotxt";
+            biotxt.Size = new Size(150, 31);
+            biotxt.TabIndex = 25;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(29, 220);
+            label6.Name = "label6";
+            label6.Size = new Size(37, 25);
+            label6.TabIndex = 26;
+            label6.Text = "Bio";
             // 
             // CRUDusers
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(829, 482);
+            ClientSize = new Size(829, 545);
+            Controls.Add(label6);
+            Controls.Add(biotxt);
             Controls.Add(birthdayDtp);
             Controls.Add(label5);
             Controls.Add(searchByIdtxt);
@@ -219,5 +239,7 @@
         private TextBox searchByIdtxt;
         private Label label5;
         private DateTimePicker birthdayDtp;
+        private TextBox biotxt;
+        private Label label6;
     }
 }

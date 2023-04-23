@@ -19,14 +19,13 @@ namespace DAL
             using (SqlConnection con = new SqlConnection(connection))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand(query,con);
+                SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@user", review.UserEmail);
                 cmd.Parameters.AddWithValue("@des", review.DestinationName);
                 cmd.Parameters.AddWithValue("@review", review.ReviewTxt);
                 cmd.ExecuteNonQuery();
             }
         }
-
         public void Update()
         {
             throw new NotImplementedException();

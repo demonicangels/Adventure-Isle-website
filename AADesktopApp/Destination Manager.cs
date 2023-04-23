@@ -5,7 +5,7 @@ namespace DesktopApp
     public partial class CRUDDestinations : Form
     {
         string dbTable = "";
-        IDestinationRepository _desRepository = new DestinationRepository();
+        
 
         public CRUDDestinations()
         {
@@ -31,7 +31,7 @@ namespace DesktopApp
             des.Currency = currencyDestxt.Text;
             des.BriefDescription = descriptionDestxt.Text;
             des.Climate = climatetxt.Text;
-            _desRepository.InsertDestination(des);
+            DestinationService.InsertDestination(des);
             MessageBox.Show("Successful insert");
             Clear();
         }
@@ -39,7 +39,7 @@ namespace DesktopApp
         private void Delete_btn_Click(object sender, EventArgs e)
         {
 
-            _desRepository.DeleteDestination(desScreen.SelectedItem.ToString());
+            DestinationService.DeleteDestination(desScreen.SelectedItem.ToString());
             desScreen.Items.Remove(desScreen.SelectedItem);
             MessageBox.Show("Successful delete");
             Clear();
@@ -50,7 +50,7 @@ namespace DesktopApp
         {
 
             desScreen.Items.Clear();
-            var des = _desRepository.GetDestinationByName(searchByIdtxt.Text.ToString());
+            var des = DestinationService.GetDestinationByName(searchByIdtxt.Text.ToString());
             desScreen.Items.Add(des);
             Clear();
         }
@@ -59,7 +59,7 @@ namespace DesktopApp
         {
             
             desScreen.Items.Clear();
-            var des = _desRepository.GetAllDestinationsByCountry(countriesCb.SelectedItem.ToString());
+            var des = DestinationService.GetAllDestinationsByCountry(countriesCb.SelectedItem.ToString());
             for (int i = 0; i < des.Count; i++)
             {
                 desScreen.Items.Add(des[i].Name);
@@ -69,7 +69,7 @@ namespace DesktopApp
 
         private void desScreen_Click(object sender, EventArgs e)
         {
-            var des = _desRepository.GetDestinationByName(desScreen.SelectedItem.ToString());
+            var des = DestinationService.GetDestinationByName(desScreen.SelectedItem.ToString());
             //MessageBox.Show(des.DesInfo());
 
         }

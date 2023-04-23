@@ -15,7 +15,9 @@ namespace DesktopApp
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             IUserRepository userRepository = new UserRepository();
+            IDestinationRepository destinationRepository = new DestinationRepository();
             UserService.Initialize(userRepository);
+            DestinationService.Initialize(destinationRepository);
             Application.Run(new CRUDDestinations());
         }
     }

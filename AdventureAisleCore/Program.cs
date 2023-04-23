@@ -28,7 +28,7 @@ builder.Services.AddScoped<IDestinationRepository, DestinationRepository>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(120);
+    options.IdleTimeout = TimeSpan.FromMinutes(120);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 }

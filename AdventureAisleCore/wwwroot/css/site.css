@@ -160,13 +160,64 @@ a > .nav-link dropdown-toggle{
     font-weight: normal;
 }
 #avatar {
-    width: 60%;
-    height: 20%;
-    margin-bottom: 5%;
-    margin-left: 20%;
+    width: 30%;
+    height: 50%;
+    margin-left: 10%;
+    position: absolute;
+}
+.col-lg-6 {
+    margin-left: 60%;
+}
+
+.about-text.go-to {
+    margin-bottom: 15%;
+}
+input#uploadBtn {
+    border-radius: 0;
+    width: 10%;
+    border-width: thin;
+}
+input#editBtn {
+    border-radius: 0;
+    width: 10%;
+    border-width: thin;
+}
+input#submitBtn {
+    border-radius: 0;
+    width: 15%;
+    border-width: thin;
+}
+input#browseBtn {
+    border-radius: 0;
+    width: 15%;
+    border-width: thin;
 }
 
 
+
+
+
+
+
+
+
+/*Profile image upload form*/
+input [type=file] {
+    border-radius: 0;
+    border: transparent;
+    box-sizing: border-box;
+    padding-right: 5%;
+    margin-bottom: 3%;
+}
+
+.container-profile {
+    padding-top: 10%;
+    padding-left: 15%
+}
+form#uploadPictureForm {
+    margin-bottom: 5%;
+    margin-left: 11%;
+}
 /* Register form */
 input[type=text] {
     border: none;
@@ -338,41 +389,6 @@ a {
 }
 
 
-/*Profile image upload form*/
-
-input[type=file] {
-    border-radius: 0;
-    border: transparent;
-    
-    box-sizing: border-box;
-    padding-right: 5%;
-}
-
-}
-.btnUpload {
-    padding: 13px;
-    background-color: lightblue;
-    color: black; 
-    border: none;
-    border-radius: 0 0px 0px 0;
-    cursor: pointer;
-    width: 30%;
-    height: 5%
-}
-form .upload > .btnUpload {
-    background-color: lightblue;
-    color: black;
-    padding-right: 70%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-}
-.container-profile {
-    padding-top: 10%;
-    padding-left: 15%
-}
-
-
-
 
 
 /*Login form*/
@@ -424,4 +440,13 @@ form .upload > .btnUpload {
 
 .register-link > *{
     margin-top: 2%;
+}
+
+/*
+    Use this when you want your flex items to go
+    to a new row
+*/
+.flex-break {
+    flex-basis: 100%;
+    height: 0;
 }

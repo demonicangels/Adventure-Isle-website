@@ -13,13 +13,6 @@ namespace BusinessLogic.Entities
 		private const int iterations = 350000;
 		private readonly static HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
 
-		public static (string Salt, string HashedPassword) CreateSaltAndHash(string password)
-		{
-			byte[] salt_bytes = RandomNumberGenerator.GetBytes(keySize);
-			string salt = Convert.ToHexString(salt_bytes);
-			string hashedPassword = Security.CreateHash(salt, password);
-			return (salt, hashedPassword);
-		}
 		public static string CreateSalt()
 		{
 			byte[] salt_bytes = RandomNumberGenerator.GetBytes(keySize);
