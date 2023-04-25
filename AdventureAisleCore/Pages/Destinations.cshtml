@@ -9,13 +9,13 @@
 
             @if (!String.IsNullOrEmpty(Model.Destination[i].ImgURL))
             {
-                <a href="#">
-                    <img src="@Model.Destination[i].ImgURL" class="card-image">
+                <a asp-page="/@Model.Destination[i].Name" asp-route-destination="@Model.Destination[i].Name">
+                            <img src="@Model.Destination[i].ImgURL" class="card-image">
                 </a>
             }
             else
             {
-                <a href="#">
+                <a asp-page="/@Model.Destination[i].Name" asp-route-destination="@Model.Destination[i].Name">
                     <img src="~/images/temporarilyoutofservice.jpg" class="card-image">
                 </a>
             }

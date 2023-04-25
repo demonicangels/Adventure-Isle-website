@@ -10,12 +10,10 @@
     <section class="section about-section gray-bg" id="about">
         <div class="container-profile">
             <div class="avatar-container">
-                <div class="ProfilePic">
 				    @if (Model.Usr != null && Model.Usr.ProfilePic != null)
 				    {
 				    	<img src="data:image/png;base64,@System.Convert.ToBase64String(@Model.Usr?.ProfilePic)" title="" id="avatar">
 				    }
-                </div>
             </div>
 
             <div class="row align-items-center profile-info">

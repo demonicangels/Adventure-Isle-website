@@ -162,11 +162,11 @@ a > .nav-link dropdown-toggle{
 #avatar {
     width: 30%;
     height: 50%;
-    margin-left: 10%;
     position: absolute;
 }
 .col-lg-6 {
-    margin-left: 60%;
+    margin-left: 0%;
+    margin-top: 10%;
 }
 
 .about-text.go-to {
