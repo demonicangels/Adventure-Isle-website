@@ -13,12 +13,12 @@ namespace BusinessLogic
     {
         private static IDestinationRepository _destinationRepository;
 
-        public static void Initialize(IDestinationRepository destinationRepository)
+        public DestinationService(IDestinationRepository destinationRepository)
         {
             _destinationRepository = destinationRepository;
         }
 
-        private static Destination FromDTO(DestinationDTO dto)
+        private Destination FromDTO(DestinationDTO dto)
         {
             var des = new Destination()
             {
@@ -32,7 +32,7 @@ namespace BusinessLogic
             };
             return des;
         }
-        public static void InsertDestination(DestinationDTO destination)
+        public void InsertDestination(DestinationDTO destination)
         {
             var desInstance = FromDTO(destination);
 
@@ -43,11 +43,11 @@ namespace BusinessLogic
             }
 
         }
-        public static void DeleteDestination(string selectedDes)
+        public void DeleteDestination(string selectedDes)
         {
             _destinationRepository.DeleteDestination(selectedDes);
         }
-        public static List<Destination> GetDestinationByName(string name)
+        public List<Destination> GetDestinationByName(string name)
         {
             var dto = _destinationRepository.GetDestinationByName(name);
             List<Destination> result = new List<Destination>();
@@ -57,7 +57,7 @@ namespace BusinessLogic
             }
             return result;
         }
-        public static List<Destination> GetAllDestinationsByCountry(string country)
+        public List<Destination> GetAllDestinationsByCountry(string country)
         {
             List<DestinationDTO> destinationDtos = _destinationRepository.GetAllDestinationsByCountry(country);
             List<Destination> destinations = new List<Destination>();
@@ -67,7 +67,7 @@ namespace BusinessLogic
             }
             return destinations;
         }
-        public static bool Validate(Destination des)
+        public bool Validate(Destination des)
         {
             var context = new ValidationContext(des);
             var results = new System.Collections.Generic.List<ValidationResult>();

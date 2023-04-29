@@ -1,4 +1,5 @@
 using BusinessLogic;
+using Factory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -7,12 +8,7 @@ namespace AdventureAisleCore.Pages
 {
     public class AccountModel : PageModel
     {
-        IUserRepository _userRepository;
-        public AccountModel(IUserRepository userRepository) 
-        { 
-            _userRepository = userRepository;
-        }
-
+        UserService userService;
 
         [BindProperty]
         public IFormFile? Imagebytes { get; set; }
@@ -29,11 +25,13 @@ namespace AdventureAisleCore.Pages
         public string IsInEditMode { get; set; }
         public void OnGet()
         {
+            userService = serviceObjects.userServiceObject();
+
             int? userId = HttpContext.Session.GetInt32("userId");
 
             if (userId.HasValue)
             {
-                Usr = _userRepository.GetUserById((int)userId);
+                Usr = userService.ToDTO(userService.GetUserById((int)userId));
             }
             
         }
@@ -45,23 +43,23 @@ namespace AdventureAisleCore.Pages
             
             if (userId.HasValue)
             {
-                Usr = _userRepository.GetUserById((int)userId);
-            }
+                Usr = userService.ToDTO(userService.GetUserById((int)userId));
+			}
 
             if (Imagebytes != null && Imagebytes.Length > 0)
             {
                 var memoryStream = new MemoryStream();
                 Imagebytes.CopyTo(memoryStream);
                 byte[] bindata = memoryStream.ToArray();
-                _userRepository.InsertImage(bindata, Usr.Username);
+				userService.InsertImage(bindata, Usr.Username);
             }
 
             if (IsInEditMode == "Submit")
             {
                 Usr.Username = Username;
                 Usr.Bio = Bio;
-                var user = UserService.FromDTO(Usr);
-                UserService.UpdateUser(user);
+                var user = userService.FromDTO(Usr);
+				userService.UpdateUser(user);
             }
             return Page();
             

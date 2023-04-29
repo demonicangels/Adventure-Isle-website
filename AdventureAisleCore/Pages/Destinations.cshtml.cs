@@ -1,4 +1,5 @@
 using BusinessLogic;
+using Factory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -6,6 +7,7 @@ namespace AdventureAisleCore.Pages
 {
     public class DestinationsModel : PageModel
     {
+        DestinationService destinationService;
         [BindProperty(SupportsGet = true)]
         public string Country { get; set; }
 
@@ -18,15 +20,17 @@ namespace AdventureAisleCore.Pages
        
         public void OnGet()
         {
+            destinationService = serviceObjects.destinationServiceObject();
+
 			var result = HttpContext.Session.GetString("search");
 
 			if (!String.IsNullOrEmpty(Country))
             {
-                Destination = DestinationService.GetAllDestinationsByCountry(Country);
+                Destination = destinationService.GetAllDestinationsByCountry(Country);
             }
             else if (!String.IsNullOrEmpty(result))
             {
-				Destination = DestinationService.GetDestinationByName(result);
+				Destination = destinationService.GetDestinationByName(result);
 			}
 		}
     }

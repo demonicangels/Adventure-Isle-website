@@ -18,8 +18,9 @@ namespace BusinessLogic
         public string? Bio { get; set; }
         public string? Salt { get; set; }
         public string? HashedPass { get; set; }
+		public byte[]? ProfilePic { get; set; }
 
-        public string UserInfo()
+		public string UserInfo()
         {
             return $"{this.Username} :" + " " +
             $"Birthday: {this.Birthday}," + " " +

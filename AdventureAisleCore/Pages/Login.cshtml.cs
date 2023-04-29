@@ -4,11 +4,14 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
+using Factory;
 
 namespace AdventureAisleCore.Pages
 {
     public class LoginCoreModel : PageModel
     {
+        UserService userService;
+
         [BindProperty]
         public User Usr { get; set; }
 
@@ -19,12 +22,14 @@ namespace AdventureAisleCore.Pages
 
         public void OnGet()
         {
+            userService = serviceObjects.userServiceObject();
 
         }
         public async Task<IActionResult> OnPostAsync() 
         {
-			LoggedInUser = UserService.GetUserByEmail(Usr.Email);
-			if (ModelState.IsValid && UserService.Authenticate(Usr.Email, Usr.Password, LoggedInUser.Salt, LoggedInUser.HashedPass) == true)
+			userService = serviceObjects.userServiceObject();
+			LoggedInUser = userService.GetUserByEmail(Usr.Email);
+			if (ModelState.IsValid && userService.Authenticate(Usr.Email, Usr.Password, LoggedInUser.Salt, LoggedInUser.HashedPass, LoggedInUser.HashedPass) == true)
             {
 				
 				HttpContext.Session.SetInt32("userId", (int)LoggedInUser.Id);

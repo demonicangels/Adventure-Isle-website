@@ -13,11 +13,11 @@ namespace BusinessLogic
     {
         private static IReviewRepository _reviewRepository;
 
-        public static void Initialize(IReviewRepository reviewRepository)
+        public ReviewService(IReviewRepository reviewRepository)
         {
             _reviewRepository = reviewRepository;
         }
-        private static ReviewDTO ToDTO(Review review)
+        private ReviewDTO ToDTO(Review review)
         {
             var r = new ReviewDTO()
             {
@@ -27,7 +27,7 @@ namespace BusinessLogic
             };
             return r;
         }
-        private static Review FromDTO(ReviewDTO reviewDTO)
+        private Review FromDTO(ReviewDTO reviewDTO)
         {
             var r = new Review() 
             {
@@ -37,7 +37,7 @@ namespace BusinessLogic
             };
             return r;
         }
-        public static void Insert(Review review)
+        public void Insert(Review review)
         {
             if (!Validate(review))
             {
@@ -47,7 +47,7 @@ namespace BusinessLogic
 
         }
 
-        public static Review[] GetReviews(string des)
+        public Review[] GetReviews(string des)
         {
             var listDTO = _reviewRepository.GetReviews(des);
             List<Review> reviews = new List<Review>();
@@ -58,7 +58,7 @@ namespace BusinessLogic
             return reviews.ToArray();
         }
 
-        public static bool Validate(Review re)
+        public bool Validate(Review re)
         {
             var context = new ValidationContext(re);
             var results = new System.Collections.Generic.List<ValidationResult>();
