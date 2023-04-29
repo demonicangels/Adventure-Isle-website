@@ -39,7 +39,9 @@ namespace AdventureAisleCore.Pages
        
         public IActionResult OnPost()
         {
-            int? userId = HttpContext.Session.GetInt32("userId");
+			userService = serviceObjects.userServiceObject();
+
+			int? userId = HttpContext.Session.GetInt32("userId");
             
             if (userId.HasValue)
             {
