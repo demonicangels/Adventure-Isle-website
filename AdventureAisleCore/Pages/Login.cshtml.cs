@@ -51,7 +51,7 @@ namespace AdventureAisleCore.Pages
             {
                 await HttpContext.ForbidAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 TempData["msg"] = "Login failed! Incorrect username or password.";
-                return base.Page();
+                return RedirectToPage("/Login");
             }
 
         }

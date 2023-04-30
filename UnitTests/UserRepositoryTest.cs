@@ -9,10 +9,16 @@ namespace UnitTests
 
         public bool Authentication(UserDTO usr)
         {
-            return true;
+            var result = false;
+            if(usr.Email == "demonic@gmail.com" && usr.Password == "123")
+            {
+                result = true;
+            }
+            return result;
         }
 		public void InsertUser(UserDTO user, string salt, string hash)
 		{
+            user.Salt = salt;
 			users.Add(user);
 		}
 		public void DeleteUser(string email)

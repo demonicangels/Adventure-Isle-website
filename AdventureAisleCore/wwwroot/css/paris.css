@@ -11,11 +11,14 @@ page-content {
     grid-gap: 20px;
 }
 
+p.description {
+    padding-top: 10px;
+}
+
 img {
     grid-column: 1;
     width: 450px;
     height: 300px;
-    /* margin-left: 18%; */
 }
 h1,h5,p{
     color:white;
@@ -49,14 +52,27 @@ h1,h5,p{
     width: 150px;
 }
 
-.buttons > input {
-    width: 100px;
-    margin-top: 20px;
+input#beenTo{
+    width: 60%;
+    height: 5%;
+    margin-top: 15px;
     margin-bottom: 15px;
     border-radius: 0;
     border-width: thin;
-    align-items: center;
 }
+
+input#goingTo {
+
+    width: 60%;
+    height: 5%;
+    margin-bottom: 15px;
+    border-radius: 0;
+    border-width: thin;
+}
+.buttons {
+    text-align: center;
+}
+
 
 .review > * {
     color: white;
@@ -96,4 +112,14 @@ form textarea:focus::placeholder {
     padding-left: 4px;
     color: black;
     transition: all 0.3s ease;
+}
+.stars {
+    padding-top: 10px;
+}
+
+.review{
+    padding-top: 35%;
+}
+.buttons-img{
+    flex-direction: column;
 }

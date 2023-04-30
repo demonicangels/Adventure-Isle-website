@@ -1,4 +1,5 @@
 using BusinessLogic;
+using BusinessLogic.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 using System.Security.Cryptography;
@@ -15,12 +16,12 @@ namespace UnitTests
         [TestMethod]
         public void GetUserByEmail()
         {
-            var user1 = new UserDTO() { Username = "demonic", Email = "demonic@gmail.com", Password = "123", UserSince = DateTime.Parse("3/30/2023 4:12:44 PM"), Birthday = DateTime.Parse("10/4/2002 4:20:00 PM"), Bio = "If you are not travelling then what are you doing?" };
-            var user2 = new UserDTO() { Username = "angel", Email = "angel@gmail.com", Password = "123", UserSince = DateTime.Parse("3/30/2023 4:12:44 PM"), Birthday = DateTime.Parse("10/4/2002 4:20:00 PM"), Bio = "If you are not travelling then what are you doing?" };
+            var user1 = new UserDTO() { Username = "demonic", Email = "demonic@gmail.com", Password = "123", UserSince = DateTime.Parse("3/30/2023"), Birthday = DateTime.Parse("10/4/2002"), Bio = "If you are not travelling then what are you doing?" };
+            var user2 = new UserDTO() { Username = "angel", Email = "angel@gmail.com", Password = "123", UserSince = DateTime.Parse("3/30/2023"), Birthday = DateTime.Parse("10/4/2002"), Bio = "If you are not travelling then what are you doing?" };
             _userRepository.InsertUser(user1, "", "");
             _userRepository.InsertUser(user2, "", "");
 
-            var expectedUser = new UserDTO() { Username = "angel", Email = "angel@gmail.com", Password = "123", UserSince = DateTime.Parse("3/30/2023 4:12:44 PM"), Birthday = DateTime.Parse("10/4/2002 4:20:00 PM"), Bio = "If you are not travelling then what are you doing?" };
+            var expectedUser = new UserDTO() { Username = "angel", Email = "angel@gmail.com", Password = "123", UserSince = DateTime.Parse("3/30/2023 4:12:44 PM"), Birthday = DateTime.Parse("10/4/2002"), Bio = "If you are not travelling then what are you doing?" };
 
             var actualUser = _userRepository.GetUserByEmail("angel@gmail.com");
 
@@ -94,32 +95,16 @@ namespace UnitTests
         {
             //security test
 
-            var keysize = 20;
-            var iterations = 350000;
-            var hashAlgorithm = HashAlgorithmName.SHA512;
+            Security security = new Security();
+
             var pass = "my password";
 
 
-            var salt_bytes = RandomNumberGenerator.GetBytes(keysize);
-            var salt = Convert.ToHexString(salt_bytes);
+            var salt = security.CreateSalt();
 
-            var hashing = Rfc2898DeriveBytes.Pbkdf2(
-				Encoding.UTF8.GetBytes(pass),
-				Convert.FromHexString(salt),
-				iterations,
-				hashAlgorithm,
-				keysize);
+            var expectedHash = security.CreateHash(salt, pass);
 
-            var expectedHash = Convert.ToHexString(hashing);
-
-            var hashing2 = Rfc2898DeriveBytes.Pbkdf2(
-				Encoding.UTF8.GetBytes(pass),
-				Convert.FromHexString(salt),
-				iterations,
-				hashAlgorithm,
-				keysize);
-
-            var actualHash = Convert.ToHexString(hashing2); 
+            var actualHash = security.CreateHash(salt, pass); 
 
             Assert.AreEqual(expectedHash, actualHash);
 

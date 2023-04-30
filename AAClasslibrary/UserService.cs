@@ -7,6 +7,7 @@ namespace BusinessLogic
     public class UserService
     {
         private static IUserRepository _userRepository;
+        Security security = new Security();
 
         public UserService(IUserRepository userRepository) 
         { 
@@ -111,7 +112,7 @@ namespace BusinessLogic
         public bool Authenticate(string email,string pass,string salt, string hashedPassword, string actualHash )
         {
             var result = false;
-			var expectedHash = Security.CreateHash(salt, pass);
+			var expectedHash = security.CreateHash(salt, pass);
             var actual = actualHash;
 
             if(expectedHash == actualHash)

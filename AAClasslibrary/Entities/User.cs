@@ -4,7 +4,6 @@ namespace BusinessLogic
 {
     public class User
     {
-        static IUserRepository _userRepository;
 
         public int Id { get; set; }
         public string? Username { get; set; }

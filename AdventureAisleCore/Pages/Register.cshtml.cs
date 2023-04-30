@@ -10,6 +10,7 @@ namespace AdventureAisleCore.Pages
     public class RegisterCoreModel : PageModel
     {
         UserService userService;
+        Security security = new Security();
 
         [BindProperty]
         public UserDTO Usr { get; set; }
@@ -27,8 +28,8 @@ namespace AdventureAisleCore.Pages
                 }
                 else
                 {
-                    var salt = Security.CreateSalt();
-                    var hash = Security.CreateHash(salt, Usr.Password);
+                    var salt = security.CreateSalt();
+                    var hash = security.CreateHash(salt, Usr.Password);
 				    userService.InsertUser(Usr, salt, hash);
                     return RedirectToPage("Login");
                 }
