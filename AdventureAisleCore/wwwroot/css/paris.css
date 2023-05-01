@@ -74,7 +74,7 @@ input#goingTo {
 }
 
 
-.review > * {
+.review > h4 {
     color: white;
 }
 
@@ -94,7 +94,7 @@ form textarea {
     border-radius: 3px;
     background: white;
     font-size: 20px;
-    width: 150%;
+    width: 80%;
     margin: 4px 0;
 }
 form button {
@@ -122,4 +122,8 @@ form textarea:focus::placeholder {
 }
 .buttons-img{
     flex-direction: column;
+}
+.email-rating {
+    display: flex;
+    gap: 1rem;
 }

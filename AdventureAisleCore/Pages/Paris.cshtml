@@ -27,13 +27,19 @@
 	
 						<div class="city-info">
 							<h1 class="city-name">Paris</h1>
-							<h5 class="city-rating">Rating: 4.5</h5>
+				@foreach(var des in Model.Desi)
+				{
+					<h5 class="city-rating">@des.AvgRating</h5>
+				}
 
-							<input type="radio" name="rate" id="star-1">
-							<input type="radio" name="rate" id="star-2">
-							<input type="radio" name="rate" id="star-3">
-							<input type="radio" name="rate" id="star-4">
-							<input type="radio" name="rate" id="star-5">
+					<form method="post">
+
+								<input type="radio" id="star-1" value="1" asp-for="CheckedValue">
+								<input type="radio" id="star-2" value="2" asp-for="CheckedValue">
+								<input type="radio" id="star-3" value="3" asp-for="CheckedValue">
+								<input type="radio" id="star-4" value="4" asp-for="CheckedValue">
+								<input type="radio" id="star-5" value="5" asp-for="CheckedValue">
+
 						<div class="content">
 
 							<div class="stars">
@@ -45,6 +51,8 @@
 							</div>
 
 						</div>
+
+						
 						
 						
 						@foreach (var d in Model.Desi)
@@ -53,38 +61,43 @@
 						}
 
 
-						<div class="review">
-							<h1>Community reviews</h1>
-							@foreach (var r in Model.Reviews)
-							{
-								UserRepository repo = new UserRepository();
-								UserDTO user = repo.GetUserByEmail(r.UserEmail);
-								@if (user.ProfilePic != null)
+							<div class="review">
+								<h1>Community reviews</h1>
+								@foreach (var r in Model.Reviews)
 								{
-									<img class="review-prof-pic" src="data:image/png;base64,@Convert.ToBase64String(user.ProfilePic)" />
+									UserRepository repo = new UserRepository();
+									UserDTO user = repo.GetUserByEmail(r.UserEmail);
+									@if (user.ProfilePic != null)
+									{
+										<img class="review-prof-pic" src="data:image/png;base64,@Convert.ToBase64String(user.ProfilePic)" />
+									}
+									else
+									{
+										<img class="review-prof-pic" src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" />
+									}
+									<div class="email-rating">
+										<h5> @r.UserEmail </h5> <p class="fas fa-star">@r.Rating</p>
+									</div>
+									<p>@r.ReviewTxt</p> 
 								}
-								else
+								@if (Model.User != null)
 								{
-									<img class="review-prof-pic" src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" />
+									<form method="post">
+										<h4> My review </h4>
+										<textarea cols="15" rows="5" placeholder="Enter your opinion here..." asp-for="Review.ReviewTxt"></textarea>
+										<button type="submit">Submit</button>
+									</form>
 								}
-								<h5> @r.UserEmail </h5>
-								<p>@r.ReviewTxt</p>
-							}
-							@if (Model.User != null)
-							{
-								<form method="post">
-									<h4> My review </h4>
-									<textarea cols="15" rows="5" placeholder="Enter your opinion here..." asp-for="Review.ReviewTxt"></textarea>
-									<button type="submit">Submit</button>
-								</form>
-							}
-						</div>
-							
-	
-						</div>
+						
+							</div>
+					</form>
+
+				</div>
+			</div>
+			</div>
 	
 				
-			</div>
+			
 	</body>
 </html>
 

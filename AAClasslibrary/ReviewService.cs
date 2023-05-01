@@ -23,7 +23,8 @@ namespace BusinessLogic
             {
                 UserEmail = review.UserEmail,
                 DestinationName = review.DestinationName,
-                ReviewTxt = review.ReviewTxt
+                ReviewTxt = review.ReviewTxt,
+                Rating = review.Rating,
             };
             return r;
         }
@@ -33,7 +34,8 @@ namespace BusinessLogic
             {
                 UserEmail = reviewDTO.UserEmail,
                 DestinationName = reviewDTO.DestinationName,
-                ReviewTxt = reviewDTO.ReviewTxt
+                ReviewTxt = reviewDTO.ReviewTxt,
+                Rating = reviewDTO.Rating,
             };
             return r;
         }

@@ -40,6 +40,9 @@ namespace UnitTests
             return destinations;
         }
 
-        
+        public DestinationDTO UpdateDestination(DestinationDTO des)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -22,6 +22,7 @@ namespace BusinessLogic
         {
             var des = new Destination()
             {
+                Id = dto.Id,
                 Name = dto.Name,
                 Country = dto.Country,
                 Climate = dto.Climate,
@@ -32,7 +33,22 @@ namespace BusinessLogic
             };
             return des;
         }
-        public void InsertDestination(DestinationDTO destination)
+		private DestinationDTO ToDTO(Destination dto)
+		{
+			var des = new DestinationDTO()
+			{
+                Id = dto.Id,
+				Name = dto.Name,
+				Country = dto.Country,
+				Climate = dto.Climate,
+				Currency = dto.Currency,
+				BriefDescription = dto.BriefDescription,
+				AvgRating = dto.AvgRating,
+				ImgURL = dto.ImgURL,
+			};
+			return des;
+		}
+		public void InsertDestination(DestinationDTO destination)
         {
             var desInstance = FromDTO(destination);
 
@@ -67,6 +83,18 @@ namespace BusinessLogic
             }
             return destinations;
         }
+        public Destination UpdateDestination(Destination des)
+        {
+            
+            if (!Validate(des)) { return null; }
+            else
+            {
+                var desi = _destinationRepository.UpdateDestination(ToDTO(des));
+                return FromDTO(desi);
+			}
+			
+
+		}
         public bool Validate(Destination des)
         {
             var context = new ValidationContext(des);

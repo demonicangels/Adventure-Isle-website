@@ -333,9 +333,6 @@ a {
     color: black;
 }
 
-    a :hover {
-        color: cornflowerblue;
-    }
 
 /* Rating view card */
 .rating {
@@ -368,9 +365,6 @@ a {
 
 
 /* Destination reviews */
-.review > *{
-    color:white;
-}
 .cont {
     position: relative;
     width: 50%;
@@ -386,7 +380,6 @@ a {
 
 
 /*Login form*/
-
 .login_form_container > form {
     box-shadow: 0px 0px 8px black;
     border-radius: 4px;
@@ -435,6 +428,9 @@ a {
 .register-link > *{
     margin-top: 2%;
 }
+
+
+
 
 /*
     Use this when you want your flex items to go

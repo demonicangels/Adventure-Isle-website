@@ -5,6 +5,7 @@
         public string UserEmail { get; set; }
         public string DestinationName { get; set; }
         public string ReviewTxt { get; set; }
+        public double Rating { get; set; }
 
     }
 }

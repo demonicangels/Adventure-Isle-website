@@ -3,32 +3,32 @@
 @{
 }
 <div class="content-destinationCards">
-    @for (int i = 0; i < Model.Destination.Count; i++)
+    @for (int i = 0; i < DestinationsModel.Destination.Count; i++)
     {
         <div class="card">
 
-            @if (!String.IsNullOrEmpty(Model.Destination[i].ImgURL))
+            @if (!String.IsNullOrEmpty(DestinationsModel.Destination[i].ImgURL))
             {
-                <a asp-page="/@Model.Destination[i].Name" asp-route-destination="@Model.Destination[i].Name">
-                            <img src="@Model.Destination[i].ImgURL" class="card-image">
+                <a asp-page="/@DestinationsModel.Destination[i].Name" asp-route-destination="@DestinationsModel.Destination[i].Name">
+                    <img src="@DestinationsModel.Destination[i].ImgURL" class="card-image">
                 </a>
             }
             else
             {
-                <a asp-page="/@Model.Destination[i].Name" asp-route-destination="@Model.Destination[i].Name">
+                <a asp-page="/@DestinationsModel.Destination[i].Name" asp-route-destination="@DestinationsModel.Destination[i].Name">
                     <img src="~/images/temporarilyoutofservice.jpg" class="card-image">
                 </a>
             }
 
             <div class="cont">
 
-                <a asp-page="/@Model.Destination[i].Name" asp-route-destination="@Model.Destination[i].Name"><h4><b>@Model.Destination[i].Name</b></h4></a>
-                <p class="rating" style="margin-left: 240px;">5.0</p>
+                <a asp-page="/@DestinationsModel.Destination[i].Name" asp-route-destination="@DestinationsModel.Destination[i].Name"><h4><b>@DestinationsModel.Destination[i].Name</b></h4></a>
+                <p class="rating" style="margin-left: 240px;">@DestinationsModel.Destination[i].AvgRating</p>
             </div>
             <div class="review-score">
                 <p> Good </p>
-                <p>557 ratings</p>
-                <p>Climate: @Model.Destination[i].Climate</p>
+                <p>@Model.AllReviews[i].Length ratings</p>
+                <p>Climate: @DestinationsModel.Destination[i].Climate</p>
             </div>
         </div>
     }

@@ -15,7 +15,7 @@ namespace DAL
         private string connection = "Data Source=mssqlstud.fhict.local;User ID=dbi482269_aas2;Password=Ior7dh8Nrr;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public void Insert(ReviewDTO review)
         {
-            string query = "INSERT INTO Reviews (UserEmail, DestinationName, ReviewTxt) VALUES (@user, @des, @review)";
+            string query = "INSERT INTO Reviews (UserEmail, DestinationName, ReviewTxt, Rating) VALUES (@user, @des, @review, @rate)";
             using (SqlConnection con = new SqlConnection(connection))
             {
                 con.Open();
@@ -23,7 +23,8 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@user", review.UserEmail);
                 cmd.Parameters.AddWithValue("@des", review.DestinationName);
                 cmd.Parameters.AddWithValue("@review", review.ReviewTxt);
-                cmd.ExecuteNonQuery();
+				cmd.Parameters.AddWithValue("@rate", review.Rating);
+				cmd.ExecuteNonQuery();
             }
         }
         public void Update()
@@ -52,6 +53,7 @@ namespace DAL
                     r.UserEmail = reader["UserEmail"].ToString();
                     r.DestinationName = reader["DestinationName"].ToString();
                     r.ReviewTxt = reader["ReviewTxt"].ToString();
+                    r.Rating = Convert.ToDouble(reader["Rating"].ToString());
                     reviewList.Add(r);
                 }
             }
