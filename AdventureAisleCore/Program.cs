@@ -6,10 +6,11 @@ using Factory;
 
 var builder = WebApplication.CreateBuilder(args);
 
-IUserRepository userRepository = new UserRepository();
+IUserRepository _userRepository = new UserRepository();
 IDestinationRepository _destinationRepository = new DestinationRepository();
 IReviewRepository _reviewRepository = new ReviewRepository();
-serviceObjects service = new serviceObjects(userRepository, _destinationRepository, _reviewRepository);
+ITravelListRepository _travelListRepository = new TravelListRepository();
+serviceObjects service = new serviceObjects(_userRepository, _destinationRepository, _reviewRepository, _travelListRepository);
 
 // Add services to the container.
 builder.Services.AddRazorPages();

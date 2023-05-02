@@ -8,12 +8,14 @@ namespace Factory
 		static IUserRepository usrRepo;
 		static IDestinationRepository desRepo;
 		static IReviewRepository revRepo;
+		static ITravelListRepository travListRepo;
 
-		public serviceObjects(IUserRepository usr, IDestinationRepository des, IReviewRepository rev) 
+		public serviceObjects(IUserRepository usr, IDestinationRepository des, IReviewRepository rev, ITravelListRepository trav) 
 		{
 			usrRepo = usr;
 			desRepo = des;
 			revRepo = rev;
+			travListRepo = trav;
 		}
 		public static UserService userServiceObject()
 		{
@@ -29,6 +31,11 @@ namespace Factory
 		{
 			ReviewService revService = new ReviewService(revRepo);
 			return revService;
+		}
+		public static TravelListService travelListServiceObject()
+		{
+			TravelListService listService = new TravelListService(travListRepo);
+			return listService;
 		}
 	}
 }

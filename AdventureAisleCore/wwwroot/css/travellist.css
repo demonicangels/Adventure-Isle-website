@@ -1,0 +1,20 @@
+﻿.content {
+    display: flex;
+    column-gap: 20%;
+    justify-content: center;
+    margin-top: 10%;
+}
+form#necessities-form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+form#travelList > * {
+    width: 150%;
+}
+button.btn.btn-info {
+    margin-top: 20%;
+}
+.border.bg-white {
+    margin-top: 20%;
+}

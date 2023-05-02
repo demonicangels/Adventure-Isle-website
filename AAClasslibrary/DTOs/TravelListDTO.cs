@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic
+namespace BusinessLogic.DTOs
 {
-    public class TravelList
+    public class TravelListDTO
     {
         public int UserId { get; set; }
         public int DestinationId { get; set; }
-
         public List<string> Necessities { get; set; } = new List<string>();
-
     }
 }
