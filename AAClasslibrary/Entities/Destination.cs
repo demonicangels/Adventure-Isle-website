@@ -1,5 +1,7 @@
 ﻿
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace BusinessLogic
 {
     public class Destination
@@ -35,7 +37,16 @@ namespace BusinessLogic
         }
         public double CalculateAverage()
         {
-            var average = ratingList.Average();
+            double sum = 0;
+            var count = 0;
+            foreach(var num in ratingList)
+            {
+                sum += num;
+                count++;
+
+            }
+            var average = sum / count;
+
             var roundedResult = Math.Round(average, 2, MidpointRounding.AwayFromZero);
             AvgRating = roundedResult;
             return AvgRating;

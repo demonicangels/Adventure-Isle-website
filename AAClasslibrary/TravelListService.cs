@@ -17,11 +17,11 @@ namespace BusinessLogic
         {
             listRepository = t;
         }
-
         private TravelList FromDTO (TravelListDTO t)
         {
            return new TravelList() 
            { 
+               Id = t.Id,
                UserId = t.UserId,
                DestinationId = t.DestinationId,
                Necessities = t.Necessities,
@@ -32,17 +32,19 @@ namespace BusinessLogic
         {
             return new TravelListDTO()
             {
+                Id = t.Id,
                 UserId = t.UserId,
                 DestinationId = t.DestinationId,
                 Necessities = t.Necessities,
             };
         }
-        public void CreateList(TravelList t)
+        public TravelList CreateList(TravelList t)
         {
-            if (!Validate(t)) { return; }
+            if (!Validate(t)) { return null; }
             else
             {
-                listRepository.CreateTravelList(ToDTO(t));
+                t = FromDTO(listRepository.CreateTravelList(ToDTO(t)));
+                return t;
             }
         }
 
@@ -51,12 +53,12 @@ namespace BusinessLogic
             var list = listRepository.GetListByUserId(id);
             return FromDTO(list);
         }
-        public void UpdateTravelList(TravelList t)
+        public TravelList UpdateTravelList(TravelList t)
         {
-            if (!Validate(t)) { return; }
+            if (!Validate(t)) { return null; }
             else
             {
-                listRepository.UpdateTravelList(ToDTO(t));
+                return FromDTO(listRepository.UpdateTravelList(ToDTO(t)));
             }
 
         }

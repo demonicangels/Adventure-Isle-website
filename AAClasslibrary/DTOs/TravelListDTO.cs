@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,9 @@ namespace BusinessLogic.DTOs
 {
     public class TravelListDTO
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
         public int DestinationId { get; set; }
-        public List<string> Necessities { get; set; } = new List<string>();
+        public List<Necessity> Necessities { get; set; } = new List<Necessity>();
     }
 }

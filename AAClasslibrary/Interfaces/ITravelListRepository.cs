@@ -11,7 +11,6 @@ namespace BusinessLogic.Interfaces
     {
         TravelListDTO CreateTravelList(TravelListDTO travelList);
         TravelListDTO GetListByUserId(int id);
-        List<string> GetNecessities();
         TravelListDTO UpdateTravelList(TravelListDTO travelList);
     }
 }

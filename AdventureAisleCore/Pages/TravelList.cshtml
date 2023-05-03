@@ -6,69 +6,67 @@
 <link rel="stylesheet" href="~/css/travellist.css" />
 
 <div class="content">
-    <form method="post"  id="travelList">
-        <div class="row">
-            <div class="col-6">
-                <h2 class="text-info"> Travel List </h2>
-            </div>
-            <div class="col-6 text-right">
-                <button class="btn btn-info" type="submit">
-                    <i class="fas fa-plus"></i>  Add new item
-                </button>
-            </div>
-        </div>
+            <div class="row">
+                    <div class="col-6">
+                        <h2 class="text-info"> Travel List </h2>
+                    </div>
+            
+                    <div class="border bg-white">
+                        <br/>
+                        <div>
+                            <table>
+                                <tr class="table-secondary">
+                                    <th>
+                                       
+                                    </th>
+                                    <th>
+                                        
+                                    </th>
+                                    <th>
+                                        
+                                    </th>
+                                    <th>
     
-        <div class="border bg-white">
-            <br/>
-            <div>
-                <table class="table table-striped border">
-                    <tr class="table-secondary">
-                        <th>
-                           
-                        </th>
-                        <th>
-                            
-                        </th>
-                        <th>
-                            
-                        </th>
-                        <th>
-    
-                        </th>
-                    </tr>
-                    @if (Model.Necessities != null)
-                    {
-                        @foreach(var item in Model.Necessities)
-                        {
-                            <tr>
-                                <td>
-                                   @item.ToString();
-                                </td>
-                                
-                                <td>
-                                </td>
-                                <td>
-                                    
-                                </td>
-                                <td>
-                                </td>
-                            </tr>   
-                        }
-                    }
-                </table>
+                                    </th>
+                                </tr>
+                                @if (Model.Necessities != null)
+                                {
+                                    @foreach(var item in Model.Necessities)
+                                    {
+                                        <tr>
+                                            <td>
+                                               @item.Name
+                                            </td>
+                                            
+                                        </tr>   
+                                    }
+                                }
+                            </table>
+                        </div>
             </div>
-        </div>
-    </form>
-    <form method="post" id="necessities-form">
-        <input type="checkbox"  name="item" class="item1" value="Passport" /> Passport
-        <input type="checkbox" name="item" class="item1" value="Money" /> Money
-        <input type="checkbox" name="item" class="item1" value="Sunscreen" /> Sunscreen
-        <input type="checkbox" name="item" class="item1" value="Plane tickets" /> Plane tickets
-        <button type="submit" class="btn btn-info">
-            <i class="fas fa-plus"></i>  Add to my list
-        </button>
-    
-    </form>
+
+ </div>    
+ 
+    <div class="travelCustom">
+        <form method="post" id="necessities-form">
+            <input type="checkbox" name="item" class="item1" value="Passport" /> Passport
+            <input type="checkbox" name="item" class="item1" value="Money" /> Money
+            <input type="checkbox" name="item" class="item1" value="Sunscreen" /> Sunscreen
+            <input type="checkbox" name="item" class="item1" value="Plane tickets" /> Plane tickets
+            <button type="submit" class="necessityBtn">
+                <i class="fas fa-plus"></i>  Add to my list
+            </button>
+        
+        </form>
+        <form method="post" id="customItemForm">
+            <a>Add a custom necessity</a>
+            <input type="text" name="item"/>
+            <button type="submit" id="customBtn">
+                <i class="fas fa-plus"></i>  Add new item
+            </button>
+        </form>
+
+    </div>
 </div>
 
 

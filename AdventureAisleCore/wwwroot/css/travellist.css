@@ -1,6 +1,6 @@
 ﻿.content {
     display: flex;
-    column-gap: 20%;
+    column-gap: 30%;
     justify-content: center;
     margin-top: 10%;
 }
@@ -10,11 +10,19 @@ form#necessities-form {
     flex-direction: column;
 }
 form#travelList > * {
-    width: 150%;
+    width: 290%;
 }
-button.btn.btn-info {
-    margin-top: 20%;
+button.necessityBtn {
+    margin-top: 10%;
+    margin-bottom: 10%;
 }
 .border.bg-white {
-    margin-top: 20%;
+    margin-top: 15%;
+    height: 90%;
+}
+.travelCustom {
+    flex-direction: column;
+}
+.col-6 {
+    width: 100%;
 }
