@@ -21,7 +21,7 @@ namespace BusinessLogic
         public string Currency { get; set; }
         public string Climate { get; set; }
         public string ImgURL { get; set; }
-		public int DesStatus { get; set; }
+		public int? DesStatus { get; set; }
 
 
 

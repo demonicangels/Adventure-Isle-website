@@ -54,5 +54,10 @@ namespace UnitTests
 		{
 			throw new NotImplementedException();
 		}
+
+		public DestinationDTO UpdateStatusByUserIdAndDesId(DestinationDTO des, int usrid)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

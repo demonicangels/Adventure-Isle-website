@@ -29,7 +29,7 @@ namespace AdventureAisleCore.Pages
 
             int? userId = HttpContext.Session.GetInt32("userId");
 
-            if (userId.HasValue)
+            if(userId.HasValue)
             {
                 Usr = userService.ToDTO(userService.GetUserById((int)userId));
             }

@@ -19,12 +19,36 @@
 				<div class="flex-container">
 					<div class="buttons-img">
 						<img src="~/images/p.jpg"/>
-						<div class="buttons">
-							<form method="post">
-								<input type="submit" value="BeenTo"  id="beenTo" asp-for="DesStatus"/>
-								<input type="submit" value="GoingTo"  id="goingTo" asp-for="DesStatus" />
-							</form>
-						</div>
+						@if (Model.User != null)
+						{
+							@if (Model.Desi.FirstOrDefault().DesStatus != null && Model.Desi.FirstOrDefault().DesStatus == 0)
+							{
+								<div class="buttons">
+									<form method="post">
+										<button type="submit" name="DesStatus" value="BeenTo" id="beenTo">Been to</button>
+										<button type="submit" name="DesStatus" value="GoingTo" id="goingTo" style="background-color: rgb(234, 200, 213)">Going to</button>
+									</form>
+								</div>
+							}
+							else if (Model.Desi.FirstOrDefault().DesStatus == 1)
+							{
+								<div class="buttons">
+									<form method="post">
+										<button type="submit" name="DesStatus" value="BeenTo" id="beenTo" style="background-color: rgb(234, 200, 213)">Been to</button>
+										<button type="submit" name="DesStatus" value="GoingTo" id="goingTo">Going to</button>
+									</form>
+								</div>
+							}
+							else
+							{
+								<div class="buttons">
+									<form method="post">
+										<button type="submit" name="DesStatus" value="BeenTo" id="beenTo">Been to</button>
+										<button type="submit" name="DesStatus" value="GoingTo" id="goingTo">Going to</button>
+									</form>
+								</div>
+							}
+						}
 					</div>
 	
 						<div class="city-info">
@@ -82,7 +106,7 @@
 									</div>
 									<p>@r.ReviewTxt</p> 
 								}
-						@if (Model.User != null)
+						@if (Model.User != null && Model.Desi.FirstOrDefault().DesStatus == 1)
 						{
 							<form method="post">
 								<h4> My review </h4>

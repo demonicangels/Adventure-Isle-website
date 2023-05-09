@@ -10,7 +10,8 @@ namespace BusinessLogic
         public List<DestinationDTO> GetDestinationByName(string name);
         List<DestinationDTO> GetAllDestinationsByCountry(string country);
         DestinationDTO UpdateDestination(DestinationDTO des);
-        DestinationDTO SetDestinationStatus(DestinationDTO destination, int id);
-        DestinationDTO GetStatusByUserIdAndDesId(DestinationDTO des, int usrid);
+        DestinationDTO SetDestinationStatus(DestinationDTO destination, int usrId);
+		DestinationDTO GetStatusByUserIdAndDesId(DestinationDTO des, int usrid);
+        DestinationDTO UpdateStatusByUserIdAndDesId(DestinationDTO des, int usrid);
     }
 }

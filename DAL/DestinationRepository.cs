@@ -123,8 +123,7 @@ namespace BusinessLogic
 
         public DestinationDTO SetDestinationStatus(DestinationDTO destination, int usrId)
         {
-            var query = "INSERT INTO JK_Users_Destinations (UserId, DestinationId, DestinationStatus) VALUES (@id,@iddes,@desStat)";
-
+			var query = "INSERT INTO JK_Users_Destinations (UserId, DestinationId, DestinationStatus) VALUES (@id,@iddes,@desStat)";
 			using (SqlConnection con = new SqlConnection(connection))
             {
                 con.Open();
@@ -139,24 +138,58 @@ namespace BusinessLogic
 
 		public DestinationDTO GetStatusByUserIdAndDesId(DestinationDTO des, int usrid)
 		{
-
-
-			var query = "SELECT * FROM JK_Users_Destinations WHERE UserId = @us AND DestinationId = @dId";
-			SqlConnection con = new SqlConnection(connection);
+            var query = $"SELECT * FROM Destinations WHERE Name LIKE '{des.Name}%'";
+            DestinationDTO dto = new DestinationDTO();
+			con = new SqlConnection(connection);
 			con.Open();
-			SqlCommand cmd2 = new SqlCommand(query, con);
-			cmd2.Parameters.AddWithValue("@dId", des.Id);
-			cmd2.Parameters.AddWithValue("@us", usrid);
+			cmd = new SqlCommand(query, con);
 			SqlDataReader reader = cmd.ExecuteReader();
 			while (reader.Read())
 			{
+
+				dto.Id = (int)reader["Id"];
+				dto.Name = reader["Name"].ToString();
+				dto.Country = reader["Country"].ToString();
+				dto.Currency = reader["Currency"].ToString();
+				dto.BriefDescription = reader["History"].ToString();
+				dto.Climate = reader["Climate"].ToString();
+				dto.ImgURL = reader["ImgURL"].ToString();
+				dto.AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]);
+
+			}
+            con.Close();
+
+			var query2 = "SELECT * FROM JK_Users_Destinations WHERE UserId = @us AND DestinationId = @dId";
+			SqlConnection con2 = new SqlConnection(connection);
+			con2.Open();
+			SqlCommand cmd2 = new SqlCommand(query2, con2);
+			cmd2.Parameters.AddWithValue("@dId", des.Id);
+			cmd2.Parameters.AddWithValue("@us", usrid);
+			SqlDataReader reader2 = cmd2.ExecuteReader();
+			while (reader2.Read())
+			{
 				
-		        des.DesStatus = (int)reader["DestinationStatus"];
+		        des.DesStatus = reader2["DestinationStatus"] == DBNull.Value ? null : (int)reader2["DestinationStatus"];
 				
 
 			}
-			reader.Close();
-			con.Close();
+			reader2.Close();
+			con2.Close();
+
+            return des;
+		}
+
+		public DestinationDTO UpdateStatusByUserIdAndDesId(DestinationDTO des, int usrid)
+		{
+            var query = "UPDATE JK_Users_Destinations SET DestinationStatus = @stat WHERE UserId = @us AND DestinationId = @dId ";
+            SqlConnection con = new SqlConnection(connection);
+            con.Open();
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@us", usrid);
+            cmd.Parameters.AddWithValue("@dId", des.Id);
+            cmd.Parameters.AddWithValue("@stat", des.DesStatus);
+            cmd.ExecuteNonQuery();
+            con.Close();
             return des;
 		}
 	}

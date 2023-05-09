@@ -117,8 +117,17 @@ namespace BusinessLogic
 			}
            
         }
+        public Destination UpdateStatusByUserIdAndDesId(Destination des, int usrId)
+        {
+            if (!Validate(des)) { return null; }
+            else
+            {
+                var desi = _destinationRepository.UpdateStatusByUserIdAndDesId(ToDTO(des), usrId);
+                return FromDTO(desi);
+			}
+        }
 
-        public bool Validate(Destination des)
+		public bool Validate(Destination des)
         {
             var context = new ValidationContext(des);
             var results = new System.Collections.Generic.List<ValidationResult>();

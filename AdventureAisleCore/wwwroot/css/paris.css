@@ -52,26 +52,45 @@ h1,h5,p{
     width: 150px;
 }
 
-input#beenTo{
+button#beenTo {
     width: 60%;
-    height: 5%;
+    height: 3rem;
     margin-top: 15px;
     margin-bottom: 15px;
-    border-radius: 0;
     border-width: thin;
+    border-radius: 3rem;
+    font-size: 1.6rem;
 }
 
-input#goingTo {
-
+button#goingTo {
     width: 60%;
-    height: 5%;
+    height: 3rem;
     margin-bottom: 15px;
-    border-radius: 0;
     border-width: thin;
+    border-radius: 3rem;
+    font-size: 1.6rem;
 }
+
+button#beenTo:hover {
+    background-color: gray;
+}
+
+button#goingTo:hover {
+    background-color: gray;
+}
+
+button#beenTo:focus {
+    background-color: rgb(234, 200, 213)
+}
+
+button#goingTo:focus {
+    background-color: rgb(234, 200, 213)
+}
+
 .buttons {
     text-align: center;
 }
+
 
 
 .review > h4 {

@@ -22,7 +22,7 @@ namespace AdventureAisleCore.Pages
         public string CheckedValue { get; set; }
 
         [BindProperty]
-        public string DesStatus { get; set; }
+        public DestinationStatus DesStatus { get; set; }
 
         public Review[] Reviews { get; set; }
 
@@ -43,6 +43,7 @@ namespace AdventureAisleCore.Pages
                 User = userService.GetUserById(id);
 				Reviews = reviews.GetReviews(Destination);
 				Desi = destinationService.GetDestinationByName(Destination);
+                Desi[0] = destinationService.GetDestinationWithStatus(Desi.FirstOrDefault(), id);
 			}
             else
             {
@@ -56,10 +57,11 @@ namespace AdventureAisleCore.Pages
 			userService = serviceObjects.userServiceObject();
 			destinationService = serviceObjects.destinationServiceObject();
 
-			var id = (int)HttpContext.Session.GetInt32("userId");
-            User = userService.GetUserById(id);
+			var usrid = (int)HttpContext.Session.GetInt32("userId");
+            User = userService.GetUserById(usrid);
 
             Desi = destinationService.GetDestinationByName(Destination);
+			Desi[0] = destinationService.GetDestinationWithStatus(Desi.FirstOrDefault(), usrid);
 
 
 			if (Review.ReviewTxt != null)
@@ -67,40 +69,47 @@ namespace AdventureAisleCore.Pages
                 Review.UserEmail = User.Email;
                 Review.DestinationName = Destination;
                 Review.Rating = int.Parse(CheckedValue);
-				reviews.Insert(Review);
+                reviews.Insert(Review);
                 Reviews = reviews.GetReviews(Destination);
 
-                foreach(var d in Desi)
-            {
-                foreach(var rev in Reviews)
+                foreach (var d in Desi)
                 {
-                    d.AddRating(rev.Rating);
+                    foreach (var rev in Reviews)
+                    {
+                        d.AddRating(rev.Rating);
+                    }
+                    d.AddRating(Convert.ToDouble(CheckedValue));
+                    d.AvgRating = d.CalculateAverage();
+                    if (Convert.ToDouble(CheckedValue) > 0)
+                    {
+                        destinationService.UpdateDestination(d);
+                    }
                 }
-                d.AddRating(Convert.ToDouble(CheckedValue));
-                d.AvgRating = d.CalculateAverage();
-                if (Convert.ToDouble(CheckedValue) > 0)
-                {
-                    destinationService.UpdateDestination(d);
-                }
-            }
             }
             else
             {
                 Reviews = reviews.GetReviews(Destination);
             }
 
-            
 
-            if(DesStatus == "BeenTo")
+
+			if (Desi.FirstOrDefault().DesStatus != null && Desi.FirstOrDefault().DesStatus != (int)DesStatus)
+			{
+                Desi.FirstOrDefault().DesStatus = (int)DesStatus;
+                Desi[0] = destinationService.UpdateStatusByUserIdAndDesId(Desi.FirstOrDefault(), usrid);
+			}
+			else if (DesStatus == DestinationStatus.BeenTo)
             {
                 Desi.FirstOrDefault().DesStatus = (int)DestinationStatus.BeenTo;
-                destinationService.SetDestinationStatus(Desi.FirstOrDefault(), id);
+                destinationService.SetDestinationStatus(Desi.FirstOrDefault(), usrid);
 			}
-            else if(DesStatus == "GoingTo")
+            else if(DesStatus == DestinationStatus.GoingTo)
             {
 				Desi.FirstOrDefault().DesStatus = (int)DestinationStatus.GoingTo;
-				destinationService.SetDestinationStatus(Desi.FirstOrDefault(), id);
+				destinationService.SetDestinationStatus(Desi.FirstOrDefault(), usrid);
 			}
+
+            
 
             return Page();
         }

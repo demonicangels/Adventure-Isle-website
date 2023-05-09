@@ -12,6 +12,7 @@ IReviewRepository _reviewRepository = new ReviewRepository();
 ITravelListRepository _travelListRepository = new TravelListRepository();
 serviceObjects service = new serviceObjects(_userRepository, _destinationRepository, _reviewRepository, _travelListRepository);
 
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 

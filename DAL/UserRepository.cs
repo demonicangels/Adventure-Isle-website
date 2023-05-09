@@ -151,7 +151,8 @@ namespace DAL
                     u.HashedPass = reader["Hash"].ToString();
                     u.ProfilePic = (reader["ProfilePicture"] == DBNull.Value) ? null : (byte[])reader["ProfilePicture"];
                 };
-            }
+				con.Close();
+			}
             return u;
         }
         public UserDTO GetUserById(int id)
@@ -176,8 +177,9 @@ namespace DAL
                     u.Bio = reader["bio"].ToString();
 					u.ProfilePic = (reader["ProfilePicture"] == DBNull.Value) ? null : (byte[])reader["ProfilePicture"];
 				}
+				con.Close();
 
-            }
+			}
             return u;
         }
         public void InsertImage(byte[] image, string username)
