@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using BusinessLogic;
+using System.Collections.Generic;
 
 namespace BusinessLogic 
 {
@@ -43,7 +44,6 @@ namespace BusinessLogic
             con = new SqlConnection(connection);
             con.Open();
             cmd = new SqlCommand(query, con);
-            cmd.ExecuteNonQuery();
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -60,7 +60,7 @@ namespace BusinessLogic
                 list.Add(d);
             }
             con.Close();
-            return list;
+		    return list;
         }
 
         public List<DestinationDTO> GetAllDestinationsByCountry(string country)
@@ -119,6 +119,45 @@ namespace BusinessLogic
 
             }
             return des2;
+		}
+
+        public DestinationDTO SetDestinationStatus(DestinationDTO destination, int usrId)
+        {
+            var query = "INSERT INTO JK_Users_Destinations (UserId, DestinationId, DestinationStatus) VALUES (@id,@iddes,@desStat)";
+
+			using (SqlConnection con = new SqlConnection(connection))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+				cmd.Parameters.AddWithValue("@id", usrId);
+				cmd.Parameters.AddWithValue("@iddes", destination.Id);
+				cmd.Parameters.AddWithValue("@desStat", (object)destination.DesStatus ?? DBNull.Value);
+                cmd.ExecuteNonQuery();
+            }
+            return destination;
+        }
+
+		public DestinationDTO GetStatusByUserIdAndDesId(DestinationDTO des, int usrid)
+		{
+
+
+			var query = "SELECT * FROM JK_Users_Destinations WHERE UserId = @us AND DestinationId = @dId";
+			SqlConnection con = new SqlConnection(connection);
+			con.Open();
+			SqlCommand cmd2 = new SqlCommand(query, con);
+			cmd2.Parameters.AddWithValue("@dId", des.Id);
+			cmd2.Parameters.AddWithValue("@us", usrid);
+			SqlDataReader reader = cmd.ExecuteReader();
+			while (reader.Read())
+			{
+				
+		        des.DesStatus = (int)reader["DestinationStatus"];
+				
+
+			}
+			reader.Close();
+			con.Close();
+            return des;
 		}
 	}
 }

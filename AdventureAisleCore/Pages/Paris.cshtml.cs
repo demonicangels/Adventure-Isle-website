@@ -2,6 +2,7 @@ using BusinessLogic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Factory;
+using BusinessLogic.Enums;
 
 namespace AdventureAisleCore.Pages
 {
@@ -20,12 +21,16 @@ namespace AdventureAisleCore.Pages
         [BindProperty]
         public string CheckedValue { get; set; }
 
+        [BindProperty]
+        public string DesStatus { get; set; }
+
         public Review[] Reviews { get; set; }
 
         public User User { get; set; }
 
         public List<Destination> Desi { get; set; } = new List<Destination>();
 
+        
         public void OnGet()
         {
             reviews = serviceObjects.reviewServiceObject();
@@ -55,22 +60,17 @@ namespace AdventureAisleCore.Pages
             User = userService.GetUserById(id);
 
             Desi = destinationService.GetDestinationByName(Destination);
-            
 
-            if(Review.ReviewTxt != null)
+
+			if (Review.ReviewTxt != null)
             {
                 Review.UserEmail = User.Email;
                 Review.DestinationName = Destination;
                 Review.Rating = int.Parse(CheckedValue);
 				reviews.Insert(Review);
                 Reviews = reviews.GetReviews(Destination);
-            }
-            else
-            {
-                Reviews = reviews.GetReviews(Destination);
-            }
 
-            foreach(var d in Desi)
+                foreach(var d in Desi)
             {
                 foreach(var rev in Reviews)
                 {
@@ -83,6 +83,25 @@ namespace AdventureAisleCore.Pages
                     destinationService.UpdateDestination(d);
                 }
             }
+            }
+            else
+            {
+                Reviews = reviews.GetReviews(Destination);
+            }
+
+            
+
+            if(DesStatus == "BeenTo")
+            {
+                Desi.FirstOrDefault().DesStatus = (int)DestinationStatus.BeenTo;
+                destinationService.SetDestinationStatus(Desi.FirstOrDefault(), id);
+			}
+            else if(DesStatus == "GoingTo")
+            {
+				Desi.FirstOrDefault().DesStatus = (int)DestinationStatus.GoingTo;
+				destinationService.SetDestinationStatus(Desi.FirstOrDefault(), id);
+			}
+
             return Page();
         }
     }

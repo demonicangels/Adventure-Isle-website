@@ -18,10 +18,12 @@
 			<div class="page-content">
 				<div class="flex-container">
 					<div class="buttons-img">
-						<img src="~/images/p.jpg"  />
+						<img src="~/images/p.jpg"/>
 						<div class="buttons">
-							<input type="submit" value="Been" id="beenTo" />
-							<input type="submit" value="Going to" id="goingTo"/>
+							<form method="post">
+								<input type="submit" value="BeenTo"  id="beenTo" asp-for="DesStatus"/>
+								<input type="submit" value="GoingTo"  id="goingTo" asp-for="DesStatus" />
+							</form>
 						</div>
 					</div>
 	
@@ -80,14 +82,14 @@
 									</div>
 									<p>@r.ReviewTxt</p> 
 								}
-								@if (Model.User != null)
-								{
-									<form method="post">
-										<h4> My review </h4>
-										<textarea cols="15" rows="5" placeholder="Enter your opinion here..." asp-for="Review.ReviewTxt"></textarea>
-										<button type="submit">Submit</button>
-									</form>
-								}
+						@if (Model.User != null)
+						{
+							<form method="post">
+								<h4> My review </h4>
+								<textarea cols="15" rows="5" placeholder="Enter your opinion here..." asp-for="Review.ReviewTxt"></textarea>
+								<button type="submit">Submit</button>
+							</form>
+						}
 						
 							</div>
 					</form>

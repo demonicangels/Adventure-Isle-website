@@ -18,6 +18,8 @@ namespace BusinessLogic
 
         public string ImgURL { get; set; }
 
+        public int DesStatus { get; set; }
+
         public string DesInfo()
         {
             return $"City: {Name}, Country: {Country}, History: {BriefDescription}";

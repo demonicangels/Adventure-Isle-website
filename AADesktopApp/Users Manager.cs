@@ -1,12 +1,13 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Entities;
 using DAL;
+using Factory;
 
 namespace DesktopApp
 {
     public partial class CRUDusers : Form
     {
-
+       Security sec = new Security();
 
         public CRUDusers()
         {
@@ -23,6 +24,7 @@ namespace DesktopApp
 
         private void insert_btn_Click(object sender, EventArgs e)
         {
+            var us = serviceObjects.userServiceObject();
             UserDTO user = new UserDTO()
             {
                 Username = usernameUsertxt.Text,
@@ -32,16 +34,17 @@ namespace DesktopApp
                 Bio = biotxt.Text
             };
 
-            var salt = Security.CreateSalt();
-            var hash = Security.CreateHash(salt, passwordUsertxt.Text);
-            UserService.InsertUser(user, salt, hash);
+            var salt = sec.CreateSalt();
+            var hash = sec.CreateHash(salt, passwordUsertxt.Text);
+            us.InsertUser(user, salt, hash);
             MessageBox.Show("Succesful insert of data.");
             Clear();
         }
 
         private void delete_btn_Click(object sender, EventArgs e)
         {
-            UserService.DeleteUser(userScreen.SelectedItem.ToString());
+			var us = serviceObjects.userServiceObject();
+			us.DeleteUser(userScreen.SelectedItem.ToString());
             userScreen.Items.Remove(userScreen.SelectedItem);
             MessageBox.Show("Successful delete");
         }
@@ -58,8 +61,9 @@ namespace DesktopApp
 
         private void get_btn_Click(object sender, EventArgs e)
         {
-            userScreen.Items.Clear();
-            var usr = UserService.GetUserByEmail(searchByIdtxt.Text);
+			var us = serviceObjects.userServiceObject();
+			userScreen.Items.Clear();
+            var usr = us.GetUserByEmail(searchByIdtxt.Text);
             userScreen.MultiColumn = true;
             userScreen.Items.Add(usr.Username);
             Clear();

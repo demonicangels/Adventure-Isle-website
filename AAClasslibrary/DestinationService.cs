@@ -30,6 +30,7 @@ namespace BusinessLogic
                 BriefDescription = dto.BriefDescription,
                 AvgRating = dto.AvgRating,
                 ImgURL = dto.ImgURL,
+                DesStatus = dto.DesStatus,
             };
             return des;
         }
@@ -45,6 +46,7 @@ namespace BusinessLogic
 				BriefDescription = dto.BriefDescription,
 				AvgRating = dto.AvgRating,
 				ImgURL = dto.ImgURL,
+                DesStatus = dto.DesStatus,
 			};
 			return des;
 		}
@@ -95,6 +97,27 @@ namespace BusinessLogic
 			
 
 		}
+        public Destination SetDestinationStatus(Destination d, int id)
+        {
+            if (!Validate(d)) { return null; }
+            else 
+            {
+                _destinationRepository.SetDestinationStatus(ToDTO(d), id);
+                return d;
+			}
+
+        }
+        public Destination GetDestinationWithStatus(Destination des, int usrId)
+        {
+            if (!Validate(des)) { return null; }
+            else
+            {
+                var desi = _destinationRepository.GetStatusByUserIdAndDesId(ToDTO(des), usrId);
+                return FromDTO(desi);
+			}
+           
+        }
+
         public bool Validate(Destination des)
         {
             var context = new ValidationContext(des);

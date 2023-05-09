@@ -1,16 +1,17 @@
 ﻿using BusinessLogic;
+using Factory;
 
 namespace DesktopApp
 {
     public partial class CRUDDestinations : Form
     {
         string dbTable = "";
+
         
 
         public CRUDDestinations()
         {
             InitializeComponent();
-            //_desRepository = User.GetDAO();
         }
 
         public void Clear()
@@ -24,22 +25,24 @@ namespace DesktopApp
         }
         private void Put_btn_Click(object sender, EventArgs e) // insert button 
         {
-            
+            var desi = serviceObjects.destinationServiceObject();
+
             DestinationDTO des = new DestinationDTO();
             des.Name = nameDestxt.Text;
             des.Country = countriesCb.SelectedItem.ToString();
             des.Currency = currencyDestxt.Text;
             des.BriefDescription = descriptionDestxt.Text;
             des.Climate = climatetxt.Text;
-            DestinationService.InsertDestination(des);
+			desi.InsertDestination(des);
             MessageBox.Show("Successful insert");
             Clear();
         }
 
         private void Delete_btn_Click(object sender, EventArgs e)
         {
+			var desi = serviceObjects.destinationServiceObject();
 
-            DestinationService.DeleteDestination(desScreen.SelectedItem.ToString());
+			desi.DeleteDestination(desScreen.SelectedItem.ToString());
             desScreen.Items.Remove(desScreen.SelectedItem);
             MessageBox.Show("Successful delete");
             Clear();
@@ -48,18 +51,20 @@ namespace DesktopApp
 
         private void Get_btn_Click(object sender, EventArgs e)
         {
+			var desi = serviceObjects.destinationServiceObject();
 
-            desScreen.Items.Clear();
-            var des = DestinationService.GetDestinationByName(searchByIdtxt.Text.ToString());
+			desScreen.Items.Clear();
+            var des = desi.GetDestinationByName(searchByIdtxt.Text.ToString());
             desScreen.Items.Add(des);
             Clear();
         }
 
         private void GetAll_btn_Click(object sender, EventArgs e)
         {
-            
-            desScreen.Items.Clear();
-            var des = DestinationService.GetAllDestinationsByCountry(countriesCb.SelectedItem.ToString());
+			var desi = serviceObjects.destinationServiceObject();
+
+			desScreen.Items.Clear();
+            var des = desi.GetAllDestinationsByCountry(countriesCb.SelectedItem.ToString());
             for (int i = 0; i < des.Count; i++)
             {
                 desScreen.Items.Add(des[i].Name);
@@ -69,7 +74,9 @@ namespace DesktopApp
 
         private void desScreen_Click(object sender, EventArgs e)
         {
-            var des = DestinationService.GetDestinationByName(desScreen.SelectedItem.ToString());
+			var desi = serviceObjects.destinationServiceObject();
+
+			var des = desi.GetDestinationByName(desScreen.SelectedItem.ToString());
             //MessageBox.Show(des.DesInfo());
 
         }

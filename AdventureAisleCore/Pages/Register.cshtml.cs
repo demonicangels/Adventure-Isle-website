@@ -22,7 +22,9 @@ namespace AdventureAisleCore.Pages
         }
         public IActionResult OnPost()
         {
-                if (!ModelState.IsValid)
+			userService = serviceObjects.userServiceObject();
+
+			if (!ModelState.IsValid)
                 {
                     return Page();
                 }
