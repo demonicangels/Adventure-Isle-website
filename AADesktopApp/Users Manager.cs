@@ -8,11 +8,14 @@ namespace DesktopApp
     public partial class CRUDusers : Form
     {
        Security sec = new Security();
+        UserService us;
 
         public CRUDusers()
         {
             InitializeComponent();
-        }
+            us = serviceObjects.userServiceObject();
+
+		}
 
         public void Clear()
         {
@@ -24,7 +27,7 @@ namespace DesktopApp
 
         private void insert_btn_Click(object sender, EventArgs e)
         {
-            var us = serviceObjects.userServiceObject();
+            //var us = serviceObjects.userServiceObject();
             UserDTO user = new UserDTO()
             {
                 Username = usernameUsertxt.Text,
@@ -43,7 +46,7 @@ namespace DesktopApp
 
         private void delete_btn_Click(object sender, EventArgs e)
         {
-			var us = serviceObjects.userServiceObject();
+			//var us = serviceObjects.userServiceObject();
 			us.DeleteUser(userScreen.SelectedItem.ToString());
             userScreen.Items.Remove(userScreen.SelectedItem);
             MessageBox.Show("Successful delete");
@@ -52,7 +55,7 @@ namespace DesktopApp
         private void getAll_btn_Click(object sender, EventArgs e)
         {
             userScreen.Items.Clear();
-            var users = UserService.GetUsers();
+            var users = us.GetUsers();
             for (int i = 0; i < users.Length; i++)
             {
                 userScreen.Items.Add(users[i].Email);
@@ -61,7 +64,7 @@ namespace DesktopApp
 
         private void get_btn_Click(object sender, EventArgs e)
         {
-			var us = serviceObjects.userServiceObject();
+			//var us = serviceObjects.userServiceObject();
 			userScreen.Items.Clear();
             var usr = us.GetUserByEmail(searchByIdtxt.Text);
             userScreen.MultiColumn = true;
@@ -71,8 +74,8 @@ namespace DesktopApp
 
         private void userScreen_Click(object sender, EventArgs e)
         {
-            //var usr = UserService.GetUserByEmail(userScreen.SelectedItem.ToString());
-            //var user = UserService.FromDTO(usr);
+            //var usr = us.GetUserByEmail(userScreen.SelectedItem.ToString());
+            //var user = us.FromDTO(usr);
             //MessageBox.Show(user.UserInfo());
         }
     }

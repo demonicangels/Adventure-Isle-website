@@ -6,12 +6,14 @@ namespace DesktopApp
     public partial class CRUDDestinations : Form
     {
         string dbTable = "";
+        DestinationService desi;
 
         
 
         public CRUDDestinations()
         {
             InitializeComponent();
+            desi = serviceObjects.destinationServiceObject();
         }
 
         public void Clear()
@@ -25,7 +27,7 @@ namespace DesktopApp
         }
         private void Put_btn_Click(object sender, EventArgs e) // insert button 
         {
-            var desi = serviceObjects.destinationServiceObject();
+           
 
             DestinationDTO des = new DestinationDTO();
             des.Name = nameDestxt.Text;
@@ -40,7 +42,7 @@ namespace DesktopApp
 
         private void Delete_btn_Click(object sender, EventArgs e)
         {
-			var desi = serviceObjects.destinationServiceObject();
+			//var desi = serviceObjects.destinationServiceObject();
 
 			desi.DeleteDestination(desScreen.SelectedItem.ToString());
             desScreen.Items.Remove(desScreen.SelectedItem);
@@ -51,7 +53,7 @@ namespace DesktopApp
 
         private void Get_btn_Click(object sender, EventArgs e)
         {
-			var desi = serviceObjects.destinationServiceObject();
+			//var desi = serviceObjects.destinationServiceObject();
 
 			desScreen.Items.Clear();
             var des = desi.GetDestinationByName(searchByIdtxt.Text.ToString());
@@ -61,7 +63,7 @@ namespace DesktopApp
 
         private void GetAll_btn_Click(object sender, EventArgs e)
         {
-			var desi = serviceObjects.destinationServiceObject();
+			//var desi = serviceObjects.destinationServiceObject();
 
 			desScreen.Items.Clear();
             var des = desi.GetAllDestinationsByCountry(countriesCb.SelectedItem.ToString());
@@ -74,7 +76,7 @@ namespace DesktopApp
 
         private void desScreen_Click(object sender, EventArgs e)
         {
-			var desi = serviceObjects.destinationServiceObject();
+			//var desi = serviceObjects.destinationServiceObject();
 
 			var des = desi.GetDestinationByName(desScreen.SelectedItem.ToString());
             //MessageBox.Show(des.DesInfo());
@@ -86,7 +88,6 @@ namespace DesktopApp
             this.Hide();
             CRUDusers usr = new CRUDusers();
             usr.Show();
-
         }
     }
 }
