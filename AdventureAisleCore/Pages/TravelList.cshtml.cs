@@ -1,9 +1,7 @@
 using BusinessLogic;
 using BusinessLogic.Entities;
 using BusinessLogic.Interfaces;
-using Factory;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
