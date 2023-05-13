@@ -1,7 +1,6 @@
 using BusinessLogic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Factory;
 using BusinessLogic.Enums;
 using BusinessLogic.Interfaces;
 

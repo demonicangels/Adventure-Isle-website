@@ -1,9 +1,7 @@
 using BusinessLogic;
 using BusinessLogic.Entities;
-using Factory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Security.Cryptography;
 
 namespace AdventureAisleCore.Pages
 {
