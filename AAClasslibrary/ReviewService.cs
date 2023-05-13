@@ -13,10 +13,11 @@ namespace BusinessLogic
     {
         private static IReviewRepository _reviewRepository;
 
-        public ReviewService(IReviewRepository reviewRepository)
+        public IReviewRepository Init(IReviewRepository rev)
         {
-            _reviewRepository = reviewRepository;
-        }
+            return _reviewRepository = rev;
+
+		}
         private ReviewDTO ToDTO(Review review)
         {
             var r = new ReviewDTO()

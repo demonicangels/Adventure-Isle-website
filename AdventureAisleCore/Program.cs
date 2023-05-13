@@ -2,15 +2,34 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using BusinessLogic;
 using DAL;
 using BusinessLogic.Interfaces;
-using Factory;
 
 var builder = WebApplication.CreateBuilder(args);
 
-IUserRepository _userRepository = new UserRepository();
-IDestinationRepository _destinationRepository = new DestinationRepository();
-IReviewRepository _reviewRepository = new ReviewRepository();
-ITravelListRepository _travelListRepository = new TravelListRepository();
-serviceObjects service = new serviceObjects(_userRepository, _destinationRepository, _reviewRepository, _travelListRepository);
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<DestinationService>();
+builder.Services.AddScoped<ReviewService>();
+builder.Services.AddScoped<TravelListService>();
+
+builder.Services.AddTransient<IUserRepository>((sp) =>
+{
+    return new UserRepository();
+});
+
+builder.Services.AddTransient<IDestinationRepository>((sp) =>
+{
+	return new DestinationRepository();
+});
+
+builder.Services.AddTransient<IReviewRepository>((sp) =>
+{
+	return new ReviewRepository();
+});
+
+builder.Services.AddTransient<ITravelListRepository>((sp) =>
+{
+   return new TravelListRepository();
+});
+
 
 
 // Add services to the container.

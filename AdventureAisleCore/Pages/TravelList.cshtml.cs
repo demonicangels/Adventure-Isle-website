@@ -1,7 +1,9 @@
 using BusinessLogic;
 using BusinessLogic.Entities;
+using BusinessLogic.Interfaces;
 using Factory;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -16,9 +18,16 @@ namespace AdventureAisleCore.Pages
 
         [BindProperty]
         public List<Necessity> Necessities { get; set; } = new List<Necessity>();
-        public IActionResult OnGet()
+
+        public TravelListModel(TravelListService tr, ITravelListRepository trav)
+		{
+			this.tr = tr;
+			tr.Init(trav);
+		}
+
+		public IActionResult OnGet()
         {
-            tr = serviceObjects.travelListServiceObject();
+            
             if (User.IsInRole("User"))
             {
                 var usrId = HttpContext.Session.GetInt32("userId");
@@ -30,7 +39,6 @@ namespace AdventureAisleCore.Pages
         }
         public IActionResult OnPost(List<string>item)
         {
-            tr = serviceObjects.travelListServiceObject();
             var usrId = HttpContext.Session.GetInt32("userId");
             list = tr.GetListByUserId((int)usrId);
             foreach (var s in item)

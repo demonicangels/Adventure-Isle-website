@@ -20,14 +20,18 @@ namespace AdventureAisleCore.Pages
 
 
 
-        public void OnGet()
+        public LoginCoreModel(UserService usr, IUserRepository user)
         {
-            userService = serviceObjects.userServiceObject();
+			userService = usr;
+            userService.Init(user);
+		}
+
+		public void OnGet()
+        {
 
         }
         public async Task<IActionResult> OnPostAsync() 
         {
-			userService = serviceObjects.userServiceObject();
 			LoggedInUser = userService.GetUserByEmail(Usr.Email);
 			if (ModelState.IsValid && userService.Authenticate(Usr.Email, Usr.Password, LoggedInUser.Salt, LoggedInUser.HashedPass, LoggedInUser.HashedPass) == true)
             {

@@ -23,10 +23,14 @@ namespace AdventureAisleCore.Pages
 
         [BindProperty]
         public string IsInEditMode { get; set; }
+
+        public AccountModel(UserService us, IUserRepository usr)
+        {
+            userService = us;
+            userService.Init(usr);
+        }
         public void OnGet()
         {
-            userService = serviceObjects.userServiceObject();
-
             int? userId = HttpContext.Session.GetInt32("userId");
 
             if(userId.HasValue)
@@ -39,7 +43,6 @@ namespace AdventureAisleCore.Pages
        
         public IActionResult OnPost()
         {
-			userService = serviceObjects.userServiceObject();
 
 			int? userId = HttpContext.Session.GetInt32("userId");
             

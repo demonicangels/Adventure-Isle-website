@@ -15,15 +15,17 @@ namespace AdventureAisleCore.Pages
         [BindProperty]
         public UserDTO Usr { get; set; }
 
-       
+       public RegisterCoreModel(UserService u, IUserRepository us)
+       {
+            userService = u;
+            userService.Init(us);   
+	   }   
         public void OnGet()
         {
-            userService = serviceObjects.userServiceObject();
+            
         }
         public IActionResult OnPost()
         {
-			userService = serviceObjects.userServiceObject();
-
 			if (!ModelState.IsValid)
                 {
                     return Page();

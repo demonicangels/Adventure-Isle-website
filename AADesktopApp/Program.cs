@@ -2,6 +2,7 @@ using BusinessLogic;
 using BusinessLogic.Interfaces;
 using DAL;
 using Factory;
+using FactoryServices;
 
 namespace DesktopApp
 {
@@ -16,12 +17,9 @@ namespace DesktopApp
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            
-			IUserRepository _userRepository = new UserRepository();
-			IDestinationRepository _destinationRepository = new DestinationRepository();
-			IReviewRepository _reviewRepository = new ReviewRepository();
-			ITravelListRepository _travelListRepository = new TravelListRepository();
-			serviceObjects service = new serviceObjects(_userRepository, _destinationRepository, _reviewRepository, _travelListRepository);
+
+			IRepositoryFactory repositoryFactory = new setRepositories();
+			serviceObjects service = new serviceObjects(repositoryFactory);
 
 			Application.Run(new CRUDDestinations());
         }

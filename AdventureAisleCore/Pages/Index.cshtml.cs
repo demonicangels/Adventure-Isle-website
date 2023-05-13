@@ -15,6 +15,7 @@ namespace AdventureAisleCore.Pages
 		[BindProperty(SupportsGet = true)]
 		public string? Logout { get; set; }
 
+        
         public async void OnGet()
         {
             if(Logout != null)

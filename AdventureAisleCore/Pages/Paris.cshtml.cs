@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Factory;
 using BusinessLogic.Enums;
+using BusinessLogic.Interfaces;
 
 namespace AdventureAisleCore.Pages
 {
@@ -30,13 +31,18 @@ namespace AdventureAisleCore.Pages
 
         public List<Destination> Desi { get; set; } = new List<Destination>();
 
-        
-        public void OnGet()
+        public ParisModel(UserService u, DestinationService d, ReviewService r, IUserRepository usr, IDestinationRepository des, IReviewRepository rev)
         {
-            reviews = serviceObjects.reviewServiceObject();
-			userService = serviceObjects.userServiceObject();
-			destinationService = serviceObjects.destinationServiceObject();
+            userService = u;
+            u.Init(usr);
+            destinationService = d;
+            destinationService.Init(des);
+            reviews = r;
+            reviews.Init(rev);
+		}
 
+		public void OnGet()
+        {
 			if (HttpContext.Session.GetInt32("userId") != null)
             {
                 var id = (int)HttpContext.Session.GetInt32("userId");
@@ -53,10 +59,6 @@ namespace AdventureAisleCore.Pages
         }
         public IActionResult OnPost()
         {
-			reviews = serviceObjects.reviewServiceObject();
-			userService = serviceObjects.userServiceObject();
-			destinationService = serviceObjects.destinationServiceObject();
-
 			var usrid = (int)HttpContext.Session.GetInt32("userId");
             User = userService.GetUserById(usrid);
 

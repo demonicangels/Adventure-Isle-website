@@ -5,36 +5,31 @@ namespace Factory
 {
 	public class serviceObjects
 	{
-		static IUserRepository usrRepo;
-		static IDestinationRepository desRepo;
-		static IReviewRepository revRepo;
-		static ITravelListRepository travListRepo;
+		private static IRepositoryFactory repoFactory;
 
-		public serviceObjects(IUserRepository usr, IDestinationRepository des, IReviewRepository rev, ITravelListRepository trav) 
+		public serviceObjects(IRepositoryFactory factory) 
 		{
-			usrRepo = usr;
-			desRepo = des;
-			revRepo = rev;
-			travListRepo = trav;
+			repoFactory = factory;
 		}
 		public static UserService userServiceObject()
 		{
-			UserService userService = new UserService(usrRepo);
+			UserService userService = new UserService();
+			userService.Init(repoFactory.SetUserRepository());
 			return userService;
 		}
 		public static DestinationService destinationServiceObject()
 		{
-			DestinationService destinationService = new DestinationService(desRepo);
+			DestinationService destinationService = new DestinationService();
 			return destinationService;
 		}
 		public static ReviewService reviewServiceObject()
 		{
-			ReviewService revService = new ReviewService(revRepo);
+			ReviewService revService = new ReviewService();
 			return revService;
 		}
 		public static TravelListService travelListServiceObject()
 		{
-			TravelListService listService = new TravelListService(travListRepo);
+			TravelListService listService = new TravelListService();
 			return listService;
 		}
 	}

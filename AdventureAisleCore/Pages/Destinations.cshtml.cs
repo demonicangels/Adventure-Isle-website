@@ -1,4 +1,5 @@
 using BusinessLogic;
+using BusinessLogic.Interfaces;
 using Factory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -20,12 +21,15 @@ namespace AdventureAisleCore.Pages
 
         public Review[][] AllReviews { get; set; }
 
+        public DestinationsModel(DestinationService des, ReviewService reviewService, IDestinationRepository desi, IReviewRepository rev)
+        {
+			destinationService = des;
+            destinationService.Init(desi);
+            this.reviewService = reviewService;
+            reviewService.Init(rev);
+		}
         public void OnGet()
         {
-            destinationService = serviceObjects.destinationServiceObject();
-            reviewService = serviceObjects.reviewServiceObject();
-
-
 			var result = HttpContext.Session.GetString("search");
 
 			if (!String.IsNullOrEmpty(Country))

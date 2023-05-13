@@ -13,9 +13,9 @@ namespace BusinessLogic
     {
         private static IDestinationRepository _destinationRepository;
 
-        public DestinationService(IDestinationRepository destinationRepository)
+        public IDestinationRepository Init(IDestinationRepository des)
         {
-            _destinationRepository = destinationRepository;
+            return _destinationRepository = des;
         }
 
         private Destination FromDTO(DestinationDTO dto)

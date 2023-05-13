@@ -6,13 +6,13 @@ namespace BusinessLogic
 {
     public class UserService
     {
-        private static IUserRepository _userRepository;
+        private IUserRepository _userRepository;
         Security security = new Security();
 
-        public UserService(IUserRepository userRepository) 
-        { 
-            _userRepository = userRepository;
-        }
+        public IUserRepository Init(IUserRepository usr)
+        {
+            return _userRepository = usr;
+		}
 
         public User FromDTO(UserDTO user)
         {
@@ -103,7 +103,7 @@ namespace BusinessLogic
 
 			return userInstance;
         }
-        public static UserDTO[] GetUsers()
+        public UserDTO[] GetUsers()
         {
             var users = _userRepository.GetAllUsers();
             return users.ToArray();
