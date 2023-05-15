@@ -52,6 +52,9 @@ namespace BusinessLogic
             AvgRating = roundedResult;
             return AvgRating;
         }
-
+        public string DesInfo()
+        {
+            return $"{this.Country}: {this.Name}, {this.Currency}, {this.Climate} ";
+        }
     }
 }

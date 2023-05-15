@@ -5,78 +5,100 @@ using Factory;
 
 namespace DesktopApp
 {
-    public partial class CRUDusers : Form
-    {
-       Security sec = new Security();
-        UserService us;
+	public partial class CRUDusers : Form
+	{
+		Security sec = new Security();
+		UserService us;
+		private int amount;
+		bool result;
 
-        public CRUDusers()
-        {
-            InitializeComponent();
-            us = serviceObjects.userServiceObject();
+		public CRUDusers()
+		{
+			InitializeComponent();
+			us = serviceObjects.userServiceObject();
 
 		}
 
-        public void Clear()
-        {
-            usernameUsertxt.Text = string.Empty;
-            passwordUsertxt.Text = string.Empty;
-            emailUsertxt.Text = string.Empty;
-            searchByIdtxt.Text = string.Empty;
-        }
+		public void Clear()
+		{
+			usernameUsertxt.Text = string.Empty;
+			passwordUsertxt.Text = string.Empty;
+			emailUsertxt.Text = string.Empty;
+			searchByIdtxt.Text = string.Empty;
+			biotxt.Text = string.Empty;
+		}
 
-        private void insert_btn_Click(object sender, EventArgs e)
-        {
-            //var us = serviceObjects.userServiceObject();
-            UserDTO user = new UserDTO()
-            {
-                Username = usernameUsertxt.Text,
-                Password = passwordUsertxt.Text,
-                Email = emailUsertxt.Text,
-                Birthday = birthdayDtp.Value,
-                Bio = biotxt.Text
-            };
+		private void insert_btn_Click(object sender, EventArgs e)
+		{
+			result = int.TryParse(usernameUsertxt.Text, out amount);
+			var result2 = int.TryParse(emailUsertxt.Text, out amount);
 
-            var salt = sec.CreateSalt();
-            var hash = sec.CreateHash(salt, passwordUsertxt.Text);
-            us.InsertUser(user, salt, hash);
-            MessageBox.Show("Succesful insert of data.");
-            Clear();
-        }
+			if (result == true || result2 == true)
+			{
+				MessageBox.Show("Invalid information. Please try again.");
+				Clear();
+			}
+			else
+			{
+				UserDTO user = new UserDTO()
+				{
+					Username = usernameUsertxt.Text,
+					Password = passwordUsertxt.Text,
+					Email = emailUsertxt.Text,
+					Birthday = birthdayDtp.Value,
+					Bio = biotxt.Text
+				};
 
-        private void delete_btn_Click(object sender, EventArgs e)
-        {
-			//var us = serviceObjects.userServiceObject();
+				var salt = sec.CreateSalt();
+				var hash = sec.CreateHash(salt, passwordUsertxt.Text);
+				us.InsertUser(user, salt, hash);
+				MessageBox.Show("Succesful insert of data.");
+				Clear();
+			}
+
+		}
+
+		private void delete_btn_Click(object sender, EventArgs e)
+		{
 			us.DeleteUser(userScreen.SelectedItem.ToString());
-            userScreen.Items.Remove(userScreen.SelectedItem);
-            MessageBox.Show("Successful delete");
-        }
+			userScreen.Items.Remove(userScreen.SelectedItem);
+			MessageBox.Show("Successful delete");
+		}
 
-        private void getAll_btn_Click(object sender, EventArgs e)
-        {
-            userScreen.Items.Clear();
-            var users = us.GetUsers();
-            for (int i = 0; i < users.Length; i++)
-            {
-                userScreen.Items.Add(users[i].Email);
-            }
-        }
-
-        private void get_btn_Click(object sender, EventArgs e)
-        {
-			//var us = serviceObjects.userServiceObject();
+		private void getAll_btn_Click(object sender, EventArgs e)
+		{
 			userScreen.Items.Clear();
-            var usr = us.GetUserByEmail(searchByIdtxt.Text);
-            userScreen.MultiColumn = true;
-            userScreen.Items.Add(usr.Username);
-            Clear();
-        }
+			var users = us.GetUsers();
+			for (int i = 0; i < users.Length; i++)
+			{
+				userScreen.Items.Add(users[i].Email);
+			}
+		}
 
-        private void userScreen_Click(object sender, EventArgs e)
-        {
-            //var usr = us.GetUserByEmail(userScreen.SelectedItem.ToString());
-            //var user = us.FromDTO(usr);
-            //MessageBox.Show(user.UserInfo());
-        }
-    }
+		private void get_btn_Click(object sender, EventArgs e)
+		{
+			userScreen.Items.Clear();
+
+			result = int.TryParse(searchByIdtxt.Text, out amount);
+
+			if (result == true)
+			{
+				MessageBox.Show("Invalid information. Please try again.");
+				Clear();
+			}
+			else
+			{
+				var usr = us.GetUserByEmail(searchByIdtxt.Text);
+				userScreen.MultiColumn = true;
+				userScreen.Items.Add(usr.Username);
+				Clear();
+			}
+		}
+
+		private void userScreen_Click(object sender, EventArgs e)
+		{
+			var usr = us.GetUserByEmail(userScreen.SelectedItem.ToString());
+			MessageBox.Show(usr.UserInfo());
+		}
+	}
 }
