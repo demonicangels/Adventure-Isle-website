@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "..\UnitTests\U
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Factory", "Factory", "{BFDC61F3-A10B-457D-BF02-E7CCC056FEE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryServices", "..\FactoryServices\FactoryServices.csproj", "{0730225A-B535-4083-83B8-FF2CAC5042DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FactoryServices", "..\FactoryServices\FactoryServices.csproj", "{0730225A-B535-4083-83B8-FF2CAC5042DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

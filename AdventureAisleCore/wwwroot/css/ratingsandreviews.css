@@ -1,21 +1,5 @@
 ﻿
 
-#star-2:checked ~ .content {
-    margin-top: -135px;
-}
-
-#star-3:checked ~ .content {
-    margin-top: -270px;
-}
-
-#star-4:checked ~ .content {
-    margin-top: -405px;
-}
-
-#star-5:checked ~ .content {
-    margin-top: -540px;
-}
-
 .wrapper .stars {
     margin-top: 30px;
 }

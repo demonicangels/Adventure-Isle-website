@@ -37,7 +37,7 @@ namespace AdventureAisleCore.Pages
             }
             else if (!String.IsNullOrEmpty(result))
             {
-				Destination = destinationService.GetDestinationByName(result);
+				Destination = destinationService.GetDestinationByName(result);  
 			}
 
             AllReviews = new Review[Destination.Count][];
