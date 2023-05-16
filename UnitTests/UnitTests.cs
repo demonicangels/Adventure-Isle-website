@@ -51,6 +51,7 @@ namespace UnitTests
             Assert.IsNull(actualResult);
             Assert.AreEqual(expectedResult, actualResult);
         }
+
         [TestMethod]
         public void UserAuthentication()
         {

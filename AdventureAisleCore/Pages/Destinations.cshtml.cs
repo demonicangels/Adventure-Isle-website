@@ -15,7 +15,7 @@ namespace AdventureAisleCore.Pages
 
         //[FromQuery(Name = "number")]
         // .../Destination?number=1
-        
+
         public static List<Destination>? Destination { get; set; }
 
         public Review[][] AllReviews { get; set; }

@@ -9,7 +9,6 @@ namespace DesktopApp
 	{
 		Security sec = new Security();
 		UserService us;
-		private int amount;
 		bool result;
 
 		public CRUDusers()
@@ -30,10 +29,9 @@ namespace DesktopApp
 
 		private void insert_btn_Click(object sender, EventArgs e)
 		{
-			result = int.TryParse(usernameUsertxt.Text, out amount);
-			var result2 = int.TryParse(emailUsertxt.Text, out amount);
-
-			if (result == true || result2 == true)
+			result = us.InfoValidation(usernameUsertxt.Text, emailUsertxt.Text);
+			
+			if (result == true)
 			{
 				MessageBox.Show("Invalid information. Please try again.");
 				Clear();
@@ -79,7 +77,7 @@ namespace DesktopApp
 		{
 			userScreen.Items.Clear();
 
-			result = int.TryParse(searchByIdtxt.Text, out amount);
+			result = us.SearchValidation(searchByIdtxt.Text);
 
 			if (result == true)
 			{

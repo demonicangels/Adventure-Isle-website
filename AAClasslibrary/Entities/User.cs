@@ -5,7 +5,7 @@ namespace BusinessLogic
     public class User
     {
 
-        public int Id { get; set; }
+        public int Id { get; internal set; }
         public string? Username { get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]

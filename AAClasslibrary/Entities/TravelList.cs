@@ -10,7 +10,7 @@ namespace BusinessLogic
 {
     public class TravelList
     {
-        public int Id { get; set; }
+        public int Id { get; internal set; }
         public int UserId { get; set; }
         public int DestinationId { get; set; }
 

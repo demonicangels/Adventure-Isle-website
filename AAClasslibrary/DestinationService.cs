@@ -127,6 +127,32 @@ namespace BusinessLogic
 			}
         }
 
+        public bool InfoInputValidation(string name, string currency, string climate)
+        {
+            int amount;
+            var result = int.TryParse(name, out amount);
+            var result2 = int.TryParse(currency, out amount);
+            var result3 = int.TryParse(climate, out amount);
+
+            if(result2 == true)
+            {
+                result = result2;
+
+            }
+            else if(result3 == true)
+            {
+                result = result3;
+            }
+
+            return result;
+        }
+        public bool SearchValidation(string search)
+        {
+            int amount;
+            var result = int.TryParse(search, out amount);
+
+            return result;
+        }
 		public bool Validate(Destination des)
         {
             var context = new ValidationContext(des);
