@@ -13,9 +13,9 @@ namespace BusinessLogic
     {
         ITravelListRepository listRepository;
 
-        public ITravelListRepository Init(ITravelListRepository t) 
+        public TravelListService (ITravelListRepository t) 
         {
-            return listRepository = t;
+            listRepository = t;
         }
         private TravelList FromDTO (TravelListDTO t)
         {

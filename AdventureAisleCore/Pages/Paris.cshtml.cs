@@ -30,14 +30,11 @@ namespace AdventureAisleCore.Pages
 
         public List<Destination> Desi { get; set; } = new List<Destination>();
 
-        public ParisModel(UserService u, DestinationService d, ReviewService r, IUserRepository usr, IDestinationRepository des, IReviewRepository rev)
+        public ParisModel(UserService u, DestinationService d, ReviewService r)
         {
             userService = u;
-            u.Init(usr);
             destinationService = d;
-            destinationService.Init(des);
             reviews = r;
-            reviews.Init(rev);
 		}
 
 		public void OnGet()

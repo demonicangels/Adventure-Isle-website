@@ -20,12 +20,11 @@ namespace AdventureAisleCore.Pages
 
         public Review[][] AllReviews { get; set; }
 
-        public DestinationsModel(DestinationService des, ReviewService reviewService, IDestinationRepository desi, IReviewRepository rev)
+        public DestinationsModel(DestinationService des, ReviewService reviewService)
         {
 			destinationService = des;
-            destinationService.Init(desi);
             this.reviewService = reviewService;
-            reviewService.Init(rev);
+           
 		}
         public void OnGet()
         {

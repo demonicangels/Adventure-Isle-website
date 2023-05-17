@@ -13,26 +13,22 @@ namespace Factory
 		}
 		public static UserService userServiceObject()
 		{
-			UserService userService = new UserService();
-			userService.Init(repoFactory.SetUserRepository());
+			UserService userService = new UserService(repoFactory.SetUserRepository());
 			return userService;
 		}
 		public static DestinationService destinationServiceObject()
 		{
-			DestinationService destinationService = new DestinationService();
-			destinationService.Init(repoFactory.SetDestinationRepository());
+			DestinationService destinationService = new DestinationService(repoFactory.SetDestinationRepository());
 			return destinationService;
 		}
 		public static ReviewService reviewServiceObject()
 		{
-			ReviewService revService = new ReviewService();
-			revService.Init(repoFactory.SetReviewRepository());
+			ReviewService revService = new ReviewService(repoFactory.SetReviewRepository());
 			return revService;
 		}
 		public static TravelListService travelListServiceObject()
 		{
-			TravelListService listService = new TravelListService();
-			listService.Init(repoFactory.SetTravelListRepository());
+			TravelListService listService = new TravelListService(repoFactory.SetTravelListRepository());
 			return listService;
 		}
 	}

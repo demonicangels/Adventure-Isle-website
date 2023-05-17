@@ -23,10 +23,10 @@ namespace AdventureAisleCore.Pages
         [BindProperty]
         public string IsInEditMode { get; set; }
 
-        public AccountModel(UserService us, IUserRepository usr)
+        public AccountModel(UserService us)
         {
             userService = us;
-            userService.Init(usr);
+            
         }
         public void OnGet()
         {

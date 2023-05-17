@@ -17,10 +17,9 @@ namespace AdventureAisleCore.Pages
         [BindProperty]
         public List<Necessity> Necessities { get; set; } = new List<Necessity>();
 
-        public TravelListModel(TravelListService tr, ITravelListRepository trav)
+        public TravelListModel(TravelListService tr)
 		{
 			this.tr = tr;
-			tr.Init(trav);
 		}
 
 		public IActionResult OnGet()

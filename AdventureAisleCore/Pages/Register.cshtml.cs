@@ -13,10 +13,9 @@ namespace AdventureAisleCore.Pages
         [BindProperty]
         public UserDTO Usr { get; set; }
 
-       public RegisterCoreModel(UserService u, IUserRepository us)
+       public RegisterCoreModel(UserService u)
        {
             userService = u;
-            userService.Init(us);   
 	   }   
         public void OnGet()
         {

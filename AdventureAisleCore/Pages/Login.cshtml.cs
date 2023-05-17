@@ -22,7 +22,6 @@ namespace AdventureAisleCore.Pages
         public LoginCoreModel(UserService usr, IUserRepository user)
         {
 			userService = usr;
-            userService.Init(user);
 		}
 
 		public void OnGet()
@@ -31,7 +30,7 @@ namespace AdventureAisleCore.Pages
         }
         public async Task<IActionResult> OnPostAsync() 
         {
-			LoggedInUser = userService.GetUserByEmail(Usr.Email);
+			LoggedInUser = userService.GetUserByEmail(Usr.Email); // move to authenticate in userService // authenticate retursn nullable user not bool
 			if (ModelState.IsValid && userService.Authenticate(Usr.Email, Usr.Password, LoggedInUser.Salt, LoggedInUser.HashedPass, LoggedInUser.HashedPass) == true)
             {
 				

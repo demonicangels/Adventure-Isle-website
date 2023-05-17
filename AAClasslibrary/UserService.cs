@@ -10,9 +10,9 @@ namespace BusinessLogic
         Security security = new Security();
         int amount;
 
-        public IUserRepository Init(IUserRepository usr)
+        public UserService(IUserRepository usr) 
         {
-            return _userRepository = usr;
+           _userRepository = usr;
         }
 
         public User FromDTO(UserDTO user)
