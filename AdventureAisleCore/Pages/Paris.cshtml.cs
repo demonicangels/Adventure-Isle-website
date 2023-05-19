@@ -24,9 +24,11 @@ namespace AdventureAisleCore.Pages
         [BindProperty]
         public DestinationStatus DesStatus { get; set; }
 
-        public Review[] Reviews { get; set; }
+        public Review[] DesReviews { get; set; }
 
-        public User User { get; set; }
+		public Review[] Reviews { get; set; }
+
+		public User User { get; set; }
 
         public List<Destination> Desi { get; set; } = new List<Destination>();
 
@@ -37,21 +39,30 @@ namespace AdventureAisleCore.Pages
             reviews = r;
 		}
 
+        public int UserWithMostReviewWeight(int userId)
+        {
+            int result = Reviews.Count(r => r.UserId == userId);
+            return result;
+        }
 		public void OnGet()
         {
+			Reviews = reviews.GetReviews();
+			Reviews = Reviews.OrderByDescending(r => UserWithMostReviewWeight(r.UserId)).ToArray();
+            var userWithMostWeight = Reviews[0].UserId;
+
 			if (HttpContext.Session.GetInt32("userId") != null)
             {
                 var id = (int)HttpContext.Session.GetInt32("userId");
                 User = userService.GetUserById(id);
-				Reviews = reviews.GetReviews(Destination);
 				Desi = destinationService.GetDestinationByName(Destination);
                 Desi[0] = destinationService.GetDestinationWithStatus(Desi.FirstOrDefault(), id);
+                DesReviews = Reviews.Where(d => d.DestinationId == Desi.FirstOrDefault().Id).ToArray();
 			}
             else
             {
-                Reviews = reviews.GetReviews(Destination);
 				Desi = destinationService.GetDestinationByName(Destination);
-			}
+                DesReviews = Reviews.Where(d => d.DestinationId == Desi.FirstOrDefault().Id).ToArray();   
+            }
         }
         public IActionResult OnPost()
         {
@@ -60,15 +71,20 @@ namespace AdventureAisleCore.Pages
 
             Desi = destinationService.GetDestinationByName(Destination);
 			Desi[0] = destinationService.GetDestinationWithStatus(Desi.FirstOrDefault(), usrid);
+            Reviews = reviews.GetReviews();
+            Reviews = Reviews.OrderByDescending(r => UserWithMostReviewWeight(r.UserId)).ToArray();
 
 
-			if (Review.ReviewTxt != null)
+            if (Review.ReviewTxt != null)
             {
-                Review.UserEmail = User.Email;
-                Review.DestinationName = Destination;
-                Review.Rating = int.Parse(CheckedValue);
+                int amount;
+                int.TryParse(CheckedValue, out amount);
+                Review.UserId = User.Id;
+                Review.DestinationId = Desi.FirstOrDefault().Id;
+                Review.Rating = amount;
                 reviews.Insert(Review);
-                Reviews = reviews.GetReviews(Destination);
+                
+                DesReviews = Reviews.Where(d => d.DestinationId == Desi.FirstOrDefault().Id).ToArray();
 
                 foreach (var d in Desi)
                 {
@@ -86,7 +102,7 @@ namespace AdventureAisleCore.Pages
             }
             else
             {
-                Reviews = reviews.GetReviews(Destination);
+                DesReviews = Reviews.Where(d => d.DestinationId == Desi.FirstOrDefault().Id).ToArray();
             }
 
 

@@ -12,6 +12,8 @@ namespace BusinessLogic.Interfaces
         void Insert(ReviewDTO review);
         void Update();
         void Delete();
-        ReviewDTO[] GetReviews(string des);
-    }
+        ReviewDTO[] GetReviews();
+        ReviewDTO[] GetReviewsByDesId(int id);
+
+	}
 }

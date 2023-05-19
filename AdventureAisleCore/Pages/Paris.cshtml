@@ -87,10 +87,10 @@
 
 							<div class="review">
 								<h1>Community reviews</h1>
-								@foreach (var r in Model.Reviews)
+								@foreach (var r in Model.DesReviews)
 								{
 									UserRepository repo = new UserRepository();
-									UserDTO user = repo.GetUserByEmail(r.UserEmail);
+									UserDTO user = repo.GetUserById(r.UserId);
 									@if (user.ProfilePic != null)
 									{
 										<img class="review-prof-pic" src="data:image/png;base64,@Convert.ToBase64String(user.ProfilePic)" />
@@ -100,7 +100,7 @@
 										<img class="review-prof-pic" src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" />
 									}
 									<div class="email-rating">
-										<h5> @r.UserEmail </h5> <p class="fas fa-star">@r.Rating</p>
+										<h5> @user.Username </h5> <p class="fas fa-star">@r.Rating</p>
 									</div>
 									<p>@r.ReviewTxt</p> 
 								}
@@ -119,7 +119,6 @@
 				</div>
 			</div>
 			</div>
-			
 	</body>
 </html>
 

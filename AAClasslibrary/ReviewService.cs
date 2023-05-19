@@ -21,8 +21,8 @@ namespace BusinessLogic
         {
             var r = new ReviewDTO()
             {
-                UserEmail = review.UserEmail,
-                DestinationName = review.DestinationName,
+                UserId = review.UserId,
+                DestinationId = review.DestinationId,
                 ReviewTxt = review.ReviewTxt,
                 Rating = review.Rating,
             };
@@ -32,9 +32,9 @@ namespace BusinessLogic
         {
             var r = new Review() 
             {
-                UserEmail = reviewDTO.UserEmail,
-                DestinationName = reviewDTO.DestinationName,
-                ReviewTxt = reviewDTO.ReviewTxt,
+				UserId = reviewDTO.UserId,
+				DestinationId = reviewDTO.DestinationId,
+				ReviewTxt = reviewDTO.ReviewTxt,
                 Rating = reviewDTO.Rating,
             };
             return r;
@@ -48,10 +48,9 @@ namespace BusinessLogic
             _reviewRepository.Insert(ToDTO(review));
 
         }
-
-        public Review[] GetReviews(string des)
+        public Review[] GetReviewsByDesId(int id)
         {
-            var listDTO = _reviewRepository.GetReviews(des);
+            var listDTO = _reviewRepository.GetReviewsByDesId(id);
             List<Review> reviews = new List<Review>();
             foreach (var review in listDTO)
             {
@@ -59,8 +58,18 @@ namespace BusinessLogic
             }
             return reviews.ToArray();
         }
+		public Review[] GetReviews()
+        {
+			var listDTO = _reviewRepository.GetReviews();
+			List<Review> reviews = new List<Review>();
+			foreach (var review in listDTO)
+			{
+				reviews.Add(FromDTO(review));
+			}
+			return reviews.ToArray();
+		}
 
-        public bool Validate(Review re)
+		public bool Validate(Review re)
         {
             var context = new ValidationContext(re);
             var results = new System.Collections.Generic.List<ValidationResult>();

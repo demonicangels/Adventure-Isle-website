@@ -168,10 +168,7 @@ namespace BusinessLogic
 			SqlDataReader reader2 = cmd2.ExecuteReader();
 			while (reader2.Read())
 			{
-				
 		        des.DesStatus = reader2["DestinationStatus"] == DBNull.Value ? null : (int)reader2["DestinationStatus"];
-				
-
 			}
 			reader2.Close();
 			con2.Close();

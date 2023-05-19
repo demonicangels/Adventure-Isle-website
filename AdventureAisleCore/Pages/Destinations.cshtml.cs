@@ -18,7 +18,7 @@ namespace AdventureAisleCore.Pages
 
         public static List<Destination>? Destination { get; set; }
 
-        public Review[][] AllReviews { get; set; }
+        public Review[][] AllCurrentDesReviews { get; set; }
 
         public DestinationsModel(DestinationService des, ReviewService reviewService)
         {
@@ -39,10 +39,10 @@ namespace AdventureAisleCore.Pages
 				Destination = destinationService.GetDestinationByName(result);  
 			}
 
-            AllReviews = new Review[Destination.Count][];
+			AllCurrentDesReviews = new Review[Destination.Count][];
             for (int i = 0; i < Destination.Count; i++)
             {
-                AllReviews[i] = reviewService.GetReviews(Destination[i].Name);
+				AllCurrentDesReviews[i] = reviewService.GetReviewsByDesId(Destination[i].Id);
             }
         }
     }

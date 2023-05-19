@@ -2,9 +2,9 @@
 {
     public class Review
     {
-        public string UserEmail { get; set; }
-        public string DestinationName { get; set; }
-        public string ReviewTxt { get; set; }
+		public int UserId { get; set; }
+		public int DestinationId { get; set; }
+		public string ReviewTxt { get; set; }
         public double Rating { get; set; }
 
     }
