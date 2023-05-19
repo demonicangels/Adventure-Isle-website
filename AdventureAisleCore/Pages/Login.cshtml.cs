@@ -30,24 +30,23 @@ namespace AdventureAisleCore.Pages
         }
         public async Task<IActionResult> OnPostAsync() 
         {
-			LoggedInUser = userService.GetUserByEmail(Usr.Email); // move to authenticate in userService // authenticate retursn nullable user not bool
-			if (ModelState.IsValid && userService.Authenticate(Usr.Email, Usr.Password, LoggedInUser.Salt, LoggedInUser.HashedPass, LoggedInUser.HashedPass) == true)
+            LoggedInUser = userService.Authenticate(Usr.Email, Usr.Password);
+
+            if (ModelState.IsValid && LoggedInUser != null)
             {
-				
 				HttpContext.Session.SetInt32("userId", (int)LoggedInUser.Id);
 
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(
-                    new Claim[]
-                    {
-                        new Claim("id", LoggedInUser.Email),
-                        new Claim(ClaimTypes.Name, LoggedInUser.Username),
-                        new Claim(ClaimTypes.Role, "User"),
-                    }, CookieAuthenticationDefaults.AuthenticationScheme);
+                new Claim[]
+                {
+                    new Claim("id", LoggedInUser.Email),
+                    new Claim(ClaimTypes.Name, LoggedInUser.Username),
+                    new Claim(ClaimTypes.Role, "User"),
+                }, CookieAuthenticationDefaults.AuthenticationScheme);
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                    await HttpContext.SignInAsync(claimsPrincipal);
+                await HttpContext.SignInAsync(claimsPrincipal);
 
-                    return base.RedirectToPage("/Profile");
-
+                return base.RedirectToPage("/Profile");
             }
             else
             {

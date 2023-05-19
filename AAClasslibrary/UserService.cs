@@ -110,17 +110,18 @@ namespace BusinessLogic
             return users.ToArray();
         }
 
-        public bool Authenticate(string email, string pass, string salt, string hashedPassword, string actualHash)
+        public User? Authenticate(string email, string pass)
         {
-            var result = false;
-            var expectedHash = security.CreateHash(salt, pass);
-            var actual = actualHash;
+            var loggedInUser = _userRepository.GetUserByEmail(email);
 
-            if (expectedHash == actualHash)
+            var expectedHash = security.CreateHash(loggedInUser.Salt, pass);
+            var actual = loggedInUser.HashedPass;
+
+            if (expectedHash == actual)
             {
-                result = true;
+               return FromDTO(loggedInUser);
             }
-            return result;
+            return null; 
         }
 
         public void InsertImage(byte[] image, string username)
