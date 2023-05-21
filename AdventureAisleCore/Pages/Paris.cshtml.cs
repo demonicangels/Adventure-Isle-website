@@ -22,7 +22,7 @@ namespace AdventureAisleCore.Pages
         public string CheckedValue { get; set; }
 
         [BindProperty]
-        public DestinationStatus DesStatus { get; set; }
+        public DestinationStatus? DesStatus { get; set; }
 
         public Review[] DesReviews { get; set; }
 
@@ -83,6 +83,7 @@ namespace AdventureAisleCore.Pages
                 Review.DestinationId = Desi.FirstOrDefault().Id;
                 Review.Rating = amount;
                 reviews.Insert(Review);
+                Reviews = reviews.GetReviewsByDesId(Desi.FirstOrDefault().Id);
                 
                 DesReviews = Reviews.Where(d => d.DestinationId == Desi.FirstOrDefault().Id).ToArray();
 
@@ -92,7 +93,6 @@ namespace AdventureAisleCore.Pages
                     {
                         d.AddRating(rev.Rating);
                     }
-                    d.AddRating(Convert.ToDouble(CheckedValue));
                     d.AvgRating = d.CalculateAverage();
                     if (Convert.ToDouble(CheckedValue) > 0)
                     {
@@ -106,8 +106,8 @@ namespace AdventureAisleCore.Pages
             }
 
 
-
-			if (Desi.FirstOrDefault().DesStatus != null && Desi.FirstOrDefault().DesStatus != (int)DesStatus)
+            
+			if (Desi[0].DesStatus != null && DesStatus != null)
 			{
                 Desi.FirstOrDefault().DesStatus = (int)DesStatus;
                 Desi[0] = destinationService.UpdateStatusByUserIdAndDesId(Desi.FirstOrDefault(), usrid);

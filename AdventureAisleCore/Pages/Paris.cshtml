@@ -99,19 +99,31 @@
 									{
 										<img class="review-prof-pic" src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" />
 									}
-									<div class="email-rating">
-										<h5> @user.Username </h5> <p class="fas fa-star">@r.Rating</p>
-									</div>
-									<p>@r.ReviewTxt</p> 
+									@if(r.Rating > 0)
+									{
+										<div class="email-rating">
+											<h5> @user.Username </h5> <p class="fas fa-star">@r.Rating</p>
+										</div>
+										<p>@r.ReviewTxt</p>
+									}
+									else
+									{
+										<div class="email-rating">
+											<h5> @user.Username </h5>
+										</div>
+										<p>@r.ReviewTxt</p>
+									}		
 								}
-						@if (Model.User != null && Model.Desi.FirstOrDefault().DesStatus == 1)
-						{
-							<form method="post">
-								<h4> My review </h4>
-								<textarea cols="15" rows="5" placeholder="Enter your opinion here..." asp-for="Review.ReviewTxt"></textarea>
-								<button type="submit">Submit</button>
-							</form>
-						}
+
+						
+								@if (Model.User != null && Model.Desi.FirstOrDefault().DesStatus == 1)
+								{
+									<form method="post">
+										<h4> My review </h4>
+										<textarea cols="15" rows="5" placeholder="Enter your opinion here..." asp-for="Review.ReviewTxt"></textarea>
+										<button type="submit">Submit</button>
+									</form>
+								}
 						
 							</div>
 					</form>
