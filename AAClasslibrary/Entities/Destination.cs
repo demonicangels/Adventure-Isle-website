@@ -6,7 +6,7 @@ namespace BusinessLogic
 {
     public class Destination
     {
-        public int Id { get; internal set; } 
+        public int Id { get; set; } 
         public string Name { get; internal set; }
         public string Country { get; internal set; }
         public string BriefDescription { get; set; }
@@ -22,6 +22,7 @@ namespace BusinessLogic
         public string Climate { get; set; }
         public string ImgURL { get; set; }
 		public int? DesStatus { get; set; }
+        public int? UsrId { get; set; }
 
         AlgorithmService algorithm = new AlgorithmService();
 

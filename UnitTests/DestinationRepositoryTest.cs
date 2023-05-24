@@ -59,5 +59,10 @@ namespace UnitTests
 		{
 			throw new NotImplementedException();
 		}
+
+		public DestinationDTO[] AllBeenToDestinationsofUser(int usrId)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

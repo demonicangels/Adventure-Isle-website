@@ -31,22 +31,24 @@ namespace BusinessLogic
                 AvgRating = dto.AvgRating,
                 ImgURL = dto.ImgURL,
                 DesStatus = dto.DesStatus,
+                UsrId = dto.UsrId,
             };
             return des;
         }
-		private DestinationDTO ToDTO(Destination dto)
+		private DestinationDTO ToDTO(Destination d)
 		{
 			var des = new DestinationDTO()
 			{
-                Id = dto.Id,
-				Name = dto.Name,
-				Country = dto.Country,
-				Climate = dto.Climate,
-				Currency = dto.Currency,
-				BriefDescription = dto.BriefDescription,
-				AvgRating = dto.AvgRating,
-				ImgURL = dto.ImgURL,
-                DesStatus = dto.DesStatus,
+                Id = d.Id,
+				Name = d.Name,
+				Country = d.Country,
+				Climate = d.Climate,
+				Currency = d.Currency,
+				BriefDescription = d.BriefDescription,
+				AvgRating = d.AvgRating,
+				ImgURL = d.ImgURL,
+                DesStatus = d.DesStatus,
+                UsrId = d.UsrId,
 			};
 			return des;
 		}
@@ -153,6 +155,16 @@ namespace BusinessLogic
 
             return result;
         }
+        public Destination[] AllBeenToDesOfUser(int usrId)
+        {
+            var allDes = _destinationRepository.AllBeenToDestinationsofUser(usrId);
+            List<Destination> result = new List<Destination>();
+            foreach(var d in allDes)
+            {
+                result.Add(FromDTO(d));
+            }
+            return result.ToArray();
+		} 
 		public bool Validate(Destination des)
         {
             var context = new ValidationContext(des);

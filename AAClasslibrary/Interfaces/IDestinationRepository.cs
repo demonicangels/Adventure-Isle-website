@@ -13,5 +13,7 @@ namespace BusinessLogic
         DestinationDTO SetDestinationStatus(DestinationDTO destination, int usrId);
 		DestinationDTO GetStatusByUserIdAndDesId(DestinationDTO des, int usrid);
         DestinationDTO UpdateStatusByUserIdAndDesId(DestinationDTO des, int usrid);
-    }
+        DestinationDTO[] AllBeenToDestinationsofUser(int usrId);
+
+	}
 }

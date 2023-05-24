@@ -17,8 +17,9 @@ namespace BusinessLogic
         public string Climate { get; set; }
         public string ImgURL { get; set; }
         public int? DesStatus { get; set; }
+		public int? UsrId { get; set; }
 
-        public string DesInfo()
+		public string DesInfo()
         {
             return $"City: {Name}, Country: {Country}, History: {BriefDescription}";
         }

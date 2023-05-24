@@ -10,14 +10,14 @@ namespace BusinessLogic
 {
 	public class AlgorithmService : IAlgorithmRepository
 	{
-		
-		private static IDestinationRepository _destinationRepository;
+
+		DestinationService des;
 		ReviewService rev;
 		public Review[] Reviews;
 		public AlgorithmService() { }
-		public AlgorithmService(IDestinationRepository destinationRepository, ReviewService rev)
+		public AlgorithmService(DestinationService des, ReviewService rev)
 		{
-			_destinationRepository = destinationRepository;
+			this.des = des;
 			this.rev = rev;
 		}
 		private ReviewDTO ToDTO(Review review)
@@ -69,6 +69,21 @@ namespace BusinessLogic
 			Reviews = rev.GetReviews();
 			Reviews = Reviews.OrderByDescending(r => CalculateWeight(r.UserId)).ToArray();
 			return Reviews;
+		}
+		public Destination[] Recommendations(int userId)
+		{
+			//var allDesUser = des.AllBeenToDesOfUser(userId).ToList();
+			//foreach (var user in allDesUser)
+			//{
+			//
+			//}
+			//
+			//
+			//allDes.GroupBy(c => c.Climate)
+			//	.Where(d => d.Count() > 1)
+			//	.Select(n => new {Name = n.Key, Count = n.Count()})
+			//	.ToList();
+			throw new NotImplementedException();
 		}
 	}
 }

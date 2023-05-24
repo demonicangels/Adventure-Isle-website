@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using BusinessLogic;
 using System.Collections.Generic;
+using BusinessLogic.Entities;
 
 namespace BusinessLogic 
 {
@@ -188,6 +189,30 @@ namespace BusinessLogic
             cmd.ExecuteNonQuery();
             con.Close();
             return des;
+		}
+        public DestinationDTO[] AllBeenToDestinationsofUser(int usrId)
+        {
+            List<DestinationDTO> userDestinations = new List<DestinationDTO>();
+            var query = "SELECT * FROM JK_Users_Destinations WHERE UserId = @us AND DestinationStatus = 1";
+            using (SqlConnection con = new SqlConnection(connection))
+            {
+                con.Open();
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@us", usrId);
+                cmd.ExecuteNonQuery();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    DestinationDTO des = new DestinationDTO()
+                    {
+                        UsrId = (int)reader["UserId"],
+                        Id = (int)reader["DestinationId"]
+                    };
+                    userDestinations.Add(des);
+                }
+            }
+            return userDestinations.ToArray();
+
 		}
 	}
 }
