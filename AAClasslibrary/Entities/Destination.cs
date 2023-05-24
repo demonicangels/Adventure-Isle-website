@@ -23,7 +23,7 @@ namespace BusinessLogic
         public string ImgURL { get; set; }
 		public int? DesStatus { get; set; }
 
-
+        AlgorithmService algorithm = new AlgorithmService();
 
 		public void AddReview(Review r)
         {
@@ -38,20 +38,9 @@ namespace BusinessLogic
         }
         public double CalculateAverage()
         {
-            double sum = 0;
-            var count = 0;
-            foreach(var num in ratingList)
-            {
-                sum += num;
-                count++;
-
-            }
-            var average = sum / count;
-
-            var roundedResult = Math.Round(average, 2, MidpointRounding.AwayFromZero);
-            AvgRating = roundedResult;
-            return AvgRating;
-        }
+            var result = algorithm.CalculateAverage(ratingList);
+            return result;
+		}
         public string DesInfo()
         {
             return $"{this.Country}: {this.Name}, {this.Currency}, {this.Climate} ";

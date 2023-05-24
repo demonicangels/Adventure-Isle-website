@@ -10,6 +10,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<DestinationService>();
 builder.Services.AddScoped<ReviewService>();
 builder.Services.AddScoped<TravelListService>();
+builder.Services.AddScoped<AlgorithmService>();
 
 builder.Services.AddTransient<IUserRepository>((sp) =>
 {

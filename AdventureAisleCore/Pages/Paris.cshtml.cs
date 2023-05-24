@@ -11,7 +11,10 @@ namespace AdventureAisleCore.Pages
         ReviewService reviews;
         UserService userService;
         DestinationService destinationService;
+        AlgorithmService algorithmService;
 
+        
+        
         [BindProperty(SupportsGet = true)]
         public string Destination { get; set; }
 
@@ -32,22 +35,16 @@ namespace AdventureAisleCore.Pages
 
         public List<Destination> Desi { get; set; } = new List<Destination>();
 
-        public ParisModel(UserService u, DestinationService d, ReviewService r)
+        public ParisModel(UserService u, DestinationService d, ReviewService r, AlgorithmService a)
         {
             userService = u;
             destinationService = d;
             reviews = r;
+            algorithmService = a;
 		}
-
-        public int UserWithMostReviewWeight(int userId)
-        {
-            int result = Reviews.Count(r => r.UserId == userId);
-            return result;
-        }
 		public void OnGet()
         {
-			Reviews = reviews.GetReviews();
-			Reviews = Reviews.OrderByDescending(r => UserWithMostReviewWeight(r.UserId)).ToArray();
+            Reviews = algorithmService.UserWithMostReviewWeight();
             var userWithMostWeight = Reviews[0].UserId;
 
 			if (HttpContext.Session.GetInt32("userId") != null)
@@ -71,11 +68,9 @@ namespace AdventureAisleCore.Pages
 
             Desi = destinationService.GetDestinationByName(Destination);
 			Desi[0] = destinationService.GetDestinationWithStatus(Desi.FirstOrDefault(), usrid);
-            Reviews = reviews.GetReviews();
-            Reviews = Reviews.OrderByDescending(r => UserWithMostReviewWeight(r.UserId)).ToArray();
+			Reviews = algorithmService.UserWithMostReviewWeight();
 
-
-            if (Review.ReviewTxt != null)
+			if (Review.ReviewTxt != null)
             {
                 int amount;
                 int.TryParse(CheckedValue, out amount);
