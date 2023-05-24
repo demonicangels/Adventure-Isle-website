@@ -18,6 +18,7 @@ namespace BusinessLogic
         public string ImgURL { get; set; }
         public int? DesStatus { get; set; }
 		public int? UsrId { get; set; }
+        public int TimesVisited { get; set; }
 
 		public string DesInfo()
         {

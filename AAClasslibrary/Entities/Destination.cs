@@ -23,8 +23,9 @@ namespace BusinessLogic
         public string ImgURL { get; set; }
 		public int? DesStatus { get; set; }
         public int? UsrId { get; set; }
+		public int TimesVisited { get; set; }
 
-        AlgorithmService algorithm = new AlgorithmService();
+		AlgorithmService algorithm = new AlgorithmService();
 
 		public void AddReview(Review r)
         {

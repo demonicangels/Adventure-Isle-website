@@ -11,14 +11,14 @@ namespace BusinessLogic
 	public class AlgorithmService : IAlgorithmRepository
 	{
 
-		DestinationService des;
-		ReviewService rev;
+		DestinationService desService;
+		ReviewService revService;
 		public Review[] Reviews;
 		public AlgorithmService() { }
 		public AlgorithmService(DestinationService des, ReviewService rev)
 		{
-			this.des = des;
-			this.rev = rev;
+			this.desService = des;
+			this.revService = rev;
 		}
 		private ReviewDTO ToDTO(Review review)
 		{
@@ -66,24 +66,51 @@ namespace BusinessLogic
 		}
 		public Review[] UserWithMostReviewWeight()
 		{
-			Reviews = rev.GetReviews();
+			Reviews = revService.GetReviews();
 			Reviews = Reviews.OrderByDescending(r => CalculateWeight(r.UserId)).ToArray();
 			return Reviews;
 		}
 		public Destination[] Recommendations(int userId)
 		{
-			//var allDesUser = des.AllBeenToDesOfUser(userId).ToList();
-			//foreach (var user in allDesUser)
-			//{
-			//
-			//}
-			//
-			//
-			//allDes.GroupBy(c => c.Climate)
-			//	.Where(d => d.Count() > 1)
-			//	.Select(n => new {Name = n.Key, Count = n.Count()})
-			//	.ToList();
-			throw new NotImplementedException();
+			var userDes = desService.AllBeenToDesOfUser(userId).ToList();
+			var allDestinations = desService.GetAllDestinations();
+
+			foreach (var des in userDes)
+			{
+				var index = userDes.IndexOf(des);
+				var fulldestination = allDestinations[index];
+				if (userDes[index].Id == fulldestination.Id)
+				{
+					userDes[index].Name = fulldestination.Name;
+					userDes[index].Country = fulldestination.Country;
+					userDes[index].Currency = fulldestination.Currency;
+					userDes[index].BriefDescription = fulldestination.BriefDescription;
+					userDes[index].Climate = fulldestination.Climate;
+					userDes[index].AvgRating = fulldestination.AvgRating;
+					userDes[index].ImgURL = fulldestination.ImgURL;
+				}
+			}
+
+			if(userDes.Count > 1)
+			{
+				var duplicates = userDes.GroupBy(c => c.Climate)
+					.Where(d => d.Count() > 1)
+					.Select(d => new {Name = d.Key, Count = d.Count()})
+					.ToList();
+
+				var mostVisitedC = duplicates.OrderByDescending(c => c.Count).FirstOrDefault();
+
+                var recommendations = allDestinations.Where(d => !userDes.Any(des => des.Name == d.Name) && d.Climate == mostVisitedC.Name);
+				return recommendations.ToArray();
+            }
+			else
+			{
+				var singleDestinationClimate = userDes.Where(d => d.UsrId == userId).FirstOrDefault();
+				var recommendations = allDestinations.Where(d => !userDes.Any(des => d.Name == des.Name) && d.Climate == singleDestinationClimate.Climate).ToList();
+				return recommendations.ToArray();
+			}
+			//throw new NotImplementedException();
+			 
 		}
 	}
 }

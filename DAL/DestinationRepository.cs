@@ -2,6 +2,7 @@
 using BusinessLogic;
 using System.Collections.Generic;
 using BusinessLogic.Entities;
+using System.Diagnostics.Metrics;
 
 namespace BusinessLogic 
 {
@@ -190,10 +191,63 @@ namespace BusinessLogic
             con.Close();
             return des;
 		}
-        public DestinationDTO[] AllBeenToDestinationsofUser(int usrId)
+        public List<DestinationDTO> GetAllDestinations()
+        {
+			var query = $"SELECT * FROM Destinations";
+			var destinations = new List<DestinationDTO>();
+			con = new SqlConnection(connection);
+			con.Open();
+			cmd = new SqlCommand(query, con);
+			cmd.ExecuteNonQuery();
+			SqlDataReader reader = cmd.ExecuteReader();
+			while (reader.Read())
+			{
+                DestinationDTO des = new DestinationDTO()
+                {
+                    Id = (int)reader["Id"],
+                    Name = reader["Name"].ToString(),
+                    Country = reader["Country"].ToString(),
+					Currency = reader["Currency"].ToString(),
+					BriefDescription = reader["History"].ToString(),
+					Climate = reader["Climate"].ToString(),
+					ImgURL = reader["ImgURL"].ToString(),
+					AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]),
+				};
+				destinations.Add(des);
+			}
+			con.Close();
+			return destinations;
+		}
+        public DestinationDTO GetDestinationById(int desId)
+        {
+            var query = "SELECT * FROM Destinations WHERE Id = @id ";
+            using (con = new SqlConnection(connection))
+            {
+                con.Open();
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@id", desId);
+                cmd.ExecuteNonQuery();
+                DestinationDTO dto = new DestinationDTO();
+				SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                        dto.Id = (int)reader["Id"];
+                        dto.Name = reader["Name"].ToString();
+                        dto.Country = reader["Country"].ToString();
+                        dto.Currency = reader["Currency"].ToString();
+                        dto.BriefDescription = reader["History"].ToString();
+                        dto.Climate = reader["Climate"].ToString();
+                        dto.ImgURL = reader["ImgURL"].ToString();
+                        dto.AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]);	
+                }
+				return dto;
+			}
+            
+        }
+        public List<DestinationDTO> AllBeenToDestinationsofUser(int usrId)
         {
             List<DestinationDTO> userDestinations = new List<DestinationDTO>();
-            var query = "SELECT * FROM JK_Users_Destinations WHERE UserId = @us AND DestinationStatus = 1";
+            var query = "SELECT * FROM JK_Users_Destinations WHERE UserId = @us";
             using (SqlConnection con = new SqlConnection(connection))
             {
                 con.Open();
@@ -211,7 +265,7 @@ namespace BusinessLogic
                     userDestinations.Add(des);
                 }
             }
-            return userDestinations.ToArray();
+            return userDestinations;
 
 		}
 	}

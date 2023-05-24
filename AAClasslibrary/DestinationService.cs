@@ -165,6 +165,16 @@ namespace BusinessLogic
             }
             return result.ToArray();
 		} 
+        public Destination[] GetAllDestinations()
+        {
+            var desiList = _destinationRepository.GetAllDestinations();
+            List<Destination> result = new List<Destination>();
+            foreach(var d in desiList)
+            {
+                result.Add(FromDTO(d));
+            }
+            return result.ToArray();
+		}
 		public bool Validate(Destination des)
         {
             var context = new ValidationContext(des);

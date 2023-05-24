@@ -46,7 +46,7 @@ namespace AdventureAisleCore.Pages
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 await HttpContext.SignInAsync(claimsPrincipal);
 
-                return base.RedirectToPage("/Profile");
+                return RedirectToPage("/RecommendationsTestPage");
             }
             else
             {
