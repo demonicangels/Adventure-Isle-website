@@ -155,9 +155,9 @@ namespace BusinessLogic
 
             return result;
         }
-        public Destination[] AllBeenToDesOfUser(int usrId)
+        public Destination[] AllDesOfUser(int usrId)
         {
-            var allDes = _destinationRepository.AllBeenToDestinationsofUser(usrId);
+            var allDes = _destinationRepository.AllDestinationsofUser(usrId);
             List<Destination> result = new List<Destination>();
             foreach(var d in allDes)
             {

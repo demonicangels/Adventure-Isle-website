@@ -60,7 +60,12 @@ namespace UnitTests
 			throw new NotImplementedException();
 		}
 
-		public DestinationDTO[] AllBeenToDestinationsofUser(int usrId)
+		public List<DestinationDTO> AllDestinationsofUser(int usrId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<DestinationDTO> GetAllDestinations()
 		{
 			throw new NotImplementedException();
 		}

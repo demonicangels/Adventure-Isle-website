@@ -72,7 +72,7 @@ namespace BusinessLogic
 		}
 		public Destination[] Recommendations(int userId)
 		{
-			var userDes = desService.AllBeenToDesOfUser(userId).ToList();
+			var userDes = desService.AllDesOfUser(userId).ToList();
 			var allDestinations = desService.GetAllDestinations();
 
 			foreach (var des in userDes)
@@ -103,11 +103,15 @@ namespace BusinessLogic
                 var recommendations = allDestinations.Where(d => !userDes.Any(des => des.Name == d.Name) && d.Climate == mostVisitedC.Name);
 				return recommendations.ToArray();
             }
-			else
+			else if(userDes.Count == 1)
 			{
 				var singleDestinationClimate = userDes.Where(d => d.UsrId == userId).FirstOrDefault();
 				var recommendations = allDestinations.Where(d => !userDes.Any(des => d.Name == des.Name) && d.Climate == singleDestinationClimate.Climate).ToList();
 				return recommendations.ToArray();
+			}
+			else
+			{
+				return userDes.ToArray();
 			}
 			//throw new NotImplementedException();
 			 

@@ -244,7 +244,7 @@ namespace BusinessLogic
 			}
             
         }
-        public List<DestinationDTO> AllBeenToDestinationsofUser(int usrId)
+        public List<DestinationDTO> AllDestinationsofUser(int usrId)
         {
             List<DestinationDTO> userDestinations = new List<DestinationDTO>();
             var query = "SELECT * FROM JK_Users_Destinations WHERE UserId = @us";
