@@ -13,5 +13,6 @@ namespace BusinessLogic.Interfaces
 		int CalculateWeight(int userId);
 		Review[] UserWithMostReviewWeight();
 		Destination[] Recommendations(int userId);
-	}
+		Destination[] BestRatedDestinations();
+    }
 }

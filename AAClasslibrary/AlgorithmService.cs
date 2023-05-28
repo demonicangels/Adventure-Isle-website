@@ -91,19 +91,19 @@ namespace BusinessLogic
 				}
 			}
 
-			if(userDes.Count > 1)
+			if (userDes.Count > 1)
 			{
 				var duplicates = userDes.GroupBy(c => c.Climate)
 					.Where(d => d.Count() > 1)
-					.Select(d => new {Name = d.Key, Count = d.Count()})
+					.Select(d => new { Name = d.Key, Count = d.Count() })
 					.ToList();
 
 				var mostVisitedC = duplicates.OrderByDescending(c => c.Count).FirstOrDefault();
 
-                var recommendations = allDestinations.Where(d => !userDes.Any(des => des.Name == d.Name) && d.Climate == mostVisitedC.Name);
+				var recommendations = allDestinations.Where(d => !userDes.Any(des => des.Name == d.Name) && d.Climate == mostVisitedC.Name);
 				return recommendations.ToArray();
-            }
-			else if(userDes.Count == 1)
+			}
+			else if (userDes.Count == 1)
 			{
 				var singleDestinationClimate = userDes.Where(d => d.UsrId == userId).FirstOrDefault();
 				var recommendations = allDestinations.Where(d => !userDes.Any(des => d.Name == des.Name) && d.Climate == singleDestinationClimate.Climate).ToList();
@@ -113,8 +113,37 @@ namespace BusinessLogic
 			{
 				return userDes.ToArray();
 			}
-			//throw new NotImplementedException();
-			 
+		}
+		public Destination[] BestRatedDestinations()
+		{
+			var destinations = desService.GetAllDestinations().ToList();
+			Destination bestRated = destinations[0];
+			List<Destination> bestRateddesti = new List<Destination>();
+			for (int i = 0; i < destinations.Count; i++)
+			{
+
+				if (destinations[0].AvgRating > 0)
+				{
+					if (destinations[i].AvgRating >= bestRated.AvgRating)
+					{
+						bestRated = destinations[i];
+					}
+					bestRateddesti.Add(bestRated);
+					destinations.Remove(bestRated);
+					i--;
+				}
+				else if (destinations[i].AvgRating == 0)
+				{
+					destinations.Remove(destinations[i]);
+					i--;
+				}
+				else
+				{
+					continue;
+				}
+			}
+			bestRateddesti = bestRateddesti.OrderByDescending(d => d.AvgRating).ToList();
+			return bestRateddesti.ToArray();
 		}
 	}
 }

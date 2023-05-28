@@ -31,5 +31,73 @@
             </div>
         </div>
     </div>
+    <aside class="sidebar">
+        <div class="content-destinationCardsRecommendations">
+            @if (Model.Recommendations != null && Model.UsrId != null)
+            {
+                <p class="sidebar-text"> Recommended destinations: </p>
+                @for (int i = 0; i < Model.Recommendations.Count(); i++)
+                {
+                    <div class="recommendation-card">
+
+                        @if (!String.IsNullOrEmpty(Model.Recommendations[i].ImgURL))
+                        {
+                            <a asp-page="/@Model.Recommendations[i].Name" asp-route-destination="@Model.Recommendations[i].Name">
+                                <img src="@Model.Recommendations[i].ImgURL" class="card-image">
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-page="/@Model.Recommendations[i].Name" asp-route-destination="@Model.Recommendations[i].Name">
+                                <img src="~/images/temporarilyoutofservice.jpg" class="card-image">
+                            </a>
+                        }
+
+                        <div class="cont">
+
+                            <a asp-page="/@Model.Recommendations[i].Name" asp-route-destination="@Model.Recommendations[i].Name"><h4><b>@Model.Recommendations[i].Name</b></h4></a>
+                            <p class="ratingRecommend"> @Model.Recommendations[i].AvgRating</p>
+                        </div>
+                        <div class="review-score">
+                            <p>Good</p>
+                            <p>Climate: @Model.Recommendations[i].Climate</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="sidebar-text"> Best rated destinations: </p>
+                @for (int i = 0; i < Model.Recommendations.Count(); i++)
+                {
+                    <div class="recommendation-card">
+
+                        @if (!String.IsNullOrEmpty(Model.Recommendations[i].ImgURL))
+                        {
+                            <a asp-page="/@Model.Recommendations[i].Name" asp-route-destination="@Model.Recommendations[i].Name">
+                                <img src="@Model.Recommendations[i].ImgURL" class="card-image">
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-page="/@Model.Recommendations[i].Name" asp-route-destination="@Model.Recommendations[i].Name">
+                                <img src="~/images/temporarilyoutofservice.jpg" class="card-image">
+                            </a>
+                        }
+
+                        <div class="cont">
+
+                            <a asp-page="/@Model.Recommendations[i].Name" asp-route-destination="@Model.Recommendations[i].Name"><h4><b>@Model.Recommendations[i].Name</b></h4></a>
+                            <p class="ratingRecommend"> @Model.Recommendations[i].AvgRating</p>
+                        </div>
+                        <div class="review-score">
+                            <p>Good</p>
+                            <p>Climate: @Model.Recommendations[i].Climate</p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </aside>
 </body>
 </html>
