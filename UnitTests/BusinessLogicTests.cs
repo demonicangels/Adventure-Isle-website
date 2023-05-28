@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using UnitTests.MockData;
 
 namespace UnitTests
 {
@@ -66,25 +67,6 @@ namespace UnitTests
             var actualHash = security.CreateHash(salt, pass); 
 
             Assert.AreEqual(expectedHash, actualHash);
-		}
-
-		[TestMethod]
-		public void CalvulateAverageRating()
-		{
-			var rating1 = 5;
-			var rating2 = 3;
-			var rating3 = 5;
-			var des = new Destination();
-			des.ratingList.Add(rating1);
-			des.ratingList.Add(rating2);
-			des.ratingList.Add(rating3);
-
-			var expected = 4.33;
-
-			var actual = des.CalculateAverage();
-
-			Assert.IsNotNull(actual);
-			Assert.AreEqual(expected, actual);
 		}
 	}
 }

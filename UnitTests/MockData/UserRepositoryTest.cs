@@ -1,31 +1,31 @@
 ﻿using BusinessLogic;
 using System.Security.Cryptography.X509Certificates;
 
-namespace UnitTests
+namespace UnitTests.MockData
 {
     internal class UserRepositoryTest : IUserRepository
     {
-       private List<UserDTO> users = new List<UserDTO>();
+        private List<UserDTO> users = new List<UserDTO>();
 
         public bool Authentication(UserDTO usr)
         {
             var result = false;
-            if(usr.Email == "demonic@gmail.com" && usr.Password == "123")
+            if (usr.Email == "demonic@gmail.com" && usr.Password == "123")
             {
                 result = true;
             }
             return result;
         }
-		public void InsertUser(UserDTO user, string salt, string hash)
-		{
-            user.Salt = salt;
-			users.Add(user);
-		}
-		public void DeleteUser(string email)
+        public void InsertUser(UserDTO user, string salt, string hash)
         {
-			var userDto = users.Where(x => x.Email == email).FirstOrDefault();
+            user.Salt = salt;
+            users.Add(user);
+        }
+        public void DeleteUser(string email)
+        {
+            var userDto = users.Where(x => x.Email == email).FirstOrDefault();
             users.Remove(userDto);
-		}
+        }
 
         public UserDTO[] GetAllUsers()
         {
@@ -34,7 +34,7 @@ namespace UnitTests
 
         public UserDTO GetUserByEmail(string email)
         {
-			var userDto = users.Where(x => x.Email == email).FirstOrDefault();
+            var userDto = users.Where(x => x.Email == email).FirstOrDefault();
             return userDto;
         }
 
