@@ -1,6 +1,7 @@
 using BusinessLogic;
 using BusinessLogic.Entities;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -68,5 +69,19 @@ namespace UnitTests
 
             Assert.AreEqual(expectedHash, actualHash);
 		}
+        [TestMethod]
+        public void DataValidationTestTrue()
+        {
+            ReviewsTest rev = new ReviewsTest(1, "hi");
+            var context = new ValidationContext(rev);
+            var results = new System.Collections.Generic.List<ValidationResult>();
+            var finalResult = Validator.TryValidateObject(rev, context, results, true);
+
+            var expectedFinalResult = true;
+
+            Assert.IsNotNull(finalResult);
+            Assert.AreEqual(expectedFinalResult, finalResult);
+            Assert.AreEqual(rev, context.ObjectInstance);
+        }
 	}
 }

@@ -52,21 +52,13 @@ namespace BusinessLogic
         {
             // userDto copy to user
             var userInstance = FromDTO(user);
-
             // validate user object and copy user to userdto
             if (!Validate(userInstance)) { return; }
             // if all ok? then insert into database with userDto 
             _userRepository.InsertUser(user, salt, hash);
-
         }
         public void DeleteUser(string email)
         {
-            //var dto = _userRepository.GetUserByEmail(email);
-            //
-            //var userInstance = FromDTO(dto);
-            //
-            //if (!Validate(userInstance)) {return;}
-
             _userRepository.DeleteUser(email);
         }
         public void UpdateUser(User user)
