@@ -6,6 +6,10 @@ namespace BusinessLogic
 {
     public class Destination
     {
+
+        //make a constructor and make every sensitive info private 
+        //create method setId in destination class to be able to change later 
+
         public int Id { get; set; } 
         public string Name { get; set; }
         public string Country { get; set; }

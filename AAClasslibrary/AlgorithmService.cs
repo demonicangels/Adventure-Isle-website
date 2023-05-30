@@ -76,32 +76,16 @@ namespace BusinessLogic
 			var userDes = desService.AllDesOfUser(userId).ToList();
 			var allDestinations = desService.GetAllDestinations();
 
-			foreach (var des in userDes)
-			{
-				var index = userDes.IndexOf(des);
-				var fulldestination = allDestinations[index];
-				if (userDes[index].Id == fulldestination.Id)
-				{
-					userDes[index].Name = fulldestination.Name;
-					userDes[index].Country = fulldestination.Country;
-					userDes[index].Currency = fulldestination.Currency;
-					userDes[index].BriefDescription = fulldestination.BriefDescription;
-					userDes[index].Climate = fulldestination.Climate;
-					userDes[index].AvgRating = fulldestination.AvgRating;
-					userDes[index].ImgURL = fulldestination.ImgURL;
-				}
-			}
-
 			if (userDes.Count > 1)
 			{
 				var duplicates = userDes.GroupBy(c => c.Climate)
 					.Where(d => d.Count() > 1)
-					.Select(d => new { Name = d.Key, Count = d.Count() })
+					.ToDictionary(d => d.Key, d => d.Count() )
 					.ToList();
 
-				var mostVisitedC = duplicates.OrderByDescending(c => c.Count).FirstOrDefault();
+				var mostVisitedC = duplicates.OrderByDescending(c => c.Value).FirstOrDefault();
 
-				var recommendations = allDestinations.Where(d => !userDes.Any(des => des.Name == d.Name) && d.Climate == mostVisitedC.Name);
+				var recommendations = allDestinations.Where(d => !userDes.Any(des => des.Name == d.Name) && d.Climate == mostVisitedC.Key);
 				return recommendations.ToArray();
 			}
 			else if (userDes.Count == 1)
@@ -118,34 +102,30 @@ namespace BusinessLogic
 		public Destination[] BestRatedDestinations()
 		{
 			var destinations = desService.GetAllDestinations().ToList();
-			Destination bestRated = destinations[0];
-			List<Destination> bestRateddesti = new List<Destination>();
-			for (int i = 0; i < destinations.Count; i++)
+            List<double> ratings = new List<double>();
+            foreach (var d in destinations)
 			{
+				ratings.Add(d.AvgRating);
+			}
+			var avgBestRating = CalculateAverage(ratings);
 
-				if (destinations[0].AvgRating > 0 && destinations[i].AvgRating >= 4)
+			int countList = destinations.Count;
+			List<Destination> bestRateddesti = new List<Destination>();
+			for (int i = countList - 1; i <= countList - 1; i--)
+			{
+				if(i >= 0)
 				{
-					if (destinations[i].AvgRating >= bestRated.AvgRating)
-					{
-						bestRated = destinations[i];
-					}
-					bestRateddesti.Add(bestRated);
-					destinations.Remove(bestRated);
-					i--;
-					
-
-					
-				}
-				else if (destinations[i].AvgRating == 0 || destinations[i].AvgRating < 4)
-				{
-					destinations.Remove(destinations[i]);
-					i--;
-				}
+                    if (destinations[i].AvgRating > avgBestRating)
+                    {
+                        bestRateddesti.Add(destinations[i]);
+                    }
+                }
 				else
 				{
-					continue;
+					break;
 				}
-			}
+                countList--;
+            }
 			bestRateddesti = bestRateddesti.OrderByDescending(d => d.AvgRating).ToList();
 			return bestRateddesti.ToArray();
 		}

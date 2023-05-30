@@ -69,13 +69,23 @@ namespace BusinessLogic
         }
         public List<Destination> GetDestinationByName(string name)
         {
-            var dto = _destinationRepository.GetDestinationByName(name);
-            List<Destination> result = new List<Destination>();
-            foreach(var des in dto)
+            try
             {
-                result.Add(FromDTO(des));
+                var dto = _destinationRepository.GetDestinationByName(name);
+                List<Destination> result = new List<Destination>();
+                foreach (var des in dto)
+                {
+                    result.Add(FromDTO(des));
+                }
+                return result;
             }
-            return result;
+            catch (DestinationNotFoundException desNotFoundEx)
+            {
+               
+                Console.WriteLine(desNotFoundEx.Message);  // log exception
+                throw new Exception("Something went wrong");
+            }
+ 
         }
         public List<Destination> GetAllDestinationsByCountry(string country)
         {

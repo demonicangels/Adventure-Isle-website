@@ -1,10 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
-using BusinessLogic;
-using System.Collections.Generic;
-using BusinessLogic.Entities;
-using System.Diagnostics.Metrics;
 
-namespace BusinessLogic 
+namespace BusinessLogic
 {
     public class DestinationRepository : IDestinationRepository
     {
@@ -40,29 +36,41 @@ namespace BusinessLogic
         }
 
         public List<DestinationDTO> GetDestinationByName(string name)
-        {
-            var query = $"SELECT * FROM Destinations WHERE Name LIKE '{name}%'";
-            List<DestinationDTO> list = new List<DestinationDTO>();
-            con = new SqlConnection(connection);
-            con.Open();
-            cmd = new SqlCommand(query, con);
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                DestinationDTO d = new DestinationDTO();
-                d.Id = (int)reader["Id"];
-                d.Name = reader["Name"].ToString();
-                d.Country = reader["Country"].ToString();
-                d.Currency = reader["Currency"].ToString();
-                d.BriefDescription = reader["History"].ToString();
-                d.Climate = reader["Climate"].ToString();
-                d.ImgURL = reader["ImgURL"].ToString();
-                d.AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]);
+        { //try catch 
 
-                list.Add(d);
+            try
+            {
+                var query = $"SELECT * FROM Destinations WHERE Name LIKE '{name}%'";
+                List<DestinationDTO> list = new List<DestinationDTO>();
+                con = new SqlConnection(connection);
+                con.Open();
+                cmd = new SqlCommand(query, con);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    DestinationDTO d = new DestinationDTO();
+                    d.Id = (int)reader["Id"];
+                    d.Name = reader["Name"].ToString();
+                    d.Country = reader["Country"].ToString();
+                    d.Currency = reader["Currency"].ToString();
+                    d.BriefDescription = reader["History"].ToString();
+                    d.Climate = reader["Climate"].ToString();
+                    d.ImgURL = reader["ImgURL"].ToString();
+                    d.AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]);
+
+                    list.Add(d);
+                }
+                con.Close();
+                return list;
             }
-            con.Close();
-		    return list;
+            catch (Exception ex)
+            {
+                // log the exception for developers
+
+                throw new DestinationNotFoundException("Destination not found");
+                
+            }
+          
         }
 
         public List<DestinationDTO> GetAllDestinationsByCountry(string country)
@@ -193,7 +201,7 @@ namespace BusinessLogic
 		}
         public List<DestinationDTO> GetAllDestinations()
         {
-			var query = $"SELECT * FROM Destinations";
+			var query = "SELECT * FROM Destinations";
 			var destinations = new List<DestinationDTO>();
 			con = new SqlConnection(connection);
 			con.Open();
@@ -247,7 +255,7 @@ namespace BusinessLogic
         public List<DestinationDTO> AllDestinationsofUser(int usrId)
         {
             List<DestinationDTO> userDestinations = new List<DestinationDTO>();
-            var query = "SELECT * FROM JK_Users_Destinations WHERE UserId = @us";
+            var query = "SELECT * FROM JK_Users_Destinations AS jk " + "INNER JOIN dbo.Destinations AS d ON jk.DestinationId = d.Id " + "INNER JOIN dbo.Users AS u ON jk.UserId = u.Id " + " WHERE UserId = @us";
             using (SqlConnection con = new SqlConnection(connection))
             {
                 con.Open();
@@ -260,7 +268,15 @@ namespace BusinessLogic
                     DestinationDTO des = new DestinationDTO()
                     {
                         UsrId = (int)reader["UserId"],
-                        Id = (int)reader["DestinationId"]
+                        Id = (int)reader["DestinationId"],
+                        Name = reader["Name"].ToString(),
+                        Country = reader["Country"].ToString(),
+                        Currency = reader["Currency"].ToString(),
+                        BriefDescription = reader["History"].ToString(),
+                        Climate = reader["Climate"].ToString(),
+                        ImgURL = reader["ImgURL"].ToString(),
+                        AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]),
+                        DesStatus = (int?)reader["DestinationStatus"]
                     };
                     userDestinations.Add(des);
                 }
