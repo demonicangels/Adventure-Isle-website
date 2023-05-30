@@ -2,6 +2,7 @@
 using BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -122,7 +123,7 @@ namespace BusinessLogic
 			for (int i = 0; i < destinations.Count; i++)
 			{
 
-				if (destinations[0].AvgRating > 0)
+				if (destinations[0].AvgRating > 0 && destinations[i].AvgRating >= 4)
 				{
 					if (destinations[i].AvgRating >= bestRated.AvgRating)
 					{
@@ -131,8 +132,11 @@ namespace BusinessLogic
 					bestRateddesti.Add(bestRated);
 					destinations.Remove(bestRated);
 					i--;
+					
+
+					
 				}
-				else if (destinations[i].AvgRating == 0)
+				else if (destinations[i].AvgRating == 0 || destinations[i].AvgRating < 4)
 				{
 					destinations.Remove(destinations[i]);
 					i--;
