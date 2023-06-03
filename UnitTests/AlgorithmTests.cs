@@ -11,34 +11,16 @@ namespace UnitTests
         [TestMethod]
         public void BestRatedDestinations()
         {
-            var destinations = new List<Destination>()
+            var destinations = new List<DestinationsTest>()
             {
-                new Destination()
-                {
-                    Name = "Pernik",
-                    AvgRating = 0,
-
-                },
-                new Destination()
-                {
-                    Name = "Berlin",
-                    AvgRating = 0,
-                },
-                new Destination()
-                {
-                    Name = "Eindhoven",
-                    AvgRating = 4.5,
-
-                },
-                new Destination()
-                {
-                    Name = "Madrid",
-                    AvgRating = 5,
-                },
+                new DestinationsTest("Pernik","",0),
+                new DestinationsTest("Berlin","",0),
+                new DestinationsTest("Eindhoven", "", 4.5),
+                new DestinationsTest("Madrid","",5)
             };
 
             var bestRated = destinations[0];
-            List<Destination> bestDestinations = new List<Destination>();
+            List<DestinationsTest> bestDestinations = new List<DestinationsTest>();
             for (int i = 0; i < destinations.Count; i++)
             {
                 
@@ -91,26 +73,26 @@ namespace UnitTests
         [TestMethod]
         public void Recommendations()
         {
-            List<Destinations> thesame = new List<Destinations>();
-            List<Destinations> recommendation = new List<Destinations>();
+            List<DestinationsTest> thesame = new List<DestinationsTest>();
+            List<DestinationsTest> recommendation = new List<DestinationsTest>();
 
-            List<Destinations> destinations = new List<Destinations>()
+            List<DestinationsTest> destinations = new List<DestinationsTest>()
             {
-                new Destinations("Paris", "moderate"),
-                new Destinations("Rome", "moderate"),
-                new Destinations("Spain", "hot"),
-                new Destinations("Italy", "moderate"),
-                new Destinations("Barcelona", "hot"),
-                new Destinations("Bulgaria", "moderate"),
+                new DestinationsTest("Paris", "moderate", null),
+                new DestinationsTest("Rome", "moderate", null),
+                new DestinationsTest("Spain", "hot", null),
+                new DestinationsTest("Italy", "moderate", null),
+                new DestinationsTest("Barcelona", "hot", null),
+                new DestinationsTest("Bulgaria", "moderate", null),
             };
 
-            List<Destinations> userDes = new List<Destinations>()
+            List<DestinationsTest> userDes = new List<DestinationsTest>()
             {
-                new Destinations("Paris", "moderate"),
-                new Destinations("Rome", "moderate"),
-                new Destinations("Macedonia", "moderate"),
-                new Destinations("Spain", "hot"),
-                new Destinations("Arruba", "hot"),
+                new DestinationsTest("Paris", "moderate", null),
+                new DestinationsTest("Rome", "moderate", null),
+                new DestinationsTest("Macedonia", "moderate", null),
+                new DestinationsTest("Spain", "hot", null),
+                new DestinationsTest("Arruba", "hot", null),
             };
 
             var duplicates = userDes.GroupBy(c => c.Climate)

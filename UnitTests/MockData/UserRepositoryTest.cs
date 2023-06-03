@@ -1,5 +1,4 @@
 ﻿using BusinessLogic;
-using System.Security.Cryptography.X509Certificates;
 
 namespace UnitTests.MockData
 {
@@ -54,6 +53,11 @@ namespace UnitTests.MockData
         }
 
         public void Update(UserDTO user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertImage(byte[] image, int id)
         {
             throw new NotImplementedException();
         }

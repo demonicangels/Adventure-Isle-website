@@ -6,14 +6,20 @@ using System.Threading.Tasks;
 
 namespace UnitTests.MockData
 {
-    public class Destinations
+    public class DestinationsTest
     {
         public string Name { get; set; }
         public string Climate { get; set; }
-        public Destinations(string n, string c)
+        public double? AvgRating { get; set; }
+
+        public List<double> ratingList = new List<double>();
+
+        public DestinationsTest() { }
+        public DestinationsTest(string n, string c, double? avgRating)
         {
             Name = n;
             Climate = c;
+            AvgRating = avgRating;
         }
     }
 }

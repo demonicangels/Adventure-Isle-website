@@ -5,7 +5,7 @@ namespace BusinessLogic
     public interface IDestinationRepository
     {
 
-        void InsertDestination(DestinationDTO destination);
+        DestinationDTO InsertDestination(DestinationDTO destination);
         void DeleteDestination(string selectedDes);
         public List<DestinationDTO> GetDestinationByName(string name);
         List<DestinationDTO> GetAllDestinationsByCountry(string country);

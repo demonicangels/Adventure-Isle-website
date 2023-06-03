@@ -69,5 +69,10 @@ namespace UnitTests.MockData
         {
             throw new NotImplementedException();
         }
+
+        DestinationDTO IDestinationRepository.InsertDestination(DestinationDTO destination)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

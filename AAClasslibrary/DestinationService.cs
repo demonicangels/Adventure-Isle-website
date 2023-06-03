@@ -21,36 +21,13 @@ namespace BusinessLogic
 
         private Destination FromDTO(DestinationDTO dto)
         {
-            var des = new Destination()
-            {
-                Id = dto.Id,
-                Name = dto.Name,
-                Country = dto.Country,
-                Climate = dto.Climate,
-                Currency = dto.Currency,
-                BriefDescription = dto.BriefDescription,
-                AvgRating = dto.AvgRating,
-                ImgURL = dto.ImgURL,
-                DesStatus = dto.DesStatus,
-                UsrId = dto.UsrId,
-            };
+            var des = new Destination(dto.Id, dto.Name, dto.Country, dto.Currency, dto.BriefDescription, dto.Climate, dto.AvgRating, dto.ImgURL, dto.UsrId);
+            
             return des;
         }
 		private DestinationDTO ToDTO(Destination d)
 		{
-			var des = new DestinationDTO()
-			{
-                Id = d.Id,
-				Name = d.Name,
-				Country = d.Country,
-				Climate = d.Climate,
-				Currency = d.Currency,
-				BriefDescription = d.BriefDescription,
-				AvgRating = d.AvgRating,
-				ImgURL = d.ImgURL,
-                DesStatus = d.DesStatus,
-                UsrId = d.UsrId,
-			};
+			var des = new DestinationDTO(d.Id, d.Name, d.Country, d.Currency, d.BriefDescription, d.Climate, d.AvgRating, d.ImgURL, d.UsrId);
 			return des;
 		}
 		public void InsertDestination(DestinationDTO destination)
@@ -252,7 +229,7 @@ namespace BusinessLogic
                 }
                 return result.ToArray();
             }
-            catch(Exception e)
+            catch(FailedToRetrieveInformationException e)
             {
                 Console.WriteLine(e.Message);
                 throw new Exception("Something went wrong.Failed to load destinations.Try again later.");

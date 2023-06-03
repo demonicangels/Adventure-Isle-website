@@ -45,7 +45,7 @@ namespace AdventureAisleCore.Pages
         public void OnPost(string option)
         {
             UserId = HttpContext.Session.GetInt32("userId");
-            iDictionary.Add("Climate", recommendationsRepository => UserId != null
+            iDictionary.Add("Climate", recommendationsRepository => UserId != null && WantedClimate == null
                                                                    ? recommendationService.RecommendationsByClimateUsers((int)UserId)
                                                                    : recommendationService.RecommendationByClimateVisitors(WantedClimate));
           

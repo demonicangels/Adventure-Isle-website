@@ -11,9 +11,9 @@ namespace BusinessLogic
         SqlCommand cmd;
 
 
-        public void InsertDestination(DestinationDTO des)
+        public DestinationDTO InsertDestination(DestinationDTO des)
         {
-            var query = $"INSERT INTO Destinations (Name,Country, Currency, History, Climate) VALUES (@Name,@Country, @Currency, @History, @Climate)";
+            var query = $"INSERT INTO Destinations (Name,Country, Currency, History, Climate)  OUTPUT INSERTED. Id VALUES (@Name,@Country, @Currency, @History, @Climate)";
             try
             {
                 con = new SqlConnection(connection);
@@ -24,8 +24,13 @@ namespace BusinessLogic
                 cmd.Parameters.AddWithValue("@Currency", des.Currency);
                 cmd.Parameters.AddWithValue("@History", des.BriefDescription);
                 cmd.Parameters.AddWithValue("@Climate", des.Climate);
-                cmd.ExecuteNonQuery();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if(!reader.Read())
+                    throw new FailedToRetrieveInformationException();
+                DestinationDTO desi = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
                 con.Close();
+                return desi;
 
             }
             catch (Exception ex)
@@ -64,16 +69,8 @@ namespace BusinessLogic
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    DestinationDTO d = new DestinationDTO();
-                    d.Id = (int)reader["Id"];
-                    d.Name = reader["Name"].ToString();
-                    d.Country = reader["Country"].ToString();
-                    d.Currency = reader["Currency"].ToString();
-                    d.BriefDescription = reader["History"].ToString();
-                    d.Climate = reader["Climate"].ToString();
-                    d.ImgURL = reader["ImgURL"].ToString();
-                    d.AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]);
-
+                    DestinationDTO d = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
                     list.Add(d);
                 }
                 con.Close();
@@ -100,17 +97,9 @@ namespace BusinessLogic
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    DestinationDTO des = new DestinationDTO()
-                    {
-                        Id = (int)reader["Id"],
-                        Name = reader["Name"].ToString(),
-                        Currency = reader["Currency"].ToString(),
-                        BriefDescription = reader["History"].ToString(),
-                        Climate = reader["Climate"].ToString(),
-                        ImgURL = reader["ImgURL"].ToString(),
-                        AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"])
-                };
-                    destinations.Add(des);
+                    DestinationDTO desi = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
+                    destinations.Add(desi);
                 }
                 con.Close();
                 return destinations;
@@ -124,11 +113,11 @@ namespace BusinessLogic
 
 		public DestinationDTO UpdateDestination(DestinationDTO des)
         {
-			DestinationDTO des2 = new DestinationDTO();
 			var query = "UPDATE [Destinations] SET Name=@NAME, Currency=@cu, AvgRating=@avg, History=@hi, Climate=@cli WHERE Id=@ID";
             try 
-            { 
-			    SqlConnection con = new SqlConnection(connection);
+            {
+                DestinationDTO des2 = new DestinationDTO();
+                SqlConnection con = new SqlConnection(connection);
 			    con.Open();
 			    SqlCommand cmd = new SqlCommand(query, con);
 			    cmd.Parameters.AddWithValue("@ID", des.Id);
@@ -141,20 +130,16 @@ namespace BusinessLogic
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-			    	des2.Id = (int)reader["Id"];
-			    	des2.Name = reader["Name"].ToString();
-			    	des2.Country = reader["Country"].ToString();
-			    	des2.Currency = reader["Currency"].ToString();
-			    	des2.BriefDescription = reader["History"].ToString();
-			    	des2.Climate = reader["Climate"].ToString();
-                    des2.AvgRating = (int)reader["AvgRating"];
-
+                    des2 = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
+                    return des2;
                 }
                 return des2;
+
             }
             catch (Exception ex)
             {
-                throw new FailedToUpdateDestination("Failed to update destination");
+                throw new FailedToUpdateException("Failed to update destination");
             }
             
 		}
@@ -188,24 +173,16 @@ namespace BusinessLogic
 
             try
             {
-                DestinationDTO dto = new DestinationDTO();
+                DestinationDTO dto;
 			    con = new SqlConnection(connection);
 			    con.Open();
 			    cmd = new SqlCommand(query, con);
 			    SqlDataReader reader = cmd.ExecuteReader();
 			    while (reader.Read())
 			    {
-
-			    	dto.Id = (int)reader["Id"];
-			    	dto.Name = reader["Name"].ToString();
-			    	dto.Country = reader["Country"].ToString();
-			    	dto.Currency = reader["Currency"].ToString();
-			    	dto.BriefDescription = reader["History"].ToString();
-			    	dto.Climate = reader["Climate"].ToString();
-			    	dto.ImgURL = reader["ImgURL"].ToString();
-			    	dto.AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]);
-
-			    }
+                    dto = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
+                }
                 con.Close();
 			   
 			    SqlConnection con2 = new SqlConnection(connection);
@@ -263,18 +240,9 @@ namespace BusinessLogic
 			    SqlDataReader reader = cmd.ExecuteReader();
 			    while (reader.Read())
 			    {
-                    DestinationDTO des = new DestinationDTO()
-                    {
-                        Id = (int)reader["Id"],
-                        Name = reader["Name"].ToString(),
-                        Country = reader["Country"].ToString(),
-			    		Currency = reader["Currency"].ToString(),
-			    		BriefDescription = reader["History"].ToString(),
-			    		Climate = reader["Climate"].ToString(),
-			    		ImgURL = reader["ImgURL"].ToString(),
-			    		AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]),
-			    	};
-			    	destinations.Add(des);
+                    DestinationDTO des = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
+                    destinations.Add(des);
 			    }
 			    con.Close();
 			    return destinations;
@@ -297,14 +265,8 @@ namespace BusinessLogic
 				SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                        dto.Id = (int)reader["Id"];
-                        dto.Name = reader["Name"].ToString();
-                        dto.Country = reader["Country"].ToString();
-                        dto.Currency = reader["Currency"].ToString();
-                        dto.BriefDescription = reader["History"].ToString();
-                        dto.Climate = reader["Climate"].ToString();
-                        dto.ImgURL = reader["ImgURL"].ToString();
-                        dto.AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]);	
+                    dto = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
                 }
 				return dto;
 			}
@@ -325,19 +287,10 @@ namespace BusinessLogic
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        DestinationDTO des = new DestinationDTO()
-                        {
-                            UsrId = (int)reader["UserId"],
-                            Id = (int)reader["DestinationId"],
-                            Name = reader["Name"].ToString(),
-                            Country = reader["Country"].ToString(),
-                            Currency = reader["Currency"].ToString(),
-                            BriefDescription = reader["History"].ToString(),
-                            Climate = reader["Climate"].ToString(),
-                            ImgURL = reader["ImgURL"].ToString(),
-                            AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]),
-                            DesStatus = (int?)reader["DestinationStatus"]
-                        };
+                        DestinationDTO des = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
+                        reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), usrId);
+                        des.DesStatus = (int?)reader["DestinationStatus"];
+    
                         userDestinations.Add(des);
                     }
                 }
