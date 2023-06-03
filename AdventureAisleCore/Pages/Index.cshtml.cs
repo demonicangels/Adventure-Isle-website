@@ -10,8 +10,9 @@ namespace AdventureAisleCore.Pages
     
     public class IndexModel : PageModel
     {
-        AlgorithmService algorithm;
+        CalculationsService algorithm;
         DestinationService desService;
+        RecommendationService recommendationService;
 
         [BindProperty]
         public string Search { get; set; }
@@ -20,10 +21,11 @@ namespace AdventureAisleCore.Pages
 		public string? Logout { get; set; }
         public Destination[]? Recommendations { get; set; }
         public int? UsrId { get; set; }
-        public IndexModel(AlgorithmService algorithmService, DestinationService destinationService)
+        public IndexModel(CalculationsService algorithmService, DestinationService destinationService, RecommendationService recommendationService)
         {
             this.algorithm = algorithmService;
-            desService = destinationService;
+            this.desService = destinationService;
+            this.recommendationService = recommendationService;
         }
 
         public async void OnGet()
@@ -44,7 +46,7 @@ namespace AdventureAisleCore.Pages
 
                 if (UsrId != null && userDes.Count > 0)
                 {
-                    Recommendations = algorithm.Recommendations((int)UsrId);
+                    Recommendations = recommendationService.RecommendationsByClimateUsers((int)UsrId);
                 }
             }
             else

@@ -41,32 +41,56 @@ namespace BusinessLogic
         }
         public void Insert(Review review)
         {
-            if (!Validate(review))
+            try
             {
-                return;
+                if (!Validate(review))
+                {
+                    return;
+                }
+                _reviewRepository.Insert(ToDTO(review));
             }
-            _reviewRepository.Insert(ToDTO(review));
+            catch (InvalidInformationException x)
+            {
+                Console.WriteLine(x.Message);
+                throw new Exception("Invalid information. Insert failed. Please try again.");
+            }
 
         }
         public Review[] GetReviewsByDesId(int id)
         {
-            var listDTO = _reviewRepository.GetReviewsByDesId(id);
-            List<Review> reviews = new List<Review>();
-            foreach (var review in listDTO)
+            try
             {
-                reviews.Add(FromDTO(review));
+                var listDTO = _reviewRepository.GetReviewsByDesId(id);
+                List<Review> reviews = new List<Review>();
+                foreach (var review in listDTO)
+                {
+                    reviews.Add(FromDTO(review));
+                }
+                return reviews.ToArray();
             }
-            return reviews.ToArray();
+            catch(InvalidInformationException x)
+            {
+                Console.WriteLine(x.Message);
+                throw new Exception("Something went wrong. Couldn't load reviews. Please try again later.");
+            }
         }
 		public Review[] GetReviews()
         {
-			var listDTO = _reviewRepository.GetReviews();
-			List<Review> reviews = new List<Review>();
-			foreach (var review in listDTO)
-			{
-				reviews.Add(FromDTO(review));
-			}
-			return reviews.ToArray();
+            try
+            {
+			    var listDTO = _reviewRepository.GetReviews();
+			    List<Review> reviews = new List<Review>();
+			    foreach (var review in listDTO)
+			    {
+			    	reviews.Add(FromDTO(review));
+			    }
+			    return reviews.ToArray();
+            }
+            catch(FailedToRetrieveInformationException x)
+            {
+                Console.WriteLine(x.Message);
+                throw new Exception("Failed to load reviews. Please try again later.");
+            }
 		}
 
 		public bool Validate(Review re)

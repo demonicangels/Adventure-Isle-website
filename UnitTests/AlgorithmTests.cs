@@ -6,7 +6,7 @@ namespace UnitTests
     [TestClass]
     public class AlgorithmTests
     {
-        AlgorithmService al = new AlgorithmService();
+        CalculationsService al = new CalculationsService();
 
         [TestMethod]
         public void BestRatedDestinations()

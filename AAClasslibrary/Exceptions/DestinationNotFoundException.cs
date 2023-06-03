@@ -3,7 +3,7 @@
 namespace BusinessLogic
 {
     [Serializable]
-    internal class DestinationNotFoundException : Exception
+    public class DestinationNotFoundException : Exception
     {
         public DestinationNotFoundException()
         {

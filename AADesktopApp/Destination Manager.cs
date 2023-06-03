@@ -13,7 +13,20 @@ namespace DesktopApp
 		public CRUDDestinations()
 		{
 			InitializeComponent();
-			desi = serviceObjects.destinationServiceObject();
+            desi = serviceObjects.destinationServiceObject();
+            InitCb();
+        }
+		public void InitCb()
+		{
+            countriesCb.Items.Clear();
+            var desiList = desi.GetAllDestinations();
+			foreach (var desi in desiList)
+			{
+				if (!countriesCb.Items.Contains(desi.Country))
+				{
+					countriesCb.Items.Add(desi.Country);
+				}
+			}
 		}
 
 		public void Clear()

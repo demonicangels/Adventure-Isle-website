@@ -1,4 +1,4 @@
-﻿using BusinessLogic.DTOs;
+﻿ using BusinessLogic.DTOs;
 using BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
-	public class AlgorithmService : IAlgorithmRepository
+	public class CalculationsService : ICalculationsRepository
 	{
 
 		DestinationService desService;
 		ReviewService revService;
 		public Review[] Reviews;
-		public AlgorithmService() { }
-		public AlgorithmService(DestinationService des, ReviewService rev)
+		public CalculationsService() { }
+		public CalculationsService(DestinationService des, ReviewService rev)
 		{
 			this.desService = des;
 			this.revService = rev;
@@ -60,19 +60,58 @@ namespace BusinessLogic
 			var AvgRating = roundedResult;
 			return AvgRating;
 		}
-		public int CalculateWeight(int userId)
+		public int CalculateWeight(int userId, List<Review> re)
 		{
-			int result = Reviews.Count(r => r.UserId == userId);
+			int result = 0;
+            foreach (var r in re)
+			{
+				result = re.Count(r => r.UserId == userId);
+			}
 			return result;
 		}
-		public Review[] UserWithMostReviewWeight()
+		public Review[] UserWithMostReviewWeight(int desId)
 		{
-			Reviews = revService.GetReviews();
-			Reviews = Reviews.OrderByDescending(r => CalculateWeight(r.UserId)).ToArray();
-			return Reviews;
+			double sum = 0;
+			int count = 0;
+
+            var reviews = revService.GetReviews().ToList();
+			
+			var userRatingCount = reviews.GroupBy(u => u.UserId)
+                .Where(g => g.Count() >= 1)
+                .ToDictionary(a => a.Key, b => b.Count());
+
+			var userRatingForThisDes = reviews.Where(x => x.DestinationId == desId)
+				.ToDictionary(u => u.UserId, e => e.Rating);
+
+            Dictionary<int, double> totalSumofRatingofUser = new Dictionary<int, double>();
+
+            foreach (KeyValuePair<int,double> entry in userRatingForThisDes)
+			{
+				sum += entry.Value * userRatingCount[entry.Key];
+				count += userRatingCount[entry.Key];
+            }
+
+			var avgWeight = sum / count;
+
+			reviews.OrderByDescending(u => CalculateWeight(u.UserId, reviews)).ToList();  //u => userRatingForThisDes[u.UserId] /** userRatingForThisDes[u.UserId]*/);
+
+			return reviews.OrderByDescending(u => CalculateWeight(u.UserId, reviews)).ToArray() ;
+
+			
+            
+
+
+
+
+            //Reviews = revService.GetReviews();
+            //Reviews = Reviews.OrderByDescending(r => CalculateWeight(r.UserId)).ToArray();
+            //return Reviews;
 		}
-		public Destination[] Recommendations(int userId)
+		public Destination[] RecommendationsByClimate(int userId)
 		{
+			//make it so it's possible to switch to different recommendation implementation
+			//ex: reccommendation by highest rating 
+
 			var userDes = desService.AllDesOfUser(userId).ToList();
 			var allDestinations = desService.GetAllDestinations();
 
@@ -99,7 +138,8 @@ namespace BusinessLogic
 				return userDes.ToArray();
 			}
 		}
-		public Destination[] BestRatedDestinations()
+
+        public Destination[] BestRatedDestinations() //sugestions by rating
 		{
 			var destinations = desService.GetAllDestinations().ToList();
             List<double> ratings = new List<double>();
@@ -111,20 +151,13 @@ namespace BusinessLogic
 
 			int countList = destinations.Count;
 			List<Destination> bestRateddesti = new List<Destination>();
-			for (int i = countList - 1; i <= countList - 1; i--)
+			for (int i = countList - 1; i >= 0 ; i--)
 			{
-				if(i >= 0)
-				{
-                    if (destinations[i].AvgRating > avgBestRating)
-                    {
-                        bestRateddesti.Add(destinations[i]);
-                    }
+                if (destinations[i].AvgRating > avgBestRating)
+                {
+                    bestRateddesti.Add(destinations[i]);
                 }
-				else
-				{
-					break;
-				}
-                countList--;
+				countList--;
             }
 			bestRateddesti = bestRateddesti.OrderByDescending(d => d.AvgRating).ToList();
 			return bestRateddesti.ToArray();

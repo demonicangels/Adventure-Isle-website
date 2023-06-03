@@ -295,6 +295,7 @@ input[type=datetime-local] {
     display: flex;
     flex: revert;
     padding-left: 10.0rem;
+    flex-wrap: wrap;
 }
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -482,4 +483,10 @@ p.sidebar-text {
     font-weight: 400;
     position: absolute;
     bottom: 86%;
+}
+
+/*Recommendations page*/
+.recOptions {
+    display: flex;
+    flex-direction: column;
 }

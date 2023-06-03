@@ -55,7 +55,7 @@ namespace AdventureAisleCore.Pages
                 var memoryStream = new MemoryStream();
                 Imagebytes.CopyTo(memoryStream);
                 byte[] bindata = memoryStream.ToArray();
-				userService.InsertImage(bindata, Usr.Username);
+				userService.InsertImage(bindata, Usr.Id);
             }
 
             if (IsInEditMode == "Submit")

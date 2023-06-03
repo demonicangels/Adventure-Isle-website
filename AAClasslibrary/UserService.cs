@@ -50,16 +50,31 @@ namespace BusinessLogic
         }
         public void InsertUser(UserDTO user, string salt, string hash)
         {
-            // userDto copy to user
-            var userInstance = FromDTO(user);
-            // validate user object and copy user to userdto
-            if (!Validate(userInstance)) { return; }
-            // if all ok? then insert into database with userDto 
-            _userRepository.InsertUser(user, salt, hash);
+            try
+            {
+                var userInstance = FromDTO(user);
+                
+                if (!Validate(userInstance)) { return; }
+                 
+                _userRepository.InsertUser(user, salt, hash);
+            }
+            catch(InvalidInformationException i)
+            {
+                Console.WriteLine(i.Message);
+                throw new Exception("Operation failed.Please try again.");
+            }
         }
         public void DeleteUser(string email)
         {
-            _userRepository.DeleteUser(email);
+            try
+            {
+                _userRepository.DeleteUser(email);
+            }
+            catch (CouldntDeleteException c)
+            {
+                Console.WriteLine(c.Message);
+                throw new Exception("Something went wrong. Please try again.");
+            }
         }
         public void UpdateUser(User user)
         {
@@ -77,48 +92,89 @@ namespace BusinessLogic
         }
         public User GetUserByEmail(string email)
         {
-            var userDTO = _userRepository.GetUserByEmail(email);
+            try
+            {
+                var userDTO = _userRepository.GetUserByEmail(email);
 
-            var userInstance = FromDTO(userDTO);
+                var userInstance = FromDTO(userDTO);
 
-            if (!Validate(userInstance)) { return null; }
+                if (!Validate(userInstance)) { return null; }
 
-            return userInstance;
+                return userInstance;
+            }
+            catch(FailedToRetrieveInformationException f)
+            {
+                Console.WriteLine(f.Message);
+                throw new Exception("Couldn't find a user with that email.");
+            }
 
         }
         public User GetUserById(int id)
         {
-            var userDTO = _userRepository.GetUserById(id);
+            try
+            {
+                var userDTO = _userRepository.GetUserById(id);
 
-            var userInstance = FromDTO(userDTO);
+                var userInstance = FromDTO(userDTO);
 
-            if (!Validate(userInstance)) { return null; }
+                if (!Validate(userInstance)) { return null; }
 
-            return userInstance;
+                return userInstance;
+            }
+            catch(FailedToRetrieveInformationException e)
+            {
+                Console.WriteLine(e.Message);
+                throw new Exception("User not found.");
+            }
         }
         public UserDTO[] GetUsers()
         {
-            var users = _userRepository.GetAllUsers();
-            return users.ToArray();
+            try
+            {
+                var users = _userRepository.GetAllUsers();
+                return users.ToArray();
+            }
+            catch(FailedToRetrieveInformationException f)
+            {
+                Console.WriteLine(f.Message);
+                throw new Exception("Something went wrong. Please try again.");
+            }
         }
 
         public User? Authenticate(string email, string pass)
         {
-            var loggedInUser = _userRepository.GetUserByEmail(email);
-
-            var expectedHash = security.CreateHash(loggedInUser.Salt, pass);
-            var actual = loggedInUser.HashedPass;
-
-            if (expectedHash == actual)
+            try
             {
-               return FromDTO(loggedInUser);
+                var loggedInUser = _userRepository.GetUserByEmail(email);
+
+                var expectedHash = security.CreateHash(loggedInUser.Salt, pass);
+                var actual = loggedInUser.HashedPass;
+
+                if (expectedHash == actual)
+                {
+                   return FromDTO(loggedInUser);
+                }
+                return null; 
             }
-            return null; 
+            catch(InvalidInformationException i)
+            {
+                Console.WriteLine(i.Message);
+                throw new Exception("Invalid credentials.");
+            }
         }
 
-        public void InsertImage(byte[] image, string username)
+        public void InsertImage(byte[] image, int id)
         {
-            _userRepository.InsertImage(image, username);
+            try
+            {
+                _userRepository.InsertImage(image, id);
+            }
+            catch(InvalidInformationException i)
+            {
+                Console.WriteLine(i.Message);
+                throw new Exception("Something went wrong. Couldn't update profile picture. Please try again.");
+            }
+
         }
 
         public bool InfoValidation(string name, string email)

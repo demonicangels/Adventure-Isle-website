@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Interfaces
 {
-	public interface IAlgorithmRepository
+	public interface ICalculationsRepository
 	{
 		double CalculateAverage(List<double> ratingList);
-		int CalculateWeight(int userId);
-		Review[] UserWithMostReviewWeight();
-		Destination[] Recommendations(int userId);
+		int CalculateWeight(int userId, List<Review> re);
+		Review[] UserWithMostReviewWeight(int desId);
+		public Destination[] RecommendationsByClimate(int userId);
 		Destination[] BestRatedDestinations();
     }
 }

@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Interfaces;
+﻿using BusinessLogic.Exceptions;
+using BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -54,18 +55,35 @@ namespace BusinessLogic
 		}
 		public void InsertDestination(DestinationDTO destination)
         {
-            var desInstance = FromDTO(destination);
-
-            if (!Validate(desInstance)) { return; }
-            else
+            try
             {
-                _destinationRepository.InsertDestination(destination);
+                var desInstance = FromDTO(destination);
+
+                if (!Validate(desInstance)) { return; }
+                else
+                {
+                    _destinationRepository.InsertDestination(destination);
+                }
+
+            }
+            catch(System.IO.InvalidDataException ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new Exception("The information is not valid. Please try again.");
             }
 
         }
         public void DeleteDestination(string selectedDes)
         {
-            _destinationRepository.DeleteDestination(selectedDes);
+            try
+            {
+                _destinationRepository.DeleteDestination(selectedDes);
+            }
+            catch (CouldntDeleteException d)
+            {
+                Console.WriteLine(d.Message);
+                throw new Exception("The destination couldn't be deleted. Something went wrong.");
+            }
         }
         public List<Destination> GetDestinationByName(string name)
         {
@@ -83,7 +101,7 @@ namespace BusinessLogic
             {
                
                 Console.WriteLine(desNotFoundEx.Message);  // log exception
-                throw new Exception("Something went wrong");
+                throw new Exception("Something went wrong. Destination with that name couldn't be found.");
             }
  
         }
@@ -91,52 +109,91 @@ namespace BusinessLogic
         {
             List<DestinationDTO> destinationDtos = _destinationRepository.GetAllDestinationsByCountry(country);
             List<Destination> destinations = new List<Destination>();
-            foreach(var des in destinationDtos)
-            {
-                destinations.Add(FromDTO(des));
+            try
+            {                
+                foreach(var des in destinationDtos)
+                {
+                    destinations.Add(FromDTO(des));
+                }
+                return destinations;
             }
-            return destinations;
+            catch(NoDestinationsFoundForCountryException ex) 
+            {
+                Console.WriteLine(ex.Message);
+                throw new Exception("No destinations for this country are found");
+            }
+           
         }
         public Destination UpdateDestination(Destination des)
         {
-            
-            if (!Validate(des)) { return null; }
-            else
+            try
             {
-                var desi = _destinationRepository.UpdateDestination(ToDTO(des));
-                return FromDTO(desi);
-			}
+                if (!Validate(des)) { return null; }
+                else
+                {
+                    var desi = _destinationRepository.UpdateDestination(ToDTO(des));
+                    return FromDTO(desi);
+			    }
+            }
+            catch(FailedToUpdateException x)
+            {
+                Console.WriteLine(x.Message);
+                throw new Exception("Failed to update destination");
+            }
 			
 
 		}
         public Destination SetDestinationStatus(Destination d, int id)
         {
-            if (!Validate(d)) { return null; }
-            else 
+            try
             {
-                _destinationRepository.SetDestinationStatus(ToDTO(d), id);
-                return d;
-			}
+                if (!Validate(d)) { return null; }
+                else 
+                {
+                    _destinationRepository.SetDestinationStatus(ToDTO(d), id);
+                    return d;
+			    }
+            }
+            catch (CouldntSetDestinationStatusException c)
+            {
+                Console.WriteLine(c.Message);
+                throw new Exception("Couldn't set destination status. Please try again");
+            }
 
         }
         public Destination GetDestinationWithStatus(Destination des, int usrId)
         {
-            if (!Validate(des)) { return null; }
-            else
+            try
             {
-                var desi = _destinationRepository.GetStatusByUserIdAndDesId(ToDTO(des), usrId);
-                return FromDTO(desi);
-			}
-           
+                if (!Validate(des)) { return null; }
+                else
+                {
+                    var desi = _destinationRepository.GetStatusByUserIdAndDesId(ToDTO(des), usrId);
+                    return FromDTO(desi);
+			    }
+            }
+            catch (InvalidInformationException i)
+            {
+                Console.WriteLine(i.Message);
+                throw new Exception("Invalid credentials. Couldn't Retreive destination.");
+            }
         }
         public Destination UpdateStatusByUserIdAndDesId(Destination des, int usrId)
         {
-            if (!Validate(des)) { return null; }
-            else
+            try
             {
-                var desi = _destinationRepository.UpdateStatusByUserIdAndDesId(ToDTO(des), usrId);
-                return FromDTO(desi);
-			}
+                if (!Validate(des)) { return null; }
+                else
+                {
+                    var desi = _destinationRepository.UpdateStatusByUserIdAndDesId(ToDTO(des), usrId);
+                    return FromDTO(desi);
+			    }
+            }
+            catch(InvalidInformationException i)
+            {
+                Console.WriteLine(i.Message);
+                throw new Exception("Couldnt update status. Invalid id credentials");
+            }
         }
 
         public bool InfoInputValidation(string name, string currency, string climate)
@@ -149,7 +206,7 @@ namespace BusinessLogic
             if(result2 == true)
             {
                 result = result2;
-
+            
             }
             else if(result3 == true)
             {
@@ -167,23 +224,39 @@ namespace BusinessLogic
         }
         public Destination[] AllDesOfUser(int usrId)
         {
-            var allDes = _destinationRepository.AllDestinationsofUser(usrId);
-            List<Destination> result = new List<Destination>();
-            foreach(var d in allDes)
+            try
             {
-                result.Add(FromDTO(d));
+                var allDes = _destinationRepository.AllDestinationsofUser(usrId);
+                List<Destination> result = new List<Destination>();
+                foreach(var d in allDes)
+                {
+                    result.Add(FromDTO(d));
+                }
+                return result.ToArray();
             }
-            return result.ToArray();
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw new Exception("Couldn't find user. Invalid user credentials. Failed to load destinations of user.");
+            }
 		} 
         public Destination[] GetAllDestinations()
         {
-            var desiList = _destinationRepository.GetAllDestinations();
-            List<Destination> result = new List<Destination>();
-            foreach(var d in desiList)
+            try
             {
-                result.Add(FromDTO(d));
+                var desiList = _destinationRepository.GetAllDestinations();
+                List<Destination> result = new List<Destination>();
+                foreach(var d in desiList)
+                {
+                    result.Add(FromDTO(d));
+                }
+                return result.ToArray();
             }
-            return result.ToArray();
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw new Exception("Something went wrong.Failed to load destinations.Try again later.");
+            }
 		}
 		public bool Validate(Destination des)
         {

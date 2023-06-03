@@ -1,5 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using BusinessLogic;
+using BusinessLogic.Exceptions;
+using System.Linq.Expressions;
+using Microsoft.Identity.Client;
 
 namespace DAL
 {
@@ -12,71 +15,100 @@ namespace DAL
         public void InsertUser(UserDTO user, string salt, string hash)
         {
             var query = "INSERT INTO Users (username, email, birthday, Salt, Hash) VALUES (@username, @email,@birthday, @salt, @hash)";
-            using (con = new SqlConnection(connection))
+            try
             {
+                using (con = new SqlConnection(connection))
+                {
 
-                con.Open();
-                cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@username", user.Username);
-                cmd.Parameters.AddWithValue("@email", user.Email);
-                cmd.Parameters.AddWithValue("@birthday", user.Birthday);
-				cmd.Parameters.AddWithValue("@salt", salt);
-                cmd.Parameters.AddWithValue("@hash", hash);
-				cmd.ExecuteNonQuery();
-                con.Close();
+                    con.Open();
+                    cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@username", user.Username);
+                    cmd.Parameters.AddWithValue("@email", user.Email);
+                    cmd.Parameters.AddWithValue("@birthday", user.Birthday);
+			    	cmd.Parameters.AddWithValue("@salt", salt);
+                    cmd.Parameters.AddWithValue("@hash", hash);
+			    	cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch(Exception x)
+            {
+                throw new InvalidInformationException("Couldn't insert user into the database");
             }
 
         }
 		public void Update(UserDTO user)
 		{
 			var query = "UPDATE Users SET username = @us, email = @em, birthday = @birth, bio = @bio WHERE email = @em ";
-			using (SqlConnection con = new SqlConnection(connection))
-			{
-				con.Open();
-				SqlCommand cmd = new SqlCommand(query, con);
-				cmd.Parameters.AddWithValue("@em", user.Email);
-				cmd.Parameters.AddWithValue("@us", user.Username);
-				cmd.Parameters.AddWithValue("@birth", user.Birthday);
-				cmd.Parameters.AddWithValue("@bio", user.Bio);
-				cmd.ExecuteNonQuery();
-			}
+            try
+            {
+			    using (SqlConnection con = new SqlConnection(connection))
+			    {
+			    	con.Open();
+			    	SqlCommand cmd = new SqlCommand(query, con);
+			    	cmd.Parameters.AddWithValue("@em", user.Email);
+			    	cmd.Parameters.AddWithValue("@us", user.Username);
+			    	cmd.Parameters.AddWithValue("@birth", user.Birthday);
+			    	cmd.Parameters.AddWithValue("@bio", user.Bio);
+			    	cmd.ExecuteNonQuery();
+			    }
+            }
+            catch(Exception x)
+            {
+                throw new FailedToUpdateException("Couldn't update user in database");
+            }
 		}
 		public void DeleteUser(string email)
         {
             var query = "DELETE FROM Users WHERE email = @email";
-            using (con = new SqlConnection(connection))
+            try
             {
-                con.Open();
-                cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@email", email);
-                cmd.ExecuteNonQuery();
-                con.Close();
+                using (con = new SqlConnection(connection))
+                {
+                    con.Open();
+                    cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new CouldntDeleteException("Couldn't delete user.");
             }
         }
 		public UserDTO[] GetAllUsers()
         {
+
             var users = new List<UserDTO>();
             var query = "SELECT * FROM Users";
-            using (con = new SqlConnection(connection))
+            try
             {
-                con.Open();
-                cmd = new SqlCommand(query, con);
-                cmd.ExecuteNonQuery();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                using (con = new SqlConnection(connection))
                 {
-                    UserDTO usr = new UserDTO();
-                    usr.Username = reader["username"].ToString();
-                    usr.Password = null;
-                    usr.Email = reader["email"].ToString();
-                    usr.Birthday = (DateTime)reader["birthday"];
-                    if (usr != null)
+                    con.Open();
+                    cmd = new SqlCommand(query, con);
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
                     {
-                        users.Add(usr);
+                        UserDTO usr = new UserDTO();
+                        usr.Username = reader["username"].ToString();
+                        usr.Password = null;
+                        usr.Email = reader["email"].ToString();
+                        usr.Birthday = (DateTime)reader["birthday"];
+                        if (usr != null)
+                        {
+                            users.Add(usr);
+                        }
                     }
+                    con.Close();
+                    return users.ToArray();
                 }
-                con.Close();
-                return users.ToArray();
+            }
+            catch(Exception ex)
+            {
+                throw new FailedToRetrieveInformationException("Failed to load user information");
             }
         }
         
@@ -84,116 +116,151 @@ namespace DAL
         {
             var boolValue = false;
             var query = "SELECT email, password FROM Users";
-            using (con = new SqlConnection(connection))
+            try
             {
-                con.Open();
-                cmd = new SqlCommand(query, con);
-                cmd.ExecuteNonQuery();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                using (con = new SqlConnection(connection))
                 {
-                    if (usr.Email == reader["email"].ToString() && usr.HashedPass == reader["Hash"].ToString())
+                    con.Open();
+                    cmd = new SqlCommand(query, con);
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
                     {
-                        boolValue = true;
-                        return boolValue;
-                    }
+                        if (usr.Email == reader["email"].ToString() && usr.HashedPass == reader["Hash"].ToString())
+                        {
+                            boolValue = true;
+                            return boolValue;
+                        }
 
+                    }
+                    con.Close();
+                    return boolValue;
                 }
-                con.Close();
-                return boolValue;
             }
+            catch(Exception x)
+            {
+                throw new InvalidInformationException("Couldn't authenticate user.Invalid credentials");
+            }
+
         }
         public UserDTO GetUserByName(string name)
         {
             var query = "SELECT * FROM Users WHERE username LIKE @username + '%'";
             UserDTO u = new UserDTO();
-            using (con = new SqlConnection(connection))
+            try
             {
-                con.Open();
-                cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@username", name);
-                cmd.ExecuteNonQuery();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                using (con = new SqlConnection(connection))
                 {
-                    u.Id = Convert.ToInt32(reader["Id"]);
-                    u.Username = reader["username"].ToString();
-					u.Password = null;
-					u.Email = reader["email"].ToString();
-                    u.Birthday = (DateTime)reader["birthday"];
-                    u.Bio = reader["bio"].ToString();
-                    u.UserSince = (DateTime)reader["created_at"];
-                };
+                    con.Open();
+                    cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@username", name);
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        u.Id = Convert.ToInt32(reader["Id"]);
+                        u.Username = reader["username"].ToString();
+			    		u.Password = null;
+			    		u.Email = reader["email"].ToString();
+                        u.Birthday = (DateTime)reader["birthday"];
+                        u.Bio = reader["bio"].ToString();
+                        u.UserSince = (DateTime)reader["created_at"];
+                    };
+                }
+                return u;
             }
-            return u;
+            catch(Exception e)
+            {
+                throw new FailedToRetrieveInformationException("Failed to retrieve user. Couldn't find a user with that name.");
+            }
         }
         public UserDTO GetUserByEmail(string email)
         {
             var query = "SELECT * FROM Users WHERE email LIKE @email + '%'";
             UserDTO u = new UserDTO();
-            using (con = new SqlConnection(connection))
+            try
             {
-                con.Open();
-                cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@email", email);
-                cmd.ExecuteNonQuery();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                using (con = new SqlConnection(connection))
                 {
-                    u.Id = Convert.ToInt32(reader["Id"]);
-                    u.Username = reader["username"].ToString();
-                    u.Password = null;
-                    u.Email = reader["email"].ToString();
-                    u.Birthday = (DateTime)reader["birthday"];
-                    u.Bio = reader["bio"].ToString();
-                    u.UserSince = (DateTime)reader["created_at"];
-                    u.Salt = reader["Salt"].ToString() ;
-                    u.HashedPass = reader["Hash"].ToString();
-                    u.ProfilePic = (reader["ProfilePicture"] == DBNull.Value) ? null : (byte[])reader["ProfilePicture"];
-                };
-				con.Close();
-			}
-            return u;
+                    con.Open();
+                    cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        u.Id = Convert.ToInt32(reader["Id"]);
+                        u.Username = reader["username"].ToString();
+                        u.Password = null;
+                        u.Email = reader["email"].ToString();
+                        u.Birthday = (DateTime)reader["birthday"];
+                        u.Bio = reader["bio"].ToString();
+                        u.UserSince = (DateTime)reader["created_at"];
+                        u.Salt = reader["Salt"].ToString() ;
+                        u.HashedPass = reader["Hash"].ToString();
+                        u.ProfilePic = (reader["ProfilePicture"] == DBNull.Value) ? null : (byte[])reader["ProfilePicture"];
+                    };
+			    	con.Close();
+			    }
+                return u;
+            }
+            catch(Exception e)
+            {
+                throw new FailedToRetrieveInformationException("Failed to retrieve user. Couldn't find a user with that email.");
+            }
         }
         public UserDTO GetUserById(int id)
         {
-            var query = "SELECT * FROM Users WHERE Id = @Id";
-            UserDTO u = new UserDTO();
-            using (con = new SqlConnection(connection))
+            try
             {
-                con.Open();
-                cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Id", id);
-                cmd.ExecuteNonQuery();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                var query = "SELECT * FROM Users WHERE Id = @Id";
+                UserDTO u = new UserDTO();
+                using (con = new SqlConnection(connection))
                 {
-                    u.Id = id;
-                    u.Username = reader["username"].ToString();
-                    u.Password = null;
-                    u.Email = reader["email"].ToString();
-                    u.UserSince = (DateTime)reader["created_at"];
-                    u.Birthday = (DateTime)reader["birthday"];
-                    u.Bio = reader["bio"].ToString();
-					u.ProfilePic = (reader["ProfilePicture"] == DBNull.Value) ? null : (byte[])reader["ProfilePicture"];
-				}
-				con.Close();
+                    con.Open();
+                    cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        u.Id = id;
+                        u.Username = reader["username"].ToString();
+                        u.Password = null;
+                        u.Email = reader["email"].ToString();
+                        u.UserSince = (DateTime)reader["created_at"];
+                        u.Birthday = (DateTime)reader["birthday"];
+                        u.Bio = reader["bio"].ToString();
+			    		u.ProfilePic = (reader["ProfilePicture"] == DBNull.Value) ? null : (byte[])reader["ProfilePicture"];
+			    	}
+			    	con.Close();
 
-			}
-            return u;
-        }
-        public void InsertImage(byte[] image, string username)
-        {
-            var query = @"UPDATE Users SET ProfilePicture = @pp WHERE username = @username";
-            using (con = new SqlConnection(connection))
+			    }
+                return u;
+            }
+            catch(Exception ex)
             {
-
-                con.Open();
-                cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@pp", image);
-                cmd.ExecuteNonQuery();
-                con.Close();
+                throw new FailedToRetrieveInformationException("User with this id is not found.");
+            }
+        }
+        public void InsertImage(byte[] image, int id)
+        {
+            var query = @"UPDATE Users SET ProfilePicture = @pp WHERE Id = @id";
+            try
+            {
+               using (con = new SqlConnection(connection))
+               {
+                   con.Open();
+                   cmd = new SqlCommand(query, con);
+                   cmd.Parameters.AddWithValue("@id", id);
+                   cmd.Parameters.AddWithValue("@pp", image);
+                   cmd.ExecuteNonQuery();
+                   con.Close();
+               }
+            }
+            catch (Exception e)
+            {
+                throw new InvalidInformationException("Something went wrong. Unsuccessful update.");
             }
         }
 

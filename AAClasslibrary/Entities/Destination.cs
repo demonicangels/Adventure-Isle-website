@@ -29,8 +29,7 @@ namespace BusinessLogic
         public int? UsrId { get; set; }
 		public int TimesVisited { get; set; }
 
-		AlgorithmService algorithm = new AlgorithmService();
-
+		CalculationsService algorithm = new CalculationsService();
 		public void AddReview(Review r)
         {
             reviews.Add(r);

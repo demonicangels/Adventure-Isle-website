@@ -16,15 +16,22 @@ namespace DAL
         public void Insert(ReviewDTO review)
         {
             string query = "INSERT INTO Reviews (UserId, DestinationId, ReviewTxt, Rating) VALUES (@user, @des, @review, @rate)";
-            using (SqlConnection con = new SqlConnection(connection))
+            try
             {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@user", review.UserId);
-                cmd.Parameters.AddWithValue("@des", review.DestinationId);
-                cmd.Parameters.AddWithValue("@review", review.ReviewTxt);
-				cmd.Parameters.AddWithValue("@rate", review.Rating);
-				cmd.ExecuteNonQuery();
+                using (SqlConnection con = new SqlConnection(connection))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@user", review.UserId);
+                    cmd.Parameters.AddWithValue("@des", review.DestinationId);
+                    cmd.Parameters.AddWithValue("@review", review.ReviewTxt);
+			    	cmd.Parameters.AddWithValue("@rate", review.Rating);
+			    	cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessLogic.InvalidInformationException("Invalid information. Insert failed.");
             }
         }
         public void Update()
@@ -40,47 +47,61 @@ namespace DAL
         {
             var query = "SELECT * FROM Reviews WHERE DestinationId = @id ";
             List<ReviewDTO> reviewList = new List<ReviewDTO>();
-            using (SqlConnection con = new SqlConnection(connection))
+            try
             {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.ExecuteNonQuery();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                using (SqlConnection con = new SqlConnection(connection))
                 {
-                    ReviewDTO r = new ReviewDTO();
-                    r.UserId = (int)reader["UserId"];
-                    r.DestinationId = (int)reader["DestinationId"];
-                    r.ReviewTxt = reader["ReviewTxt"].ToString();
-                    r.Rating = Convert.ToDouble(reader["Rating"].ToString());
-                    reviewList.Add(r);
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ReviewDTO r = new ReviewDTO();
+                        r.UserId = (int)reader["UserId"];
+                        r.DestinationId = (int)reader["DestinationId"];
+                        r.ReviewTxt = reader["ReviewTxt"].ToString();
+                        r.Rating = Convert.ToDouble(reader["Rating"].ToString());
+                        reviewList.Add(r);
+                    }
                 }
+                return reviewList.ToArray();
             }
-            return reviewList.ToArray();
+            catch(Exception ex)
+            {
+                throw new BusinessLogic.InvalidInformationException("Invalid credentials. Couldn't find reviews for destination with that id.");
+            }
         }
 
 		public ReviewDTO[] GetReviews()
 		{
 			var query = "SELECT * FROM Reviews";
 			List<ReviewDTO> reviewList = new List<ReviewDTO>();
-			using (SqlConnection con = new SqlConnection(connection))
-			{
-				con.Open();
-				SqlCommand cmd = new SqlCommand(query, con);
-				cmd.ExecuteNonQuery();
-				SqlDataReader reader = cmd.ExecuteReader();
-				while (reader.Read())
-				{
-					ReviewDTO r = new ReviewDTO();
-					r.UserId = (int)reader["UserId"];
-					r.DestinationId = (int)reader["DestinationId"];
-					r.ReviewTxt = reader["ReviewTxt"].ToString();
-					r.Rating = Convert.ToDouble(reader["Rating"].ToString());
-					reviewList.Add(r);
-				}
-			}
-			return reviewList.ToArray();
+            try
+            {
+			    using (SqlConnection con = new SqlConnection(connection))
+			    {
+			    	con.Open();
+			    	SqlCommand cmd = new SqlCommand(query, con);
+			    	cmd.ExecuteNonQuery();
+			    	SqlDataReader reader = cmd.ExecuteReader();
+			    	while (reader.Read())
+			    	{
+			    		ReviewDTO r = new ReviewDTO();
+			    		r.UserId = (int)reader["UserId"];
+			    		r.DestinationId = (int)reader["DestinationId"];
+			    		r.ReviewTxt = reader["ReviewTxt"].ToString();
+			    		r.Rating = Convert.ToDouble(reader["Rating"].ToString());
+			    		reviewList.Add(r);
+			    	}
+			    }
+			    return reviewList.ToArray();
+            }
+            catch (Exception ex)
+            {
+                throw new FailedToRetrieveInformationException("Something went wrong. Failed to retrieve information.");
+            }
 		}
 	}
 }

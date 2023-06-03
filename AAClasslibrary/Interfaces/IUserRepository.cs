@@ -18,6 +18,6 @@ namespace BusinessLogic
 
         UserDTO GetUserByName(string name);
 
-        void InsertImage(byte[] image, string username);
+        void InsertImage(byte[] image, int id);
     }
 }

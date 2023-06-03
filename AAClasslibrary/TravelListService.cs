@@ -40,18 +40,34 @@ namespace BusinessLogic
         }
         public TravelList CreateList(TravelList t)
         {
-            if (!Validate(t)) { return null; }
-            else
+            try
             {
-                t = FromDTO(listRepository.CreateTravelList(ToDTO(t)));
-                return t;
+                if (!Validate(t)) { return null; }
+                else
+                {
+                    t = FromDTO(listRepository.CreateTravelList(ToDTO(t)));
+                    return t;
+                }
+            }
+            catch(InvalidInformationException i)
+            {
+                Console.WriteLine(i.Message);
+                throw new Exception("Something went wrong. Please try again.");
             }
         }
 
         public TravelList GetListByUserId(int id)
         {
-            var list = listRepository.GetListByUserId(id);
-            return FromDTO(list);
+            try
+            {
+                var list = listRepository.GetListByUserId(id);
+                return FromDTO(list);
+            }
+            catch (InvalidInformationException i)
+            {
+                Console.WriteLine(i.Message);
+                throw new Exception("Invalid userId. Couldn't load travelList");
+            }
         }
         public TravelList UpdateTravelList(TravelList t)
         {

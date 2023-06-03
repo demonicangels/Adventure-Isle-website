@@ -11,7 +11,7 @@ namespace AdventureAisleCore.Pages
         ReviewService reviews;
         UserService userService;
         DestinationService destinationService;
-        AlgorithmService algorithmService;
+        CalculationsService algorithmService;
 
         
         
@@ -35,7 +35,7 @@ namespace AdventureAisleCore.Pages
 
         public List<Destination> Desi { get; set; } = new List<Destination>();
 
-        public ParisModel(UserService u, DestinationService d, ReviewService r, AlgorithmService a)
+        public ParisModel(UserService u, DestinationService d, ReviewService r, CalculationsService a)
         {
             userService = u;
             destinationService = d;
@@ -44,20 +44,21 @@ namespace AdventureAisleCore.Pages
 		}
 		public void OnGet()
         {
-            Reviews = algorithmService.UserWithMostReviewWeight();
+            Desi = destinationService.GetDestinationByName(Destination);
+            Reviews = algorithmService.UserWithMostReviewWeight(Desi.FirstOrDefault().Id);
             var userWithMostWeight = Reviews[0].UserId;
 
 			if (HttpContext.Session.GetInt32("userId") != null)
             {
                 var id = (int)HttpContext.Session.GetInt32("userId");
                 User = userService.GetUserById(id);
-				Desi = destinationService.GetDestinationByName(Destination);
+				//Desi = destinationService.GetDestinationByName(Destination);
                 Desi[0] = destinationService.GetDestinationWithStatus(Desi.FirstOrDefault(), id);
                 DesReviews = Reviews.Where(d => d.DestinationId == Desi.FirstOrDefault().Id).ToArray();
 			}
             else
             {
-				Desi = destinationService.GetDestinationByName(Destination);
+				//Desi = destinationService.GetDestinationByName(Destination);
                 DesReviews = Reviews.Where(d => d.DestinationId == Desi.FirstOrDefault().Id).ToArray();   
             }
         }
@@ -68,7 +69,7 @@ namespace AdventureAisleCore.Pages
 
             Desi = destinationService.GetDestinationByName(Destination);
 			Desi[0] = destinationService.GetDestinationWithStatus(Desi.FirstOrDefault(), usrid);
-			Reviews = algorithmService.UserWithMostReviewWeight();
+			Reviews = algorithmService.UserWithMostReviewWeight(Desi.FirstOrDefault().Id);
 
 			if (Review.ReviewTxt != null)
             {

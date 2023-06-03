@@ -20,70 +20,84 @@ namespace DAL
         
         public TravelListDTO CreateTravelList(TravelListDTO travelList)
         {
-            var query = "INSERT INTO TravelList (UserId) OUTPUT INSERTED.Id VALUES (@usr)";
-            using (SqlConnection con = new SqlConnection(connection))
+            try
             {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@usr", travelList.UserId);
-                cmd.ExecuteNonQuery();
-                SqlDataReader reader = cmd.ExecuteReader();
-                if (!reader.Read())
-                    throw new Exception("Couldn't create list");
-                int id = (int)reader["Id"];
-                travelList.Id = id;
-            }
-
-            var query2 = "INSERT INTO Necessities (TravelListId, NAME) VALUES (@id, @n)";
-            using (SqlConnection con = new SqlConnection(connection))
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(query2, con);
-                foreach(var n in travelList.Necessities)
+                var query = "INSERT INTO TravelList (UserId) OUTPUT INSERTED.Id VALUES (@usr)";
+                using (SqlConnection con = new SqlConnection(connection))
                 {
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@id", travelList.Id);
-                    cmd.Parameters.AddWithValue("@n", n.Name);
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@usr", travelList.UserId);
                     cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (!reader.Read())
+                        throw new Exception("Couldn't create list");
+                    int id = (int)reader["Id"];
+                    travelList.Id = id;
                 }
+
+                var query2 = "INSERT INTO Necessities (TravelListId, NAME) VALUES (@id, @n)";
+                using (SqlConnection con = new SqlConnection(connection))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(query2, con);
+                    foreach (var n in travelList.Necessities)
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@id", travelList.Id);
+                        cmd.Parameters.AddWithValue("@n", n.Name);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                return travelList;
             }
-            return travelList;
+            catch (Exception e)
+            {
+                throw new BusinessLogic.InvalidInformationException("Something went wrong while attempting to insert a TravelList in the database");
+            }
         }
         public TravelListDTO GetListByUserId(int id)
         {
-            TravelListDTO tr = new TravelListDTO();
-            var query = "SELECT * FROM TravelList WHERE UserId = @us";
-            using (SqlConnection con = new SqlConnection(connection))
+            try
             {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@us", id);
-                cmd.ExecuteNonQuery();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                TravelListDTO tr = new TravelListDTO();
+                var query = "SELECT * FROM TravelList WHERE UserId = @us";
+                using (SqlConnection con = new SqlConnection(connection))
                 {
-                    tr.UserId = id;
-                    tr.Id = (int)reader["Id"];
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@us", id);
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        tr.UserId = id;
+                        tr.Id = (int)reader["Id"];
+                    }
+                }
+                var query2 = "SELECT * FROM Necessities WHERE TravelListId = @id ";
+                using (SqlConnection con = new SqlConnection(connection))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(query2, con);
+                    cmd.Parameters.AddWithValue("@id", tr.Id);
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        
+                        var nes = new Necessity
+                        {
+                            Name = (string)reader["Name"],
+                        };
+                        tr.Necessities.Add( nes );
+                    }  
+                    return tr;
                 }
             }
-            var query2 = "SELECT * FROM Necessities WHERE TravelListId = @id ";
-            using (SqlConnection con = new SqlConnection(connection))
+            catch(Exception x)
             {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(query2, con);
-                cmd.Parameters.AddWithValue("@id", tr.Id);
-                cmd.ExecuteNonQuery();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    
-                    var nes = new Necessity
-                    {
-                        Name = (string)reader["Name"],
-                    };
-                    tr.Necessities.Add( nes );
-                }  
-                return tr;
+                throw new BusinessLogic.InvalidInformationException("Invalid userId. Couldn't load travelList");
             }
         }
         public TravelListDTO UpdateTravelList(TravelListDTO travelList)
