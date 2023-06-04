@@ -71,34 +71,39 @@ namespace BusinessLogic
 		}
 		public Review[] UserWithMostReviewWeight(int desId)
 		{
-			double sum = 0;
-			int count = 0;
+            double sum = 0;
+            int count = 0;
 
             var reviews = revService.GetReviews().ToList();
-			
-			var userRatingCount = reviews.GroupBy(u => u.UserId)
-                .Where(g => g.Count() >= 1)
-                .ToDictionary(a => a.Key, b => b.Count());
 
-			var userRatingForThisDes = reviews.Where(x => x.DestinationId == desId)
-				.ToDictionary(u => u.UserId, e => e.Rating);
+            var userRatingCount = reviews
+                .GroupBy(u => u.UserId)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            var userRatingForThisDes = reviews
+                .Where(x => x.DestinationId == desId)
+				.GroupBy(u => u.UserId)
+                .ToDictionary(g => g.Key, g => g.FirstOrDefault().Rating);
 
             Dictionary<int, double> totalSumofRatingofUser = new Dictionary<int, double>();
 
-            foreach (KeyValuePair<int,double> entry in userRatingForThisDes)
-			{
-				sum += entry.Value * userRatingCount[entry.Key];
-				count += userRatingCount[entry.Key];
+            foreach (KeyValuePair<int, double> entry in userRatingForThisDes)
+            {
+                if (userRatingCount.ContainsKey(entry.Key)) 
+                {
+                    sum += entry.Value * userRatingCount[entry.Key];
+                    count += userRatingCount[entry.Key];
+                }
             }
 
-			var avgWeight = sum / count;
+            var avgWeight = sum / count;
 
-			reviews.OrderByDescending(u => CalculateWeight(u.UserId, reviews)).ToList();  //u => userRatingForThisDes[u.UserId] /** userRatingForThisDes[u.UserId]*/);
+            reviews = reviews.OrderByDescending(u => CalculateWeight(u.UserId, reviews)).ToList();
 
-			return reviews.OrderByDescending(u => CalculateWeight(u.UserId, reviews)).ToArray() ;
+            return reviews.OrderByDescending(u => CalculateWeight(u.UserId, reviews)).ToArray();
 
-			
-            
+
+
 
 
 
@@ -106,7 +111,7 @@ namespace BusinessLogic
             //Reviews = revService.GetReviews();
             //Reviews = Reviews.OrderByDescending(r => CalculateWeight(r.UserId)).ToArray();
             //return Reviews;
-		}
+        }
 		public Destination[] RecommendationsByClimate(int userId)
 		{
 			//make it so it's possible to switch to different recommendation implementation

@@ -31,7 +31,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new BusinessLogic.InvalidInformationException("Invalid information. Insert failed.");
+                throw new BusinessLogic.InvalidInformationException(ex.Message);
             }
         }
         public void Update()
@@ -70,7 +70,7 @@ namespace DAL
             }
             catch(Exception ex)
             {
-                throw new BusinessLogic.InvalidInformationException("Invalid credentials. Couldn't find reviews for destination with that id.");
+                throw new BusinessLogic.InvalidInformationException(ex.Message);
             }
         }
 
@@ -100,7 +100,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new FailedToRetrieveInformationException("Something went wrong. Failed to retrieve information.");
+                throw new FailedToRetrieveInformationException(ex.Message);
             }
 		}
 	}

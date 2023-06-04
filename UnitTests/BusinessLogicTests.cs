@@ -12,7 +12,7 @@ namespace UnitTests
     [TestClass]
     public class BusinessLogicTests
     {
-		static IDestinationRepository _destinationRepository = new DestinationRepositoryTest();
+		static IDestinationRepositorytest _destinationRepository = new DestinationRepositoryTest();
 		static IUserRepository _userRepository = new UserRepositoryTest();
 		Security security = new Security();
        

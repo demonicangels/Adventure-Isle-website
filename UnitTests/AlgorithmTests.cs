@@ -13,10 +13,10 @@ namespace UnitTests
         {
             var destinations = new List<DestinationsTest>()
             {
-                new DestinationsTest("Pernik","",0),
-                new DestinationsTest("Berlin","",0),
-                new DestinationsTest("Eindhoven", "", 4.5),
-                new DestinationsTest("Madrid","",5)
+                new DestinationsTest("Pernik","","",0),
+                new DestinationsTest("Berlin","","",0),
+                new DestinationsTest("Eindhoven","","", 4.5),
+                new DestinationsTest("Madrid","","",5)
             };
 
             var bestRated = destinations[0];
@@ -78,21 +78,21 @@ namespace UnitTests
 
             List<DestinationsTest> destinations = new List<DestinationsTest>()
             {
-                new DestinationsTest("Paris", "moderate", null),
-                new DestinationsTest("Rome", "moderate", null),
-                new DestinationsTest("Spain", "hot", null),
-                new DestinationsTest("Italy", "moderate", null),
-                new DestinationsTest("Barcelona", "hot", null),
-                new DestinationsTest("Bulgaria", "moderate", null),
+                new DestinationsTest("Paris","", "moderate", null),
+                new DestinationsTest("Rome", "", "moderate", null),
+                new DestinationsTest("Spain","", "hot", null),
+                new DestinationsTest("Italy","", "moderate", null),
+                new DestinationsTest("Barcelona","", "hot", null),
+                new DestinationsTest("Bulgaria","", "moderate", null),
             };
 
             List<DestinationsTest> userDes = new List<DestinationsTest>()
             {
-                new DestinationsTest("Paris", "moderate", null),
-                new DestinationsTest("Rome", "moderate", null),
-                new DestinationsTest("Macedonia", "moderate", null),
-                new DestinationsTest("Spain", "hot", null),
-                new DestinationsTest("Arruba", "hot", null),
+                new DestinationsTest("Paris","", "moderate", null),
+                new DestinationsTest("Rome","", "moderate", null),
+                new DestinationsTest("Macedonia","", "moderate", null),
+                new DestinationsTest("Spain","", "hot", null),
+                new DestinationsTest("Arruba","", "hot", null),
             };
 
             var duplicates = userDes.GroupBy(c => c.Climate)

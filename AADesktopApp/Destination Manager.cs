@@ -28,7 +28,6 @@ namespace DesktopApp
 				}
 			}
 		}
-
 		public void Clear()
 		{
 			nameDestxt.Text = string.Empty;
@@ -38,6 +37,7 @@ namespace DesktopApp
 			searchByIdtxt.Text = string.Empty;
 			climatetxt.Text = string.Empty;
 		}
+
 		private void Put_btn_Click(object sender, EventArgs e) // insert button 
 		{
 			result = desi.InfoInputValidation(nameDestxt.Text, currencyDestxt.Text, climatetxt.Text);
@@ -49,12 +49,7 @@ namespace DesktopApp
 			}
 			else
 			{
-				DestinationDTO des = new DestinationDTO();
-				des.Name = nameDestxt.Text;
-				des.Country = countriesCb.SelectedItem.ToString();
-				des.Currency = currencyDestxt.Text;
-				des.BriefDescription = descriptionDestxt.Text;
-				des.Climate = climatetxt.Text;
+				DestinationDTO des = new DestinationDTO(0, nameDestxt.Text, countriesCb.SelectedItem.ToString(), currencyDestxt.Text, descriptionDestxt.Text, climatetxt.Text, null, "", null, null);
 				desi.InsertDestination(des);
 				MessageBox.Show("Successful insert");
 				Clear();

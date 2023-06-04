@@ -51,9 +51,9 @@ namespace DAL
                 }
                 return travelList;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new BusinessLogic.InvalidInformationException("Something went wrong while attempting to insert a TravelList in the database");
+                throw new BusinessLogic.InvalidInformationException(ex.Message);
             }
         }
         public TravelListDTO GetListByUserId(int id)
@@ -95,9 +95,9 @@ namespace DAL
                     return tr;
                 }
             }
-            catch(Exception x)
+            catch(Exception ex)
             {
-                throw new BusinessLogic.InvalidInformationException("Invalid userId. Couldn't load travelList");
+                throw new BusinessLogic.InvalidInformationException(ex.Message);
             }
         }
         public TravelListDTO UpdateTravelList(TravelListDTO travelList)

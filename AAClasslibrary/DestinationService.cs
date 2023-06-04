@@ -21,13 +21,13 @@ namespace BusinessLogic
 
         private Destination FromDTO(DestinationDTO dto)
         {
-            var des = new Destination(dto.Id, dto.Name, dto.Country, dto.Currency, dto.BriefDescription, dto.Climate, dto.AvgRating, dto.ImgURL, dto.UsrId);
+            var des = new Destination(dto.Id, dto.Name, dto.Country, dto.Currency, dto.BriefDescription, dto.Climate, dto.AvgRating, dto.ImgURL, dto.UsrId,dto.DesStatus);
             
             return des;
         }
 		private DestinationDTO ToDTO(Destination d)
 		{
-			var des = new DestinationDTO(d.Id, d.Name, d.Country, d.Currency, d.BriefDescription, d.Climate, d.AvgRating, d.ImgURL, d.UsrId);
+			var des = new DestinationDTO(d.Id, d.Name, d.Country, d.Currency, d.BriefDescription, d.Climate, d.AvgRating, d.ImgURL, d.UsrId, d.DesStatus);
 			return des;
 		}
 		public void InsertDestination(DestinationDTO destination)

@@ -11,7 +11,7 @@ namespace UnitTests
     [TestClass]
     public class DatabaseTests
     {
-        IDestinationRepository _destinationRepository = new DestinationRepositoryTest();
+        IDestinationRepositorytest _destinationRepository = new DestinationRepositoryTest();
         IUserRepository _userRepository = new UserRepositoryTest();
 
         [TestMethod]
@@ -57,8 +57,8 @@ namespace UnitTests
 		public void SearchDestination()
 		{
 			var search = "Pa";
-			var d = new DestinationDTO() { Name = "Provence", Country = "France" };
-			var expectedDes = new DestinationDTO() { Name = "Paris", Country = "France" };
+			var d = new DestinationsTest() { Name = "Provence", Country = "France" };
+			var expectedDes = new DestinationsTest() { Name = "Paris", Country = "France" };
 
 			_destinationRepository.InsertDestination(expectedDes);
 			_destinationRepository.InsertDestination(d);

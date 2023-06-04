@@ -3,11 +3,11 @@
 
 namespace UnitTests.MockData
 {
-    public class DestinationRepositoryTest : IDestinationRepository
+    public class DestinationRepositoryTest : IDestinationRepositorytest
     {
-        private List<DestinationDTO> desList = new List<DestinationDTO>();
+        private List<DestinationsTest> desList = new List<DestinationsTest>();
 
-        public void InsertDestination(DestinationDTO destination)
+        public void InsertDestination(DestinationsTest destination)
         {
             desList.Add(destination);
         }
@@ -16,20 +16,20 @@ namespace UnitTests.MockData
             throw new NotImplementedException();
         }
 
-        public DestinationDTO[] GetAllDestinations(string country)
+        public DestinationsTest[] GetAllDestinations(string country)
         {
             throw new NotImplementedException();
         }
 
-        public List<DestinationDTO> GetAllDestinationsByCountry(string country)
+        public List<DestinationsTest> GetAllDestinationsByCountry(string country)
         {
             throw new NotImplementedException();
         }
 
-        public List<DestinationDTO> GetDestinationByName(string name)
+        public List<DestinationsTest> GetDestinationByName(string name)
         {
-            var destinations = new List<DestinationDTO>();
-            foreach (DestinationDTO d in desList)
+            var destinations = new List<DestinationsTest>();
+            foreach (DestinationsTest d in desList)
             {
                 if (d.Name.Contains(name))
                 {
@@ -40,39 +40,36 @@ namespace UnitTests.MockData
             return destinations;
         }
 
-        public DestinationDTO UpdateDestination(DestinationDTO des)
+        public DestinationsTest UpdateDestination(DestinationsTest des)
         {
             throw new NotImplementedException();
         }
 
-        public DestinationDTO SetDestinationStatus(DestinationDTO destination, int id)
+        public DestinationsTest SetDestinationStatus(DestinationsTest destination, int id)
         {
             throw new NotImplementedException();
         }
 
-        public DestinationDTO GetStatusByUserIdAndDesId(DestinationDTO des, int usrid)
+        public DestinationsTest GetStatusByUserIdAndDesId(DestinationsTest des, int usrid)
         {
             throw new NotImplementedException();
         }
 
-        public DestinationDTO UpdateStatusByUserIdAndDesId(DestinationDTO des, int usrid)
+        public DestinationsTest UpdateStatusByUserIdAndDesId(DestinationsTest des, int usrid)
         {
             throw new NotImplementedException();
         }
 
-        public List<DestinationDTO> AllDestinationsofUser(int usrId)
+        public List<DestinationsTest> AllDestinationsofUser(int usrId)
         {
             throw new NotImplementedException();
         }
 
-        public List<DestinationDTO> GetAllDestinations()
+        public List<DestinationsTest> GetAllDestinations()
         {
             throw new NotImplementedException();
         }
 
-        DestinationDTO IDestinationRepository.InsertDestination(DestinationDTO destination)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

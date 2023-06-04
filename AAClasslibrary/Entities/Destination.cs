@@ -29,7 +29,7 @@ namespace BusinessLogic
 		CalculationsService algorithm = new CalculationsService();
 
         public Destination() { }
-        public Destination(int id, string name, string country,string? cur, string? brief, string climate, double? avg, string? img, int? usrId)
+        public Destination(int id, string name, string country,string? cur, string? brief, string climate, double? avg, string? img, int? usrId, int? des)
         {
             Id = id;
             Name = name;
@@ -37,9 +37,10 @@ namespace BusinessLogic
             Climate = climate;
             Currency = cur;
             BriefDescription = brief;
-            AvgRating = (int)avg;
+            AvgRating = (double)avg;
             ImgURL = img;
             UsrId = usrId;
+            DesStatus = des;
         }
 		public void AddReview(Review r)
         {

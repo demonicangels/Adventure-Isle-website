@@ -28,14 +28,14 @@ namespace BusinessLogic
                 if(!reader.Read())
                     throw new FailedToRetrieveInformationException();
                 DestinationDTO desi = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
-                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null,null);
                 con.Close();
                 return desi;
 
             }
             catch (Exception ex)
             {
-                throw new InvalidInformationException();
+                throw new InvalidInformationException(ex.Message);
             }
         }
         public void DeleteDestination(string selectedDes)
@@ -53,7 +53,7 @@ namespace BusinessLogic
             }
             catch (Exception ex)
             {
-                throw new CouldntDeleteException("Destination couldn't be deleted");
+                throw new CouldntDeleteException(ex.Message);
             }
         }
 
@@ -70,7 +70,7 @@ namespace BusinessLogic
                 while (reader.Read())
                 {
                     DestinationDTO d = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
-                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null,null);
                     list.Add(d);
                 }
                 con.Close();
@@ -78,7 +78,7 @@ namespace BusinessLogic
             }
             catch (Exception ex)
             {
-                throw new DestinationNotFoundException("Destination not found");
+                throw new DestinationNotFoundException(ex.Message);
             }
           
         }
@@ -98,7 +98,7 @@ namespace BusinessLogic
                 while (reader.Read())
                 {
                     DestinationDTO desi = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
-                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null,null);
                     destinations.Add(desi);
                 }
                 con.Close();
@@ -106,7 +106,7 @@ namespace BusinessLogic
             }
             catch (Exception ex)
             {
-                throw new NoDestinationsFoundForCountryException("No destinations for this country are found");
+                throw new NoDestinationsFoundForCountryException(ex.Message);
             }
 
         }
@@ -126,12 +126,11 @@ namespace BusinessLogic
                 cmd.Parameters.AddWithValue("@cu", des.Currency);
                 cmd.Parameters.AddWithValue("@hi", des.BriefDescription);
 			    cmd.Parameters.AddWithValue("@cli", des.Climate);
-			    cmd.ExecuteNonQuery();
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     des2 = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
-                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null,null);
                     return des2;
                 }
                 return des2;
@@ -139,7 +138,7 @@ namespace BusinessLogic
             }
             catch (Exception ex)
             {
-                throw new FailedToUpdateException("Failed to update destination");
+                throw new FailedToUpdateException(ex.Message);
             }
             
 		}
@@ -162,7 +161,7 @@ namespace BusinessLogic
             }
             catch(Exception ex)
             {
-                throw new CouldntSetDestinationStatusException("Failed to set destination status.");
+                throw new CouldntSetDestinationStatusException(ex.Message);
             }
         }
 
@@ -181,7 +180,7 @@ namespace BusinessLogic
 			    while (reader.Read())
 			    {
                     dto = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
-                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null, null);
                 }
                 con.Close();
 			   
@@ -202,7 +201,7 @@ namespace BusinessLogic
             }
             catch(Exception ex)
             {
-                throw new InvalidInformationException("Invalid ids");
+                throw new InvalidInformationException(ex.Message);
             }
 		}
 
@@ -223,7 +222,7 @@ namespace BusinessLogic
             }
             catch(Exception ex)
             {
-                throw new InvalidInformationException("Couldn't update status. Invalid ids.");
+                throw new InvalidInformationException(ex.Message);
             }
 		}
         public List<DestinationDTO> GetAllDestinations()
@@ -241,7 +240,7 @@ namespace BusinessLogic
 			    while (reader.Read())
 			    {
                     DestinationDTO des = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
-                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null, null);
                     destinations.Add(des);
 			    }
 			    con.Close();
@@ -249,7 +248,7 @@ namespace BusinessLogic
             }
             catch(Exception ex)
             {
-                throw new FailedToRetrieveInformationException("Failed to retrieve information");
+                throw new FailedToRetrieveInformationException(ex.Message);
             }
 		}
         public DestinationDTO GetDestinationById(int desId)
@@ -266,7 +265,7 @@ namespace BusinessLogic
                 while (reader.Read())
                 {
                     dto = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
-                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null);
+                    reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), null,null);
                 }
 				return dto;
 			}
@@ -288,8 +287,7 @@ namespace BusinessLogic
                     while (reader.Read())
                     {
                         DestinationDTO des = new DestinationDTO((int)reader["Id"], reader["Name"].ToString(), reader["Country"].ToString(), reader["Currency"].ToString(), reader["History"].ToString(),
-                        reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), usrId);
-                        des.DesStatus = (int?)reader["DestinationStatus"];
+                        reader["Climate"].ToString(), Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]), reader["ImgURL"].ToString(), usrId, (int?)reader["DestinationStatus"]);
     
                         userDestinations.Add(des);
                     }
@@ -299,7 +297,7 @@ namespace BusinessLogic
             }
             catch(Exception ex)
             {
-                throw new CouldntFindUserException("Couldn't find user. Invalid user credentials.");
+                throw new CouldntFindUserException(ex.Message);
             }
 
 		}

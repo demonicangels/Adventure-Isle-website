@@ -31,9 +31,9 @@ namespace DAL
                     con.Close();
                 }
             }
-            catch(Exception x)
+            catch(Exception ex)
             {
-                throw new InvalidInformationException("Couldn't insert user into the database");
+                throw new InvalidInformationException(ex.Message);
             }
 
         }
@@ -53,9 +53,9 @@ namespace DAL
 			    	cmd.ExecuteNonQuery();
 			    }
             }
-            catch(Exception x)
+            catch(Exception ex)
             {
-                throw new FailedToUpdateException("Couldn't update user in database");
+                throw new FailedToUpdateException(ex.Message);
             }
 		}
 		public void DeleteUser(string email)
@@ -72,9 +72,9 @@ namespace DAL
                     con.Close();
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new CouldntDeleteException("Couldn't delete user.");
+                throw new CouldntDeleteException(ex.Message);
             }
         }
 		public UserDTO[] GetAllUsers()
@@ -108,7 +108,7 @@ namespace DAL
             }
             catch(Exception ex)
             {
-                throw new FailedToRetrieveInformationException("Failed to load user information");
+                throw new FailedToRetrieveInformationException(ex.Message);
             }
         }
         
@@ -137,9 +137,9 @@ namespace DAL
                     return boolValue;
                 }
             }
-            catch(Exception x)
+            catch(Exception ex)
             {
-                throw new InvalidInformationException("Couldn't authenticate user.Invalid credentials");
+                throw new InvalidInformationException(ex.Message);
             }
 
         }
@@ -169,9 +169,9 @@ namespace DAL
                 }
                 return u;
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                throw new FailedToRetrieveInformationException("Failed to retrieve user. Couldn't find a user with that name.");
+                throw new FailedToRetrieveInformationException(ex.Message);
             }
         }
         public UserDTO GetUserByEmail(string email)
@@ -204,9 +204,9 @@ namespace DAL
 			    }
                 return u;
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                throw new FailedToRetrieveInformationException("Failed to retrieve user. Couldn't find a user with that email.");
+                throw new FailedToRetrieveInformationException(ex.Message);
             }
         }
         public UserDTO GetUserById(int id)
@@ -240,7 +240,7 @@ namespace DAL
             }
             catch(Exception ex)
             {
-                throw new FailedToRetrieveInformationException("User with this id is not found.");
+                throw new FailedToRetrieveInformationException(ex.Message);
             }
         }
         public void InsertImage(byte[] image, int id)
@@ -258,9 +258,9 @@ namespace DAL
                    con.Close();
                }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new InvalidInformationException("Something went wrong. Unsuccessful update.");
+                throw new InvalidInformationException(ex.Message);
             }
         }
 

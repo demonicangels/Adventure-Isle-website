@@ -20,7 +20,7 @@ namespace BusinessLogic
 		public int? UsrId { get; private set; }
 
         public DestinationDTO() { }
-        public DestinationDTO(int id, string name, string country, string? cur, string? brief, string climate, double? avg, string? img, int? usrId)
+        public DestinationDTO(int id, string name, string country, string? cur, string? brief, string climate, double? avg, string? img, int? usrId, int? des)
         {
             Id = id;
             Name = name;
@@ -28,9 +28,10 @@ namespace BusinessLogic
             Climate = climate;
             Currency = cur;
             BriefDescription = brief;
-            AvgRating = (int)avg;
+            AvgRating = (double)avg;
             ImgURL = img;
             UsrId = usrId;
+            DesStatus = des;
         }
         public string DesInfo()
         {
