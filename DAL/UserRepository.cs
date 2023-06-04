@@ -12,9 +12,9 @@ namespace DAL
         SqlConnection con;
         SqlCommand cmd;
 
-        public void InsertUser(UserDTO user, string salt, string hash)
+        public UserDTO InsertUser(UserDTO user, string salt, string hash)
         {
-            var query = "INSERT INTO Users (username, email, birthday, Salt, Hash) VALUES (@username, @email,@birthday, @salt, @hash)";
+            var query = "INSERT INTO Users (username, email, birthday, Salt, Hash) OUTPUT INSERTED.Id VALUES (@username, @email,@birthday, @salt, @hash)";
             try
             {
                 using (con = new SqlConnection(connection))
@@ -28,7 +28,17 @@ namespace DAL
 			    	cmd.Parameters.AddWithValue("@salt", salt);
                     cmd.Parameters.AddWithValue("@hash", hash);
 			    	cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (!reader.Read())
+                        throw new Exception();
+                    UserDTO u = new UserDTO((int)reader["Id"], user.Email, user.Password);
+                    u.Salt = salt;
+                    u.HashedPass = hash;
+                    u.Username = user.Username;
+                    u.Birthday = user.Birthday;
                     con.Close();
+
+                    return u;
                 }
             }
             catch(Exception ex)
@@ -92,10 +102,8 @@ namespace DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        UserDTO usr = new UserDTO();
+                        UserDTO usr = new UserDTO((int)reader["Id"], reader["email"].ToString(),null);
                         usr.Username = reader["username"].ToString();
-                        usr.Password = null;
-                        usr.Email = reader["email"].ToString();
                         usr.Birthday = (DateTime)reader["birthday"];
                         if (usr != null)
                         {
@@ -115,7 +123,7 @@ namespace DAL
         public bool Authentication(UserDTO usr)
         {
             var boolValue = false;
-            var query = "SELECT email, password FROM Users";
+            var query = "SELECT email, Hash FROM Users";
             try
             {
                 using (con = new SqlConnection(connection))
@@ -158,10 +166,8 @@ namespace DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        u.Id = Convert.ToInt32(reader["Id"]);
+                        u = new UserDTO(Convert.ToInt32(reader["Id"]), reader["email"].ToString(), null);
                         u.Username = reader["username"].ToString();
-			    		u.Password = null;
-			    		u.Email = reader["email"].ToString();
                         u.Birthday = (DateTime)reader["birthday"];
                         u.Bio = reader["bio"].ToString();
                         u.UserSince = (DateTime)reader["created_at"];
@@ -189,10 +195,8 @@ namespace DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        u.Id = Convert.ToInt32(reader["Id"]);
+                        u = new UserDTO(Convert.ToInt32(reader["Id"]), reader["email"].ToString(), null);
                         u.Username = reader["username"].ToString();
-                        u.Password = null;
-                        u.Email = reader["email"].ToString();
                         u.Birthday = (DateTime)reader["birthday"];
                         u.Bio = reader["bio"].ToString();
                         u.UserSince = (DateTime)reader["created_at"];
@@ -224,10 +228,8 @@ namespace DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        u.Id = id;
+                        u = new UserDTO(id, reader["email"].ToString(), null);
                         u.Username = reader["username"].ToString();
-                        u.Password = null;
-                        u.Email = reader["email"].ToString();
                         u.UserSince = (DateTime)reader["created_at"];
                         u.Birthday = (DateTime)reader["birthday"];
                         u.Bio = reader["bio"].ToString();

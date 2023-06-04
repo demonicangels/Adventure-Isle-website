@@ -2,11 +2,11 @@
 
 namespace UnitTests.MockData
 {
-    internal class UserRepositoryTest : IUserRepository
+    internal class UserRepositoryTest : IUserRepositoryTest
     {
-        private List<UserDTO> users = new List<UserDTO>();
+        private List<UsersTest> users = new List<UsersTest>();
 
-        public bool Authentication(UserDTO usr)
+        public bool Authentication(UsersTest usr)
         {
             var result = false;
             if (usr.Email == "demonic@gmail.com" && usr.Password == "123")
@@ -15,10 +15,12 @@ namespace UnitTests.MockData
             }
             return result;
         }
-        public void InsertUser(UserDTO user, string salt, string hash)
+        public UsersTest InsertUser(UsersTest user, string salt, string hash)
         {
             user.Salt = salt;
             users.Add(user);
+            UsersTest u = new UsersTest();
+            return u;
         }
         public void DeleteUser(string email)
         {
@@ -26,23 +28,23 @@ namespace UnitTests.MockData
             users.Remove(userDto);
         }
 
-        public UserDTO[] GetAllUsers()
+        public UsersTest[] GetAllUsers()
         {
             throw new NotImplementedException();
         }
 
-        public UserDTO GetUserByEmail(string email)
+        public UsersTest GetUserByEmail(string email)
         {
             var userDto = users.Where(x => x.Email == email).FirstOrDefault();
             return userDto;
         }
 
-        public UserDTO GetUserById(int id)
+        public UsersTest GetUserById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public UserDTO GetUserByName(string name)
+        public UsersTest GetUserByName(string name)
         {
             throw new NotImplementedException();
         }
@@ -52,7 +54,7 @@ namespace UnitTests.MockData
             throw new NotImplementedException();
         }
 
-        public void Update(UserDTO user)
+        public void Update(UsersTest user)
         {
             throw new NotImplementedException();
         }

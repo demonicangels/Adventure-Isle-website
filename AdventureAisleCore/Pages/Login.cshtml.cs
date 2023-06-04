@@ -12,6 +12,11 @@ namespace AdventureAisleCore.Pages
         UserService userService;
 
         [BindProperty]
+        public string Email { get; set; }
+
+        [BindProperty]
+        public string Password { get; set; }
+
         public User Usr { get; set; }
 
         public User LoggedInUser { get; set; } = new User();
@@ -30,6 +35,7 @@ namespace AdventureAisleCore.Pages
         }
         public async Task<IActionResult> OnPostAsync() 
         {
+            Usr = new User(0,Email, Password);
             LoggedInUser = userService.Authenticate(Usr.Email, Usr.Password);
 
             if (ModelState.IsValid && LoggedInUser != null)

@@ -12,17 +12,17 @@ namespace UnitTests
     public class DatabaseTests
     {
         IDestinationRepositorytest _destinationRepository = new DestinationRepositoryTest();
-        IUserRepository _userRepository = new UserRepositoryTest();
+        IUserRepositoryTest _userRepository = new UserRepositoryTest();
 
         [TestMethod]
         public void GetUserByEmail()
         {
-            var user1 = new UserDTO() { Username = "demonic", Email = "demonic@gmail.com", Password = "123", UserSince = DateTime.Parse("3/30/2023"), Birthday = DateTime.Parse("10/4/2002"), Bio = "If you are not travelling then what are you doing?" };
-            var user2 = new UserDTO() { Username = "angel", Email = "angel@gmail.com", Password = "123", UserSince = DateTime.Parse("3/30/2023"), Birthday = DateTime.Parse("10/4/2002"), Bio = "If you are not travelling then what are you doing?" };
+            var user1 = new UsersTest(null, "demonic@gmail.com", "123") { Username = "demonic", UserSince = DateTime.Parse("3/30/2023"), Birthday = DateTime.Parse("10/4/2002"), Bio = "If you are not travelling then what are you doing?" };
+            var user2 = new UsersTest(null, "angel@gmail.com", "123") { Username = "angel", UserSince = DateTime.Parse("3/30/2023"), Birthday = DateTime.Parse("10/4/2002"), Bio = "If you are not travelling then what are you doing?" };
             _userRepository.InsertUser(user1, "", "");
             _userRepository.InsertUser(user2, "", "");
 
-            var expectedUser = new UserDTO() { Username = "angel", Email = "angel@gmail.com", Password = "123", UserSince = DateTime.Parse("3/30/2023 4:12:44 PM"), Birthday = DateTime.Parse("10/4/2002"), Bio = "If you are not travelling then what are you doing?" };
+            var expectedUser = new UsersTest(null, "angel@gmail.com","123") { Username = "angel", UserSince = DateTime.Parse("3/30/2023 4:12:44 PM"), Birthday = DateTime.Parse("10/4/2002"), Bio = "If you are not travelling then what are you doing?" };
 
             var actualUser = _userRepository.GetUserByEmail("angel@gmail.com");
 
@@ -40,7 +40,7 @@ namespace UnitTests
             var name = "test";
             var birthday = DateTime.Parse("10/4/2002 4:20:00 PM");
             var email = "test@gmail.com";
-            UserDTO user = new UserDTO { Username = name, Email = email, Password = "123", Birthday = birthday, Bio = "Testing for bugs and eradicating them." };
+            UsersTest user = new UsersTest(null, email,"123") { Username = name, Birthday = birthday, Bio = "Testing for bugs and eradicating them." };
             _userRepository.InsertUser(user, "", "");
 
             UserDTO expectedResult = null;

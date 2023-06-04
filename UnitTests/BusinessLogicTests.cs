@@ -13,7 +13,7 @@ namespace UnitTests
     public class BusinessLogicTests
     {
 		static IDestinationRepositorytest _destinationRepository = new DestinationRepositoryTest();
-		static IUserRepository _userRepository = new UserRepositoryTest();
+		static IUserRepositoryTest _userRepository = new UserRepositoryTest();
 		Security security = new Security();
        
 
@@ -23,7 +23,7 @@ namespace UnitTests
             var email = "demonic@gmail.com";
             var pass = "123";
 
-            var credentials = new UserDTO() { Email = email, Password = pass };
+            var credentials = new UsersTest(null, email, pass);
 
             var expectedResult = true;
             var actualResult = _userRepository.Authentication(credentials);
@@ -35,18 +35,14 @@ namespace UnitTests
         [TestMethod]
         public void CreateUserInstanceFromDTO()
         {
-            var userDTO = new UserDTO
+            var userDTO = new UserDTO(0, "test@gmail.com","123")
             {
                 Username = "test",
-                Email = "test@gmail.com",
-                Password = "123"
             };
 
-            var result = new User
+            var result = new User(0, userDTO.Email, userDTO.Password)
             {
                 Username = userDTO.Username,
-                Email = userDTO.Email,
-                Password = userDTO.Password
             };
 
             Assert.IsNotNull(result);

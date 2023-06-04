@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UnitTests.MockData
 {
-    public class DestinationsTest
+    internal class DestinationsTest
     {
         public string Name { get; set; }
         public string Climate { get; set; }

@@ -17,11 +17,9 @@ namespace BusinessLogic
 
         public User FromDTO(UserDTO user)
         {
-            User user1 = new User()
-            {
-                Id = user.Id,
+            User user1 = new User(user.Id, user.Email, user.Password)
+            { 
                 Username = user.Username,
-                Email = user.Email,
                 UserSince = user.UserSince,
                 Birthday = user.Birthday,
                 Bio = user.Bio,
@@ -33,11 +31,9 @@ namespace BusinessLogic
         }
         public UserDTO ToDTO(User user)
         {
-            UserDTO userDTO = new UserDTO()
+            UserDTO userDTO = new UserDTO(user.Id,user.Email,user.Password)
             {
-                Id = user.Id,
                 Username = user.Username,
-                Email = user.Email,
                 UserSince = user.UserSince,
                 Birthday = user.Birthday,
                 Bio = user.Bio,

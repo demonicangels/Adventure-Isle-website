@@ -3,7 +3,7 @@
 
 namespace UnitTests.MockData
 {
-    public class DestinationRepositoryTest : IDestinationRepositorytest
+    internal class DestinationRepositoryTest : IDestinationRepositorytest
     {
         private List<DestinationsTest> desList = new List<DestinationsTest>();
 
