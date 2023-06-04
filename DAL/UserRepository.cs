@@ -27,15 +27,14 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@birthday", user.Birthday);
 			    	cmd.Parameters.AddWithValue("@salt", salt);
                     cmd.Parameters.AddWithValue("@hash", hash);
-			    	cmd.ExecuteNonQuery();
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (!reader.Read())
                         throw new Exception();
                     UserDTO u = new UserDTO((int)reader["Id"], user.Email, user.Password);
-                    u.Salt = salt;
-                    u.HashedPass = hash;
                     u.Username = user.Username;
                     u.Birthday = user.Birthday;
+                    u.Salt = salt;
+                    u.HashedPass = hash;
                     con.Close();
 
                     return u;

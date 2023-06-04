@@ -8,8 +8,9 @@ namespace BusinessLogic.Interfaces
 {
     public interface IRecommendationsRepository
     {
-        Destination[] RecommendationsByClimateUsers(int userId);
-        Destination[] BestRatedDestinations();
-        Destination[] RecommendationByClimateVisitors(string wantedClimate);
+        Destination[] RecommendationsByClimateUsers(int userId, DestinationService desService);
+        Destination[] BestRatedDestinations(DestinationService desService);
+        Destination[] RecommendationByClimateVisitors(string wantedClimate, DestinationService desService);
+        Destination[] RecommendationByWantedRating(double wantedRating, DestinationService desService);
     }
 }

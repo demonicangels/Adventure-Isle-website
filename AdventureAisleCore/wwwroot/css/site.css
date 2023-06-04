@@ -438,10 +438,10 @@ a {
 
 /*Sidebar homepage*/
 .sidebar {
-    position: fixed;
+    /*position: fixed;
     top: 0;
     left: 0;
-    width: 20%;
+    width: 24%;
     height: 100vh;
     background: radial-gradient(black, transparent);
     padding: 20px;
@@ -450,7 +450,18 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
+    position: sticky;
+    width: 24%;
+    height: 100vh;
+    background: radial-gradient(black, transparent);
+    padding: 16px;
+    box-sizing: border-box;
+    /* margin-top: 50px; */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    transform: translateX(-61px);
 }
 .ratingRecommend {
     align-items: center;
@@ -463,30 +474,74 @@ a {
     justify-content: center;
     width: 37px;
     position: absolute;
-    margin-left: 147%;
-    margin-bottom: 131%;
+    margin-left: 140%;
+    margin-bottom: 130%;
 }
 .content-destinationCardsRecommendations {
     width: 220%;
-    margin-top: 35%;
+    margin-top: 37%;
 }
 .recommendation-card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 95%;
+    width: 37%;
     background: white;
-    margin: auto;
+    margin-left: 4%;
 }
 p.sidebar-text {
     color: white;
     font-size: 150%;
     font-weight: 400;
-    position: absolute;
-    bottom: 86%;
+    position: fixed;
+    bottom: 83%;
+    margin-left: 8%;
 }
 
 /*Recommendations page*/
 .recOptions {
     display: flex;
     flex-direction: column;
+}
+.choice-form{
+    display: flex;
+
+}
+.pageContent {
+    display: flex;
+    flex-direction: row;
+}
+.card-recs {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 36%;
+    height: 35%;
+    margin-top: 110px;
+    margin-left: 75px;
+}
+.card-image-recs {
+    width: 100%;
+    height: 53%;
+}
+.rating-recs {
+    align-items: center;
+    text-align: center;
+    background-color: lightblue;
+    border-radius: 0;
+    display: flex;
+    justify-content: right;
+    height: 30px;
+    justify-content: center;
+    width: 37px;
+    position: absolute;
+    margin-left: 156%;
+    margin-bottom: 20%;
+    top: -344%;
+}
+
+.content-destinationCards-recs{
+    display: flex;
+    padding-left: 10rem;
+    flex-wrap: wrap;
+    flex: revert;
+    height: fit-content;
 }

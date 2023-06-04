@@ -26,7 +26,7 @@ namespace BusinessLogic
 		public int? DesStatus { get; set; }
         public int? UsrId { get; private set; }
 
-		CalculationsService algorithm = new CalculationsService();
+		RecommendationsRepo algorithm = new RecommendationsRepo();
 
         public Destination() { }
         public Destination(int id, string name, string country,string? cur, string? brief, string climate, double? avg, string? img, int? usrId, int? des)

@@ -11,7 +11,7 @@ namespace AdventureAisleCore.Pages
     {
 
         DestinationService desService;
-        RecommendationService recommendationService;
+        RecommendationsService recommendationService;
         IRecommendationsRepository recommendationsRepository;
         public Destination[] Recommendations { get; set; }
 
@@ -21,9 +21,8 @@ namespace AdventureAisleCore.Pages
         [BindProperty]
         public int? UserId { get; set; }
 
-        public Dictionary<string, Func<IRecommendationsRepository, Destination[]>> iDictionary = new Dictionary<string, Func<IRecommendationsRepository, Destination[]>>();
 
-        public RecommendationsTestPageModel(DestinationService destinationService, RecommendationService recommendation, IRecommendationsRepository re) 
+        public RecommendationsTestPageModel(DestinationService destinationService, RecommendationsService recommendation, IRecommendationsRepository re) 
         {
             this.desService = destinationService;
             this.recommendationService = recommendation;
@@ -33,36 +32,20 @@ namespace AdventureAisleCore.Pages
 
         public void OnGet()
         {
-            UserId = HttpContext.Session.GetInt32("userId");
+            UserId = HttpContext.Session.GetInt32("userId") ?? 0;
 
-            if (UserId != null)
+            if (UserId != 0 || UserId != null)
             {
                 var userDes = desService.AllDesOfUser((int)UserId).ToList();
-                Recommendations = recommendationService.RecommendationsByClimateUsers((int)UserId);
+                Recommendations =  userDes == null ? desService.GetAllDestinations().OrderBy(c => c.Climate).ToArray() : recommendationsRepository.RecommendationsByClimateUsers((int)UserId, desService);
             }
             Recommendations = desService.GetAllDestinations();
         }
         public void OnPost(string option)
         {
             UserId = HttpContext.Session.GetInt32("userId");
-            iDictionary.Add("Climate", recommendationsRepository => UserId != null && WantedClimate == null
-                                                                   ? recommendationService.RecommendationsByClimateUsers((int)UserId)
-                                                                   : recommendationService.RecommendationByClimateVisitors(WantedClimate));
-          
-            iDictionary.Add("Rating", recommendationsRepository => recommendationService.BestRatedDestinations());
 
-
-            foreach (KeyValuePair<string, Func<IRecommendationsRepository, Destination[]>> action in iDictionary)
-            {
-                Recommendations = action.Key == option ? action.Value.Invoke(recommendationService) : null;
-
-                var shouldbreak = option == action.Key ? true : false;
-
-                if (shouldbreak)
-                {
-                    break;
-                }
-            }
+            Recommendations = recommendationService.Recommendations(UserId == null ? 0 : UserId.Value, WantedClimate, option);
         }
     }
 }

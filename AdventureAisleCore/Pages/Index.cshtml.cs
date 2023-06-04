@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using System.Reflection;
 
 namespace AdventureAisleCore.Pages
@@ -12,7 +13,7 @@ namespace AdventureAisleCore.Pages
     {
         CalculationsService algorithm;
         DestinationService desService;
-        RecommendationService recommendationService;
+        RecommendationsService recommendationService;
 
         [BindProperty]
         public string Search { get; set; }
@@ -21,7 +22,7 @@ namespace AdventureAisleCore.Pages
 		public string? Logout { get; set; }
         public Destination[]? Recommendations { get; set; }
         public int? UsrId { get; set; }
-        public IndexModel(CalculationsService algorithmService, DestinationService destinationService, RecommendationService recommendationService)
+        public IndexModel(CalculationsService algorithmService, DestinationService destinationService, RecommendationsService recommendationService)
         {
             this.algorithm = algorithmService;
             this.desService = destinationService;
@@ -30,7 +31,7 @@ namespace AdventureAisleCore.Pages
 
         public async void OnGet()
         {
-            UsrId = HttpContext.Session.GetInt32("userId");
+            UsrId = HttpContext.Session.GetInt32("userId") ?? 0;
 
             if (Logout != null)
             {
@@ -39,19 +40,19 @@ namespace AdventureAisleCore.Pages
                 TempData["Logout"] = "Successful logout";
                 Recommendations = algorithm.BestRatedDestinations();
             }
-            else if (UsrId != null)
+            else if (UsrId != 0 && UsrId != null)
             {
                 var userDes = desService.AllDesOfUser((int)UsrId).ToList();
                 Recommendations = new Destination[userDes.Count];
 
                 if (UsrId != null && userDes.Count > 0)
                 {
-                    Recommendations = recommendationService.RecommendationsByClimateUsers((int)UsrId);
+                    Recommendations = recommendationService.Recommendations((int)UsrId,"", "");
                 }
             }
             else
             {
-                Recommendations = algorithm.BestRatedDestinations();
+                Recommendations = recommendationService.Recommendations((int)UsrId == null ? UsrId = 0 : UsrId.Value, "", "");
             }
         }
         public IActionResult OnPost()

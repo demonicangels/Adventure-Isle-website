@@ -1,27 +1,10 @@
 ﻿using BusinessLogic.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
-    public class RecommendationService : IRecommendationsRepository
+    public class RecommendationsRepo : IRecommendationsRepository
     {
-        DestinationService desService;
-        ReviewService revService;
-
         public Review[] Reviews;
-
-
-        
-        public RecommendationService() { }
-        public RecommendationService(DestinationService des, ReviewService rev)
-        {
-            this.desService = des;
-			this.revService = rev;
-        }
         public double CalculateAverage(List<double> ratingList)
         {
             double sum = 0;
@@ -39,7 +22,7 @@ namespace BusinessLogic
             return AvgRating;
         }
 
-        public Destination[] RecommendationsByClimateUsers(int userId)
+        public Destination[] RecommendationsByClimateUsers(int userId, DestinationService desService)
         {
             var userDes = desService.AllDesOfUser(userId).ToList();
             var allDestinations = desService.GetAllDestinations();
@@ -64,11 +47,11 @@ namespace BusinessLogic
             }
             else
             {
-                return userDes.ToArray();
+                return BestRatedDestinations(desService);
             }
         }
 
-        public Destination[] BestRatedDestinations()
+        public Destination[] BestRatedDestinations(DestinationService desService)
         {
             var destinations = desService.GetAllDestinations().ToList();
             List<double> ratings = new List<double>();
@@ -92,7 +75,7 @@ namespace BusinessLogic
             return bestRateddesti.ToArray();
         }
 
-        public Destination[] RecommendationByClimateVisitors(string climate)
+        public Destination[] RecommendationByClimateVisitors(string climate, DestinationService desService)
         {
             var destinations = desService.GetAllDestinations().ToList();
 
@@ -101,6 +84,16 @@ namespace BusinessLogic
             desiredClimateDestinations = desiredClimateDestinations.OrderByDescending(d => d.Name).ToList();
                 
             return desiredClimateDestinations.ToArray();
+        }
+        public Destination[] RecommendationByWantedRating (double wantedRating, DestinationService desService)
+        {
+            var destinations = desService.GetAllDestinations().ToList();
+
+            var desiredRating = destinations.Where(r => r.AvgRating == wantedRating);
+
+            desiredRating = desiredRating.OrderByDescending(n => n.Name).ToList();
+
+            return desiredRating.ToArray();
         }
     }
 }

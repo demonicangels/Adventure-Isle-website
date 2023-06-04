@@ -33,7 +33,7 @@
     </div>
     <aside class="sidebar">
         <div class="content-destinationCardsRecommendations">
-            @if (Model.Recommendations != null && Model.UsrId != null)
+            @if (Model.Recommendations != null && Model.UsrId != 0)
             {
                 <p class="sidebar-text"> Recommended destinations: </p>
                 @for (int i = 0; i < Model.Recommendations.Count(); i++)
