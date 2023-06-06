@@ -12,7 +12,6 @@ namespace BusinessLogic.Interfaces
 		double CalculateAverage(List<double> ratingList);
 		int CalculateWeight(int userId, List<Review> re);
 		Review[] UserWithMostReviewWeight(int desId);
-		public Destination[] RecommendationsByClimate(int userId);
 		Destination[] BestRatedDestinations();
     }
 }

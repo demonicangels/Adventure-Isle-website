@@ -97,52 +97,16 @@ namespace BusinessLogic
             }
 
             var avgWeight = sum / count;
+			
 
             reviews = reviews.OrderByDescending(u => CalculateWeight(u.UserId, reviews)).ToList();
 
             return reviews.OrderByDescending(u => CalculateWeight(u.UserId, reviews)).ToArray();
 
-
-
-
-
-
-
             //Reviews = revService.GetReviews();
             //Reviews = Reviews.OrderByDescending(r => CalculateWeight(r.UserId)).ToArray();
             //return Reviews;
         }
-		public Destination[] RecommendationsByClimate(int userId)
-		{
-			//make it so it's possible to switch to different recommendation implementation
-			//ex: reccommendation by highest rating 
-
-			var userDes = desService.AllDesOfUser(userId).ToList();
-			var allDestinations = desService.GetAllDestinations();
-
-			if (userDes.Count > 1)
-			{
-				var duplicates = userDes.GroupBy(c => c.Climate)
-					.Where(d => d.Count() > 1)
-					.ToDictionary(d => d.Key, d => d.Count() )
-					.ToList();
-
-				var mostVisitedC = duplicates.OrderByDescending(c => c.Value).FirstOrDefault();
-
-				var recommendations = allDestinations.Where(d => !userDes.Any(des => des.Name == d.Name) && d.Climate == mostVisitedC.Key);
-				return recommendations.ToArray();
-			}
-			else if (userDes.Count == 1)
-			{
-				var singleDestinationClimate = userDes.Where(d => d.UsrId == userId).FirstOrDefault();
-				var recommendations = allDestinations.Where(d => !userDes.Any(des => d.Name == des.Name) && d.Climate == singleDestinationClimate.Climate).ToList();
-				return recommendations.ToArray();
-			}
-			else
-			{
-				return userDes.ToArray();
-			}
-		}
 
         public Destination[] BestRatedDestinations() //sugestions by rating
 		{

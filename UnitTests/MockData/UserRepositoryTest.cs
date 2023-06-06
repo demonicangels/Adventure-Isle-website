@@ -2,11 +2,11 @@
 
 namespace UnitTests.MockData
 {
-    internal class UserRepositoryTest : IUserRepositoryTest
+    internal class UserRepositoryTest : IUserRepository
     {
-        private List<UsersTest> users = new List<UsersTest>();
+        private List<UserDTO> users = new List<UserDTO>();
 
-        public bool Authentication(UsersTest usr)
+        public bool Authentication(UserDTO usr)
         {
             var result = false;
             if (usr.Email == "demonic@gmail.com" && usr.Password == "123")
@@ -15,53 +15,51 @@ namespace UnitTests.MockData
             }
             return result;
         }
-        public UsersTest InsertUser(UsersTest user, string salt, string hash)
+        public UserDTO InsertUser(UserDTO user, string salt, string hash)
         {
             user.Salt = salt;
             users.Add(user);
-            UsersTest u = new UsersTest();
+            UserDTO u = new UserDTO();
             return u;
         }
         public void DeleteUser(string email)
         {
             var userDto = users.Where(x => x.Email == email).FirstOrDefault();
             users.Remove(userDto);
+            
         }
 
-        public UsersTest[] GetAllUsers()
+        public UserDTO[] GetAllUsers()
         {
-            throw new NotImplementedException();
+            users.Add(new UserDTO() { Email = "pls@gmail.com", Password = "123" });
+            users.Add(new UserDTO() { Email = "no@gmail.com", Password = "123" });
+            return users.ToArray();
         }
 
-        public UsersTest GetUserByEmail(string email)
+        public UserDTO GetUserByEmail(string email)
         {
             var userDto = users.Where(x => x.Email == email).FirstOrDefault();
             return userDto;
         }
 
-        public UsersTest GetUserById(int id)
-        {
-            throw new NotImplementedException();
-        }
+		public void Update(UserDTO user)
+		{
+			throw new NotImplementedException();
+		}
 
-        public UsersTest GetUserByName(string name)
-        {
-            throw new NotImplementedException();
-        }
+		public UserDTO GetUserById(int id)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void InsertImage(byte[] image, string username)
-        {
-            throw new NotImplementedException();
-        }
+		public UserDTO GetUserByName(string name)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void Update(UsersTest user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertImage(byte[] image, int id)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public void InsertImage(byte[] image, int id)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

@@ -30,8 +30,12 @@ namespace DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (!reader.Read())
                         throw new Exception();
-                    UserDTO u = new UserDTO((int)reader["Id"], user.Email, user.Password);
-                    u.Username = user.Username;
+
+                    UserDTO u = new UserDTO();
+                    u.Id = (int)reader["Id"];
+                    u.Email = user.Email;
+                    u.Password = user.Password;
+					u.Username = user.Username;
                     u.Birthday = user.Birthday;
                     u.Salt = salt;
                     u.HashedPass = hash;
@@ -101,8 +105,10 @@ namespace DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        UserDTO usr = new UserDTO((int)reader["Id"], reader["email"].ToString(),null);
-                        usr.Username = reader["username"].ToString();
+                        UserDTO usr = new UserDTO();
+                        usr.Id = (int)reader["Id"];
+                        usr.Email = reader["email"].ToString();
+						usr.Username = reader["username"].ToString();
                         usr.Birthday = (DateTime)reader["birthday"];
                         if (usr != null)
                         {
@@ -165,8 +171,10 @@ namespace DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        u = new UserDTO(Convert.ToInt32(reader["Id"]), reader["email"].ToString(), null);
-                        u.Username = reader["username"].ToString();
+                        u = new UserDTO();
+                        u.Id = Convert.ToInt32(reader["Id"]);
+                        u.Email = reader["email"].ToString();
+						u.Username = reader["username"].ToString();
                         u.Birthday = (DateTime)reader["birthday"];
                         u.Bio = reader["bio"].ToString();
                         u.UserSince = (DateTime)reader["created_at"];
@@ -194,8 +202,10 @@ namespace DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        u = new UserDTO(Convert.ToInt32(reader["Id"]), reader["email"].ToString(), null);
-                        u.Username = reader["username"].ToString();
+                        u = new UserDTO();
+                        u.Id = Convert.ToInt32(reader["Id"]);
+                        u.Email = reader["email"].ToString();
+						u.Username = reader["username"].ToString();
                         u.Birthday = (DateTime)reader["birthday"];
                         u.Bio = reader["bio"].ToString();
                         u.UserSince = (DateTime)reader["created_at"];
@@ -227,8 +237,10 @@ namespace DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        u = new UserDTO(id, reader["email"].ToString(), null);
-                        u.Username = reader["username"].ToString();
+                        u = new UserDTO();
+                        u.Id = id;
+                        u.Email = reader["email"].ToString();
+						u.Username = reader["username"].ToString();
                         u.UserSince = (DateTime)reader["created_at"];
                         u.Birthday = (DateTime)reader["birthday"];
                         u.Bio = reader["bio"].ToString();

@@ -14,13 +14,13 @@ namespace BusinessLogic
 
         [Required]
         [StringLength(20, MinimumLength = 3, ErrorMessage = "Password must be between 3 and 20 characters")]
-        public string Password { get; private set; }
+        public string Password { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        public string? Email { get; private set; }
+        public string? Email { get; set; }
 
-        public int Id { get; private set; }
+        public int Id { get; set; }
         public DateTime Birthday { get; set; }
 
         public DateTime UserSince { get; set; }
@@ -30,14 +30,6 @@ namespace BusinessLogic
         public string? Bio { get; set; }
         public string? Salt { get; set; }
         public string? HashedPass { get; set; }
-
-        public UserDTO() { }
-        public UserDTO(int? id, string email, string password)
-        {
-            Id = (int)id;
-            Email = email;
-            Password = password;
-        }
 
     }
 }

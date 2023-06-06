@@ -50,10 +50,8 @@ namespace AdventureAisleCore.Pages
                     Recommendations = recommendationService.Recommendations((int)UsrId,"", "");
                 }
             }
-            else
-            {
-                Recommendations = recommendationService.Recommendations((int)UsrId == null ? UsrId = 0 : UsrId.Value, "", "");
-            }
+            Recommendations = recommendationService.Recommendations((int)UsrId == null ? UsrId = 0 : UsrId.Value, "", "");
+         
         }
         public IActionResult OnPost()
         {

@@ -38,8 +38,10 @@ namespace DesktopApp
 			}
 			else
 			{
-				UserDTO user = new UserDTO(0, emailUsertxt.Text, passwordUsertxt.Text)
+				UserDTO user = new UserDTO()
 				{
+					Email = emailUsertxt.Text,
+					Password = passwordUsertxt.Text,
 					Username = usernameUsertxt.Text,
 					Birthday = birthdayDtp.Value,
 					Bio = biotxt.Text

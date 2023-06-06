@@ -7,7 +7,7 @@ namespace BusinessLogic
 
         DestinationDTO InsertDestination(DestinationDTO destination);
         void DeleteDestination(string selectedDes);
-        public List<DestinationDTO> GetDestinationByName(string name);
+        List<DestinationDTO> GetDestinationByName(string name);
         List<DestinationDTO> GetAllDestinationsByCountry(string country);
         DestinationDTO UpdateDestination(DestinationDTO des);
         DestinationDTO SetDestinationStatus(DestinationDTO destination, int usrId);
@@ -15,6 +15,7 @@ namespace BusinessLogic
         DestinationDTO UpdateStatusByUserIdAndDesId(DestinationDTO des, int usrid);
 		List<DestinationDTO> AllDestinationsofUser(int usrId);
         List<DestinationDTO> GetAllDestinations();
+        DestinationDTO GetDestinationById(int desId);
 
 	}
 }

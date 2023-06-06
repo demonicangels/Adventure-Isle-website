@@ -31,8 +31,11 @@ namespace BusinessLogic
         }
         public UserDTO ToDTO(User user)
         {
-            UserDTO userDTO = new UserDTO(user.Id,user.Email,user.Password)
+            UserDTO userDTO = new UserDTO()
             {
+                Id = user.Id,
+                Email = user.Email,
+                Password = user.Password,
                 Username = user.Username,
                 UserSince = user.UserSince,
                 Birthday = user.Birthday,
@@ -44,15 +47,17 @@ namespace BusinessLogic
             return userDTO;
 
         }
-        public void InsertUser(UserDTO user, string salt, string hash)
+        public UserDTO InsertUser(UserDTO user, string salt, string hash)
         {
             try
             {
                 var userInstance = FromDTO(user);
                 
-                if (!Validate(userInstance)) { return; }
+                if (!Validate(userInstance)) { return null; }
                  
-                _userRepository.InsertUser(user, salt, hash);
+                var user2 = _userRepository.InsertUser(user, salt, hash);
+
+                return user2;
             }
             catch(InvalidInformationException i)
             {

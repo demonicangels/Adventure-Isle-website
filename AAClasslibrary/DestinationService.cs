@@ -27,7 +27,19 @@ namespace BusinessLogic
         }
 		private DestinationDTO ToDTO(Destination d)
 		{
-			var des = new DestinationDTO(d.Id, d.Name, d.Country, d.Currency, d.BriefDescription, d.Climate, d.AvgRating, d.ImgURL, d.UsrId, d.DesStatus);
+            var des = new DestinationDTO() 
+            {
+                Id = d.Id,
+                Name = d.Name,
+                Country = d.Country,
+                Currency = d.Currency,
+                BriefDescription = d.BriefDescription,
+                Climate = d.Climate,
+                AvgRating = d.AvgRating,
+                ImgURL = d.ImgURL,
+                UsrId = d.UsrId,
+                DesStatus = d.DesStatus
+            };
 			return des;
 		}
 		public void InsertDestination(DestinationDTO destination)
@@ -77,7 +89,7 @@ namespace BusinessLogic
             catch (DestinationNotFoundException desNotFoundEx)
             {
                
-                Console.WriteLine(desNotFoundEx.Message);  // log exception
+                Console.WriteLine(desNotFoundEx.Message);
                 throw new Exception("Something went wrong. Destination with that name couldn't be found.");
             }
  
@@ -234,6 +246,12 @@ namespace BusinessLogic
                 Console.WriteLine(e.Message);
                 throw new Exception("Something went wrong.Failed to load destinations.Try again later.");
             }
+		}
+        public Destination GetDesById(int desId)
+        {
+            var des = _destinationRepository.GetDestinationById(desId);
+            return FromDTO(des);
+
 		}
 		public bool Validate(Destination des)
         {

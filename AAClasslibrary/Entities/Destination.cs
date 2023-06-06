@@ -29,7 +29,7 @@ namespace BusinessLogic
 		RecommendationsRepo algorithm = new RecommendationsRepo();
 
         public Destination() { }
-        public Destination(int id, string name, string country,string? cur, string? brief, string climate, double? avg, string? img, int? usrId, int? des)
+        public Destination(int id, string name, string country,string? cur, string? brief, string climate, double? avg, string? img, int? usrId, int? desStatus)
         {
             Id = id;
             Name = name;
@@ -40,7 +40,7 @@ namespace BusinessLogic
             AvgRating = (double)avg;
             ImgURL = img;
             UsrId = usrId;
-            DesStatus = des;
+            DesStatus = desStatus;
         }
 		public void AddReview(Review r)
         {

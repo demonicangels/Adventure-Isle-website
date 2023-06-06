@@ -22,7 +22,7 @@ namespace BusinessLogic
         public User() { }
         public User(int? id, string email, string password)
         {
-            Id = (int)id;
+            Id =  (int?)id == null ? 0 : (int)id;
             Email = email;
             Password = password;
         }
