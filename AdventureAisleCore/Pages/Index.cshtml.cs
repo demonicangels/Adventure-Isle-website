@@ -11,7 +11,7 @@ namespace AdventureAisleCore.Pages
     
     public class IndexModel : PageModel
     {
-        CalculationsService algorithm;
+        CalculationService algorithm;
         DestinationService desService;
         RecommendationsService recommendationService;
 
@@ -22,7 +22,7 @@ namespace AdventureAisleCore.Pages
 		public string? Logout { get; set; }
         public Destination[]? Recommendations { get; set; }
         public int? UsrId { get; set; }
-        public IndexModel(CalculationsService algorithmService, DestinationService destinationService, RecommendationsService recommendationService)
+        public IndexModel(CalculationService algorithmService, DestinationService destinationService, RecommendationsService recommendationService)
         {
             this.algorithm = algorithmService;
             this.desService = destinationService;
@@ -32,25 +32,27 @@ namespace AdventureAisleCore.Pages
         public async void OnGet()
         {
             UsrId = HttpContext.Session.GetInt32("userId") ?? 0;
+			recommendationService.InitializeDictionary(0, "", "");
 
-            if (Logout != null)
+			if (Logout != null)
             {
                 HttpContext.Session.Clear();
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 TempData["Logout"] = "Successful logout";
-                Recommendations = algorithm.BestRatedDestinations();
+				Recommendations = algorithm.BestRatedDestinations();
             }
             else if (UsrId != 0 && UsrId != null)
             {
                 var userDes = desService.AllDesOfUser((int)UsrId).ToList();
                 Recommendations = new Destination[userDes.Count];
 
-                if (UsrId != null && userDes.Count > 0)
+                if(userDes.Count > 0)
                 {
-                    Recommendations = recommendationService.Recommendations((int)UsrId,"", "");
+					recommendationService.InitializeDictionary((int)UsrId, "", "");
+					Recommendations = recommendationService.Recommendations("");
                 }
             }
-            Recommendations = recommendationService.Recommendations((int)UsrId == null ? UsrId = 0 : UsrId.Value, "", "");
+            Recommendations = recommendationService.Recommendations("");
          
         }
         public IActionResult OnPost()

@@ -35,7 +35,7 @@ namespace BusinessLogic
                     Currency = reader["Currency"].ToString(),
                     BriefDescription = reader["History"].ToString(),
                     Climate = reader["Climate"].ToString(),
-                    AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]),
+                    AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Math.Round(Convert.ToDouble(reader["AvgRating"]), 2, MidpointRounding.AwayFromZero),
                     ImgURL = reader["ImgURL"].ToString(),
                 };
                 con.Close();
@@ -86,7 +86,7 @@ namespace BusinessLogic
                         Currency = reader["Currency"].ToString(),
                         BriefDescription = reader["History"].ToString(),
                         Climate = reader["Climate"].ToString(),
-                        AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]),
+                        AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Math.Round(Convert.ToDouble(reader["AvgRating"]), 2, MidpointRounding.AwayFromZero),
                         ImgURL = reader["ImgURL"].ToString(),
                     };
                     list.Add(d);
@@ -123,7 +123,7 @@ namespace BusinessLogic
 						Currency = reader["Currency"].ToString(),
 						BriefDescription = reader["History"].ToString(),
 						Climate = reader["Climate"].ToString(),
-						AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]),
+						AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Math.Round(Convert.ToDouble(reader["AvgRating"]), 2, MidpointRounding.AwayFromZero),
 						ImgURL = reader["ImgURL"].ToString(),
 					};
                     destinations.Add(desi);
@@ -164,7 +164,7 @@ namespace BusinessLogic
                         Currency = reader["Currency"].ToString(),
                         BriefDescription = reader["History"].ToString(),
                         Climate = reader["Climate"].ToString(),
-                        AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]),
+                        AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Math.Round(Convert.ToDouble(reader["AvgRating"]), 2, MidpointRounding.AwayFromZero),
                         ImgURL = reader["ImgURL"].ToString(),
                     };
                     return des2;
@@ -223,7 +223,7 @@ namespace BusinessLogic
                         Currency = reader["Currency"].ToString(),
                         BriefDescription = reader["History"].ToString(),
                         Climate = reader["Climate"].ToString(),
-                        AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]),
+                        AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Math.Round(Convert.ToDouble(reader["AvgRating"]), 2, MidpointRounding.AwayFromZero),
                         ImgURL = reader["ImgURL"].ToString(),
                     };
                 }
@@ -292,8 +292,8 @@ namespace BusinessLogic
                         Currency = reader["Currency"].ToString(),
                         BriefDescription = reader["History"].ToString(),
                         Climate = reader["Climate"].ToString(),
-                        AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]),
-                        ImgURL = reader["ImgURL"].ToString(),
+                        AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Math.Round(Convert.ToDouble(reader["AvgRating"]), 2, MidpointRounding.AwayFromZero),
+						ImgURL = reader["ImgURL"].ToString(),
                     };
                     destinations.Add(des);
 			    }
@@ -326,8 +326,8 @@ namespace BusinessLogic
                         Currency = reader["Currency"].ToString(),
                         BriefDescription = reader["History"].ToString(),
                         Climate = reader["Climate"].ToString(),
-                        AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]),
-                        ImgURL = reader["ImgURL"].ToString(),
+                        AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Math.Round(Convert.ToDouble(reader["AvgRating"]), 2, MidpointRounding.AwayFromZero),
+						ImgURL = reader["ImgURL"].ToString(),
                     };
                 }
 				return dto;
@@ -357,8 +357,8 @@ namespace BusinessLogic
                             Currency = reader["Currency"].ToString(),
                             BriefDescription = reader["History"].ToString(),
                             Climate = reader["Climate"].ToString(),
-                            AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Convert.ToDouble(reader["AvgRating"]),
-                            ImgURL = reader["ImgURL"].ToString(),
+                            AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Math.Round(Convert.ToDouble(reader["AvgRating"]), 2, MidpointRounding.AwayFromZero),
+							ImgURL = reader["ImgURL"].ToString(),
                             UsrId = usrId,
                             DesStatus = (int?)reader["DestinationStatus"],
                         };

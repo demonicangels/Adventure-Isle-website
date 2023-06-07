@@ -10,8 +10,9 @@ namespace BusinessLogic.Interfaces
 	public interface ICalculationsRepository
 	{
 		double CalculateAverage(List<double> ratingList);
-		int CalculateWeight(int userId, List<Review> re);
-		Review[] UserWithMostReviewWeight(int desId);
-		Destination[] BestRatedDestinations();
+		int CalculateUserWeight(int userId, List<Review> re);
+		double CalculateAverageWeightDestination(int desId, List<Review> reviews);
+		Review[] UserWithMostReviewWeight(List<Review> reviews);
+		Destination[] BestRatedDestinations(List<Destination> allDestinations);
     }
 }

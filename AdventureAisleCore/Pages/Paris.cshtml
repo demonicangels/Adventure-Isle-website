@@ -118,11 +118,13 @@
 						
 								@if (Model.User != null && Model.Desi.FirstOrDefault().DesStatus == 1)
 								{
-									<form method="post">
-										<h4> My review </h4>
-										<textarea cols="15" rows="5" placeholder="Enter your opinion here..." asp-for="Review.ReviewTxt"></textarea>
-										<button type="submit">Submit</button>
-									</form>
+									<div class="submit-review">
+										<form method="post">
+											<h4> My review </h4>
+											<textarea cols="15" rows="5" placeholder="Enter your opinion here..." asp-for="Review.ReviewTxt"></textarea>
+											<button type="submit">Submit</button>
+										</form>
+									</div>
 								}
 						
 							</div>

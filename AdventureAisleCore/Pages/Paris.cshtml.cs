@@ -11,7 +11,7 @@ namespace AdventureAisleCore.Pages
         ReviewService reviews;
         UserService userService;
         DestinationService destinationService;
-        CalculationsService algorithmService;
+        CalculationService algorithmService;
 
         
         
@@ -35,7 +35,7 @@ namespace AdventureAisleCore.Pages
 
         public List<Destination> Desi { get; set; } = new List<Destination>();
 
-        public ParisModel(UserService u, DestinationService d, ReviewService r, CalculationsService a)
+        public ParisModel(UserService u, DestinationService d, ReviewService r, CalculationService a)
         {
             userService = u;
             destinationService = d;
@@ -45,20 +45,18 @@ namespace AdventureAisleCore.Pages
 		public void OnGet()
         {
             Desi = destinationService.GetDestinationByName(Destination);
-            Reviews = algorithmService.UserWithMostReviewWeight(Desi.FirstOrDefault().Id);
+            Reviews = algorithmService.UserWithMostReviewWeight();
             var userWithMostWeight = Reviews[0].UserId;
 
 			if (HttpContext.Session.GetInt32("userId") != null)
             {
                 var id = (int)HttpContext.Session.GetInt32("userId");
                 User = userService.GetUserById(id);
-				//Desi = destinationService.GetDestinationByName(Destination);
                 Desi[0] = destinationService.GetDestinationWithStatus(Desi.FirstOrDefault(), id);
                 DesReviews = Reviews.Where(d => d.DestinationId == Desi.FirstOrDefault().Id).ToArray();
 			}
             else
             {
-				//Desi = destinationService.GetDestinationByName(Destination);
                 DesReviews = Reviews.Where(d => d.DestinationId == Desi.FirstOrDefault().Id).ToArray();   
             }
         }
@@ -69,7 +67,7 @@ namespace AdventureAisleCore.Pages
 
             Desi = destinationService.GetDestinationByName(Destination);
 			Desi[0] = destinationService.GetDestinationWithStatus(Desi.FirstOrDefault(), usrid);
-			Reviews = algorithmService.UserWithMostReviewWeight(Desi.FirstOrDefault().Id);
+			Reviews = algorithmService.UserWithMostReviewWeight();
 
 			if (Review.ReviewTxt != null)
             {
@@ -85,11 +83,7 @@ namespace AdventureAisleCore.Pages
 
                 foreach (var d in Desi)
                 {
-                    foreach (var rev in Reviews)
-                    {
-                        d.AddRating(rev.Rating);
-                    }
-                    d.AvgRating = d.CalculateAverage();
+                    d.AvgRating = algorithmService.CalculateAverageWeightDestination(Desi.FirstOrDefault().Id);
                     if (Convert.ToDouble(CheckedValue) > 0)
                     {
                         destinationService.UpdateDestination(d);
@@ -119,9 +113,10 @@ namespace AdventureAisleCore.Pages
 				destinationService.SetDestinationStatus(Desi.FirstOrDefault(), usrid);
 			}
 
-            
+			Reviews = algorithmService.UserWithMostReviewWeight();
+			var userWithMostWeight = Reviews[0].UserId;
 
-            return Page();
+			return Page();
         }
     }
 }

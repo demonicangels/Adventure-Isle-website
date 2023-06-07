@@ -1,6 +1,6 @@
 ﻿
-
-using System.Diagnostics.CodeAnalysis;
+using BusinessLogic.Interfaces;
+using System.Net.Http;
 
 namespace BusinessLogic
 {
@@ -26,9 +26,10 @@ namespace BusinessLogic
 		public int? DesStatus { get; set; }
         public int? UsrId { get; private set; }
 
-		RecommendationsRepo algorithm = new RecommendationsRepo();
+		public Destination() 
+        {
 
-        public Destination() { }
+		}
         public Destination(int id, string name, string country,string? cur, string? brief, string climate, double? avg, string? img, int? usrId, int? desStatus)
         {
             Id = id;
@@ -42,6 +43,7 @@ namespace BusinessLogic
             UsrId = usrId;
             DesStatus = desStatus;
         }
+        
 		public void AddReview(Review r)
         {
             reviews.Add(r);
@@ -53,11 +55,6 @@ namespace BusinessLogic
         {
             ratingList.Add(rating);
         }
-        public double CalculateAverage()
-        {
-            var result = algorithm.CalculateAverage(ratingList);
-            return result;
-		}
         public string DesInfo()
         {
             return $"{this.Country}: {this.Name}, {this.Currency}, {this.Climate} ";

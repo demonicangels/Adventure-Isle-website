@@ -10,8 +10,9 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<DestinationService>();
 builder.Services.AddScoped<ReviewService>();
 builder.Services.AddScoped<TravelListService>();
-builder.Services.AddScoped<CalculationsService>();
+builder.Services.AddScoped<CalculationService>();
 builder.Services.AddScoped<RecommendationsService>();
+
 
 builder.Services.AddTransient<IUserRepository>((sp) =>
 {
@@ -34,12 +35,14 @@ builder.Services.AddTransient<ITravelListRepository>((sp) =>
 });
 builder.Services.AddTransient<ICalculationsRepository>((sp) =>
 {
-    return new CalculationsService();
+    return new CalculationsRepo();
 });
 builder.Services.AddTransient<IRecommendationsRepository>((sp) =>
 {
     return new RecommendationsRepo();
 });
+
+
 
 
 
