@@ -99,7 +99,7 @@
 									{
 										<img class="review-prof-pic" src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" />
 									}
-									@if(r.Rating > 0)
+									@if(r.Rating > 0 && string.IsNullOrEmpty(r.ReviewTxt) == true)
 									{
 										<div class="email-rating">
 											<h5> @user.Username </h5> <p class="fas fa-star">@r.Rating</p>
@@ -109,7 +109,7 @@
 									else
 									{
 										<div class="email-rating">
-											<h5> @user.Username </h5>
+										<h5> @user.Username </h5> <p class="fas fa-star">@r.Rating</p>
 										</div>
 										<p>@r.ReviewTxt</p>
 									}		

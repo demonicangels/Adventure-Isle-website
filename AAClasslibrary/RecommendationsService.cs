@@ -27,11 +27,11 @@ namespace BusinessLogic
 			iDictionary.Clear();
 
 			iDictionary.Add("Climate", repository => userId != 0 && userId != null && string.IsNullOrEmpty(wantedValue)
-													   ? repository.RecommendationsByClimateUsers((int)userId, desService)
-													   : !string.IsNullOrEmpty(wantedValue) ? repository.RecommendationByClimateVisitors(wantedValue, desService)
-													   : repository.BestRatedDestinations(desService));
+													  ? repository.RecommendationsByClimateUsers((int)userId, desService)
+													  : !string.IsNullOrEmpty(wantedValue) ? repository.RecommendationByClimateVisitors(wantedValue, desService)
+													  : repository.BestRatedDestinations(desService));
 
-			iDictionary.Add("Rating", repository => wantedValue != null ? repository.RecommendationByWantedRating(double.Parse(wantedValue), desService) : _recommendationsRepository.BestRatedDestinations(desService));
+			iDictionary.Add("Rating", repository => wantedValue != null ? repository.RecommendationByWantedRating(double.Parse(wantedValue), desService) : repository.BestRatedDestinations(desService));
 
 			iDictionary.Add("Start", repository => userId != 0 && userId != null ? repository.RecommendationsByClimateUsers((int)userId, desService) : repository.BestRatedDestinations(desService));
 

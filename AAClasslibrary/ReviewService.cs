@@ -52,7 +52,7 @@ namespace BusinessLogic
             catch (InvalidInformationException x)
             {
                 Console.WriteLine(x.Message);
-                throw new Exception("Invalid information. Insert failed. Please try again.");
+                throw new Exception(x.Message);
             }
 
         }

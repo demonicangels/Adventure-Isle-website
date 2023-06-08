@@ -14,7 +14,7 @@ namespace DesktopApp
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            UserDTO user = new UserDTO(null, emailtxt.Text, passwordtxt.Text);
+            UserDTO user = new UserDTO();
             user.Username = emailtxt.Text;
             if (_userRepository.Authentication(user) == true)
             {

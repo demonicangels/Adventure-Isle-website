@@ -49,7 +49,14 @@ namespace DesktopApp
 			}
 			else
 			{
-				DestinationDTO des = new DestinationDTO(0, nameDestxt.Text, countriesCb.SelectedItem.ToString(), currencyDestxt.Text, descriptionDestxt.Text, climatetxt.Text, null, "", null, null);
+				DestinationDTO des = new DestinationDTO()
+				{
+                    Name = nameDestxt.Text, 
+					Country = countriesCb.SelectedItem.ToString(), 
+					Currency = currencyDestxt.Text, 
+					BriefDescription = descriptionDestxt.Text,
+					Climate = climatetxt.Text
+                };
 				desi.InsertDestination(des);
 				MessageBox.Show("Successful insert");
 				Clear();

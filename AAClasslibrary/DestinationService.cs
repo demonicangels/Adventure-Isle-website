@@ -46,9 +46,9 @@ namespace BusinessLogic
         {
             try
             {
-                var desInstance = FromDTO(destination);
+                var des = FromDTO(destination);
 
-                if (!Validate(desInstance)) { return; }
+                if (!Validate(des)) { return; }
                 else
                 {
                     _destinationRepository.InsertDestination(destination);

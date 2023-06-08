@@ -29,5 +29,11 @@ namespace FactoryServices
 			IUserRepository userRepository = new UserRepository();
 			return userRepository;
 		}
+
+		public ICalculationsRepository SetCalculationsRepository()
+		{
+			ICalculationsRepository calculationsRepository = new CalculationsRepo();
+			return calculationsRepository;
+		}
 	}
 }

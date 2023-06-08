@@ -12,5 +12,6 @@ namespace BusinessLogic.Interfaces
 		IDestinationRepository SetDestinationRepository();
 		IReviewRepository SetReviewRepository();
 		ITravelListRepository SetTravelListRepository();
+		ICalculationsRepository SetCalculationsRepository();
 	}
 }

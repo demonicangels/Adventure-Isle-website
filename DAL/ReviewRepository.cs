@@ -24,7 +24,7 @@ namespace DAL
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@user", review.UserId);
                     cmd.Parameters.AddWithValue("@des", review.DestinationId);
-                    cmd.Parameters.AddWithValue("@review", review.ReviewTxt);
+                    cmd.Parameters.AddWithValue("@review", string.IsNullOrEmpty(review.ReviewTxt) ? DBNull.Value : review.ReviewTxt);
 			    	cmd.Parameters.AddWithValue("@rate", review.Rating);
 			    	cmd.ExecuteNonQuery();
                 }

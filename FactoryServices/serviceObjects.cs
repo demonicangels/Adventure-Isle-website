@@ -31,9 +31,9 @@ namespace Factory
 			TravelListService listService = new TravelListService(repoFactory.SetTravelListRepository());
 			return listService;
 		}
-		public static CalculationsRepo calculationsServiceObject()
+		public static CalculationService calculationsServiceObject()
 		{
-			CalculationsRepo calculationsService = new CalculationsRepo(destinationServiceObject(), reviewServiceObject());
+			CalculationService calculationsService = new CalculationService(repoFactory.SetCalculationsRepository(), destinationServiceObject(),reviewServiceObject());
 			return calculationsService;
 		}
 	}
