@@ -52,7 +52,7 @@ namespace BusinessLogic
             catch (InvalidInformationException x)
             {
                 Console.WriteLine(x.Message);
-                throw new Exception(x.Message);
+                throw new Exception("Invalid format of review. Couldn't save review. Please try again.");
             }
 
         }
@@ -92,6 +92,13 @@ namespace BusinessLogic
                 throw new Exception("Failed to load reviews. Please try again later.");
             }
 		}
+
+        public Review AddTextToExistingRatingReview(Review r)
+        {
+            if (!Validate(r)) { return null; }
+            var updatedReview = _reviewRepository.UpdateReview(ToDTO(r));
+            return FromDTO(updatedReview);
+        }
 
 		public bool Validate(Review re)
         {

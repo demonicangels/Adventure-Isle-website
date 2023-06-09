@@ -70,7 +70,7 @@ namespace AdventureAisleCore.Pages
 			Desi[0] = destinationService.GetDestinationWithStatus(Desi.FirstOrDefault(), usrid);
 			Reviews = algorithmService.UserWithMostReviewWeight();
 
-			if (Review.ReviewTxt != null)
+			if (Review.ReviewTxt != null && !Reviews.Any(u => u.UserId == usrid && string.IsNullOrEmpty(u.ReviewTxt)))
             {
                 int amount;
                 int.TryParse(CheckedValue, out amount);
@@ -90,6 +90,15 @@ namespace AdventureAisleCore.Pages
 						destinationService.UpdateDestination(d);
 					}
                 }
+
+            }
+            else if(Review.ReviewTxt != null && Reviews.Any(u => u.UserId == usrid && string.IsNullOrEmpty(u.ReviewTxt)))
+            {
+                Review.UserId = User.Id;
+                Review.DestinationId = Desi.FirstOrDefault().Id;
+                reviews.AddTextToExistingRatingReview(Review);
+                Reviews = reviews.GetReviewsByDesId(Desi.FirstOrDefault().Id);
+                DesReviews = Reviews.Where(d => d.DestinationId == Desi.FirstOrDefault().Id).ToArray();
             }
             else
             {

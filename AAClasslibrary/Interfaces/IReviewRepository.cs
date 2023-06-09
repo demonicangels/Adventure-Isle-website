@@ -10,7 +10,7 @@ namespace BusinessLogic.Interfaces
     public interface IReviewRepository
     {
         void Insert(ReviewDTO review);
-        void Update();
+        ReviewDTO UpdateReview(ReviewDTO r);
         void Delete();
         ReviewDTO[] GetReviews();
         ReviewDTO[] GetReviewsByDesId(int id);

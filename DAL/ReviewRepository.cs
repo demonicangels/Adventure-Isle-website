@@ -103,5 +103,20 @@ namespace DAL
                 throw new FailedToRetrieveInformationException(ex.Message);
             }
 		}
-	}
+
+        public ReviewDTO UpdateReview(ReviewDTO r)
+        {
+            var query = "UPDATE Reviews SET ReviewTxt = @re WHERE UserId = @id AND DestinationId = @des";
+            using (SqlConnection con = new SqlConnection(connection))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@re", r.ReviewTxt);
+                cmd.Parameters.AddWithValue("@id", r.UserId);
+                cmd.Parameters.AddWithValue("@des", r.DestinationId);
+                cmd.ExecuteNonQuery();
+            }
+            return r;
+        }
+    }
 }
