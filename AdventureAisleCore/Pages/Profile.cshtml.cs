@@ -65,7 +65,7 @@ namespace AdventureAisleCore.Pages
                 var user = userService.FromDTO(Usr);
 				userService.UpdateUser(user);
             }
-            return RedirectToPage("/Profile");
+            return Page();
             
         }
     }
