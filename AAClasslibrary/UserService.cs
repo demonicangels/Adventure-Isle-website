@@ -164,11 +164,12 @@ namespace BusinessLogic
             }
         }
 
-        public void InsertImage(byte[] image, int id)
+        public User InsertImage(byte[] image, int id)
         {
             try
             {
-                _userRepository.InsertImage(image, id);
+                 var user = _userRepository.InsertImage(image, id);
+                 return FromDTO(user);
             }
             catch(InvalidInformationException i)
             {

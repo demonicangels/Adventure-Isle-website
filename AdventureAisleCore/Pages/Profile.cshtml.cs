@@ -18,7 +18,7 @@ namespace AdventureAisleCore.Pages
         [BindProperty]
         public string Bio { get; set; }
 
-        public UserDTO Usr { get; set; }= new UserDTO();
+        public User Usr { get; set; }= new User();
 
         [BindProperty]
         public string IsInEditMode { get; set; }
@@ -34,7 +34,7 @@ namespace AdventureAisleCore.Pages
 
             if(userId.HasValue)
             {
-                Usr = userService.ToDTO(userService.GetUserById((int)userId));
+                Usr = userService.GetUserById((int)userId);
             }
             
         }
@@ -47,7 +47,7 @@ namespace AdventureAisleCore.Pages
             
             if (userId.HasValue)
             {
-                Usr = userService.ToDTO(userService.GetUserById((int)userId));
+                Usr = userService.GetUserById((int)userId);
 			}
 
             if (Imagebytes != null && Imagebytes.Length > 0)
@@ -55,15 +55,15 @@ namespace AdventureAisleCore.Pages
                 var memoryStream = new MemoryStream();
                 Imagebytes.CopyTo(memoryStream);
                 byte[] bindata = memoryStream.ToArray();
-				userService.InsertImage(bindata, Usr.Id);
+                Usr = userService.GetUserById((int)userId);
+				Usr = userService.InsertImage(bindata, Usr.Id);
             }
 
             if (IsInEditMode == "Submit")
             {
                 Usr.Username = Username;
                 Usr.Bio = Bio;
-                var user = userService.FromDTO(Usr);
-				userService.UpdateUser(user);
+				userService.UpdateUser(Usr);
             }
             return Page();
             

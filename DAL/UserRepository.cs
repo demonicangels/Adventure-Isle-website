@@ -256,8 +256,9 @@ namespace DAL
                 throw new FailedToRetrieveInformationException(ex.Message);
             }
         }
-        public void InsertImage(byte[] image, int id)
+        public UserDTO InsertImage(byte[] image, int id)
         {
+            UserDTO user = new UserDTO();
             var query = @"UPDATE Users SET ProfilePicture = @pp WHERE Id = @id";
             try
             {
@@ -270,6 +271,28 @@ namespace DAL
                    cmd.ExecuteNonQuery();
                    con.Close();
                }
+				using (con = new SqlConnection(connection))
+				{
+					con.Open();
+					query = @"SELECT * FROM Users WHERE Id = @id";
+					cmd = new SqlCommand(query, con);
+					cmd.Parameters.AddWithValue("@id", id);
+					SqlDataReader reader = cmd.ExecuteReader();
+                    if (!reader.Read())
+                        throw new Exception();
+
+					user.Id = id;
+					user.Email = reader["email"].ToString();
+					user.Username = reader["username"].ToString();
+					user.UserSince = (DateTime)reader["created_at"];
+					user.Birthday = (DateTime)reader["birthday"];
+					user.Bio = reader["bio"].ToString();
+					user.ProfilePic = (reader["ProfilePicture"] == DBNull.Value) ? null : (byte[])reader["ProfilePicture"];
+					
+					con.Close();
+				}
+
+				return user;
             }
             catch (Exception ex)
             {
