@@ -96,11 +96,18 @@ namespace DesktopApp
 
 		private void GetAll_btn_Click(object sender, EventArgs e)
 		{
-			desScreen.Items.Clear();
-			var des = desi.GetAllDestinationsByCountry(countriesCb.SelectedItem.ToString());
-			for (int i = 0; i < des.Count; i++)
+			try
 			{
-				desScreen.Items.Add(des[i].Name);
+				desScreen.Items.Clear();
+				var des = desi.GetAllDestinationsByCountry(countriesCb.SelectedItem.ToString());
+				for (int i = 0; i < des.Count; i++)
+				{
+					desScreen.Items.Add(des[i].Name);
+				}
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show("Please choose a country", "Invalid text.", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 
 		}

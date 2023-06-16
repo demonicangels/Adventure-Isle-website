@@ -38,14 +38,22 @@ namespace BusinessLogic
 		}
         public Destination[] Recommendations(string option)
         {
-            if (iDictionary.ContainsKey(option))
-            {
-                recommendations = iDictionary[option].Invoke(_recommendationsRepository).ToList();
-            }
-			else
+			try
 			{
-				recommendations = iDictionary["Start"].Invoke(_recommendationsRepository).ToList();
+				if (iDictionary.ContainsKey(option))
+				{
+				    recommendations = iDictionary[option].Invoke(_recommendationsRepository).ToList();
+				}
+				else
+				{
+					recommendations = iDictionary["Start"].Invoke(_recommendationsRepository).ToList();
+				}
+
+			}catch (Exception ex)
+			{
+				throw new InvalidInformationException("Please choose an option for recommendation.");
 			}
+
 
 			//foreach (KeyValuePair<string, Func<IRecommendationsRepository, Destination[]>> action in iDictionary)
 			//{

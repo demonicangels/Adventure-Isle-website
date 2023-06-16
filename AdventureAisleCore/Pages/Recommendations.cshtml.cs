@@ -43,9 +43,16 @@ namespace AdventureAisleCore.Pages
         }
         public void OnPost(string option)
         {
-            UserId = HttpContext.Session.GetInt32("userId");
-            recommendationService.InitializeDictionary(UserId == null ? 0 : UserId.Value, WantedClimate, option);
-            Recommendations = recommendationService.Recommendations(option);
+            try
+            {
+                UserId = HttpContext.Session.GetInt32("userId");
+                recommendationService.InitializeDictionary(UserId == null ? 0 : UserId.Value, WantedClimate, option);
+                Recommendations = recommendationService.Recommendations(option);
+            }
+            catch(InvalidInformationException i)
+            {
+                TempData["exMessage"] = i.Message;
+            }
         }
     }
 }

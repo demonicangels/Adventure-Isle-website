@@ -11,7 +11,7 @@ namespace AdventureAisleCore.Pages
     
     public class IndexModel : PageModel
     {
-        CalculationService algorithm;
+        
         DestinationService desService;
         RecommendationsService recommendationService;
 
@@ -22,9 +22,8 @@ namespace AdventureAisleCore.Pages
 		public string? Logout { get; set; }
         public Destination[]? Recommendations { get; set; }
         public int? UsrId { get; set; }
-        public IndexModel(CalculationService algorithmService, DestinationService destinationService, RecommendationsService recommendationService)
+        public IndexModel(DestinationService destinationService, RecommendationsService recommendationService)
         {
-            this.algorithm = algorithmService;
             this.desService = destinationService;
             this.recommendationService = recommendationService;
         }
@@ -39,7 +38,7 @@ namespace AdventureAisleCore.Pages
                 HttpContext.Session.Clear();
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 TempData["Logout"] = "Successful logout";
-				Recommendations = algorithm.BestRatedDestinations();
+				Recommendations = recommendationService.Recommendations("");
             }
             else if (UsrId != 0 && UsrId != null)
             {

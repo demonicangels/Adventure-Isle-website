@@ -1,11 +1,19 @@
 ﻿using BusinessLogic;
+using System;
 
 
 namespace UnitTests.MockData
 {
     internal class DestinationRepositoryTest : IDestinationRepository
     {
-        private List<DestinationDTO> desList = new List<DestinationDTO>();
+		private List<DestinationDTO> desList = new List<DestinationDTO>()
+		{
+            new DestinationDTO() { Id = 1, Name = "Brussels", Climate = "Continental", UsrId = 234 },
+			new DestinationDTO() { Id = 2, Name = "Eindhoven", Climate = "Continental", UsrId = 234 },
+			new DestinationDTO() { Id = 3, Name = "Plovdiv", Climate = "Continental", UsrId = 2 },
+            new DestinationDTO() {Id = 4, Name = "Rome", Country = "Italy", Currency = "euro", Climate = "Mostly humid subtropical" , AvgRating = 5 },
+            new DestinationDTO() {Id = 6, Name = "Stockholm", Country = "Sweden", Currency = "euro", Climate = "Cold" , AvgRating = 3 },
+        };
 
         public DestinationDTO InsertDestination(DestinationDTO destination)
         {
@@ -15,9 +23,9 @@ namespace UnitTests.MockData
        
 
         public List<DestinationDTO> GetDestinationByName(string name)
-        {
-            var destinations = new List<DestinationDTO>();
-            foreach (DestinationDTO d in desList)
+		{
+			var destinations = new List<DestinationDTO>();
+			foreach (DestinationDTO d in desList)
             {
                 if (d.Name.Contains(name))
                 {
@@ -64,13 +72,14 @@ namespace UnitTests.MockData
 
 		public List<DestinationDTO> AllDestinationsofUser(int usrId)
 		{
-			var desUser = desList.Where(u => u.UsrId == usrId);
-			return desUser.ToList();
+			
+			var desUser = desList.Where(u => u.UsrId == usrId).ToList();
+			return desUser;
 		}
 
 		public List<DestinationDTO> GetAllDestinations()
 		{
-			throw new NotImplementedException();
+			return desList;
 		}
 
 		public DestinationDTO GetDestinationById(int desId)

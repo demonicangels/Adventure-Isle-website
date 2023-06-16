@@ -57,7 +57,7 @@ namespace UnitTests.MockData
 			throw new NotImplementedException();
 		}
 
-		public void InsertImage(byte[] image, int id)
+		public UserDTO InsertImage(byte[] image, int id)
 		{
 			throw new NotImplementedException();
 		}

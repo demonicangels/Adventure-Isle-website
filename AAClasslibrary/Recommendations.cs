@@ -2,7 +2,7 @@
 
 namespace BusinessLogic
 {
-    public class RecommendationsRepo : IRecommendationsRepository
+    public class Recommendations : IRecommendationsRepository
     {
         public Review[] Reviews;
         public double CalculateAverage(List<double> ratingList)

@@ -9,7 +9,7 @@ namespace UnitTests
     public class RecommendationsTests
     {
 
-        static IRecommendationsRepository recommendationsRepository = new RecommendationRepositoryTest();
+        static IRecommendationsRepository recommendationsRepository = new Recommendations();
         static IDestinationRepository destinationRepository = new DestinationRepositoryTest();
         static DestinationService d = new DestinationService(destinationRepository);
         RecommendationsService recs = new RecommendationsService(recommendationsRepository, d);
@@ -18,20 +18,19 @@ namespace UnitTests
         public void BestRatedDestinationsRecs()
         {
             recs.InitializeDictionary(null, null, "Rating");
-            var bestRated = recs.iDictionary["Rating"].Invoke(recommendationsRepository);
+            var bestRated = recs.Recommendations("Rating");
 
             
-
             Assert.IsNotNull(bestRated);
-            Assert.AreEqual(bestRated.Length, 2);
-            Assert.IsTrue(bestRated[0].AvgRating == 5 && bestRated[1].AvgRating == 4.33);
+            Assert.AreEqual(bestRated.Length, 3);
+            Assert.IsTrue(bestRated[0].AvgRating == 5 && bestRated[2].AvgRating == 3 );
         }
 
         [TestMethod]
         public void WantedRatingRecs()
         {
             recs.InitializeDictionary(null, "3", "Rating");
-            var wantedRatingDes = recs.iDictionary["Rating"].Invoke(recommendationsRepository);
+            var wantedRatingDes = recs.Recommendations("Rating");
 
             Assert.IsNotNull(wantedRatingDes);
             Assert.AreEqual(wantedRatingDes.Length, 1);
@@ -42,7 +41,7 @@ namespace UnitTests
         public void WantedClimateRecs()
         {
             recs.InitializeDictionary(null, "humid", "Climate");
-            var wantedClimateDes = recs.iDictionary["Climate"].Invoke(recommendationsRepository);
+            var wantedClimateDes = recs.Recommendations("Climate");
 
             Assert.IsNotNull(wantedClimateDes);
             Assert.AreEqual(wantedClimateDes.Length, 1);
@@ -52,12 +51,12 @@ namespace UnitTests
         [TestMethod]
         public void MostVisitedClimateUserRecs()
         {
-            recs.InitializeDictionary(2, null, "Climate");
-            var mostVisitedClimateRecs = recs.iDictionary["Climate"].Invoke(recommendationsRepository);
+            recs.InitializeDictionary(234, null, "Climate");
+            var mostVisitedClimateRecs = recs.Recommendations("Climate");
 
             Assert.IsNotNull(mostVisitedClimateRecs);
-            Assert.AreEqual(mostVisitedClimateRecs.Length, 1);
-            Assert.AreEqual(mostVisitedClimateRecs.FirstOrDefault().Name, "Paris");
+            Assert.AreEqual(mostVisitedClimateRecs.Length, 2);
+            Assert.AreEqual(mostVisitedClimateRecs.FirstOrDefault().Name, "Plovdiv");
         }
 
     }

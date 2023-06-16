@@ -1,10 +1,10 @@
 ﻿@page
 @model AdventureAisleCore.Pages.RecommendationsTestPageModel
 @{
-    if (TempData.ContainsKey("warning"))
+    if (TempData.ContainsKey("exMessage"))
     {
         <script>
-            alert('@TempData["warning"]')
+            alert('@TempData["exMessage"]')
         </script>
     }
 }

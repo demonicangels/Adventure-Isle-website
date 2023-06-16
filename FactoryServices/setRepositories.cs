@@ -32,7 +32,7 @@ namespace FactoryServices
 
 		public ICalculationsRepository SetCalculationsRepository()
 		{
-			ICalculationsRepository calculationsRepository = new CalculationsRepo();
+			ICalculationsRepository calculationsRepository = new Calculations();
 			return calculationsRepository;
 		}
 	}

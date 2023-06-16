@@ -2,7 +2,7 @@
 using BusinessLogic.Interfaces;
 namespace BusinessLogic
 { 
-	public class CalculationsRepo : ICalculationsRepository
+	public class Calculations : ICalculationsRepository
 	{
 		public Review[] Reviews;
 		public double CalculateAverage(List<double> ratingList)
@@ -70,28 +70,5 @@ namespace BusinessLogic
 
             return Reviews;
         }
-
-        public Destination[] BestRatedDestinations(List<Destination> allDestinations) //sugestions by rating
-		{
-            List<double> ratings = new List<double>();
-            foreach (var d in allDestinations)
-			{
-				ratings.Add(d.AvgRating);
-			}
-			var avgBestRating = CalculateAverage(ratings);
-
-			int countList = allDestinations.Count;
-			List<Destination> bestRateddesti = new List<Destination>();
-			for (int i = countList - 1; i >= 0 ; i--)
-			{
-                if (allDestinations[i].AvgRating > avgBestRating)
-                {
-                    bestRateddesti.Add(allDestinations[i]);
-                }
-				countList--;
-            }
-			bestRateddesti = bestRateddesti.OrderByDescending(d => d.AvgRating).ToList();
-			return bestRateddesti.ToArray();
-		}
 	}
 }

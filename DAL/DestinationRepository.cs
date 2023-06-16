@@ -27,19 +27,11 @@ namespace BusinessLogic
                 SqlDataReader reader = cmd.ExecuteReader();
                 if(!reader.Read())
                     throw new FailedToRetrieveInformationException();
-                DestinationDTO desi = new DestinationDTO
-                {
-                    Id = (int)reader["Id"],
-                    Name = (string)reader["Name"],
-                    Country = reader["Country"].ToString(),
-                    Currency = reader["Currency"].ToString(),
-                    BriefDescription = reader["History"].ToString(),
-                    Climate = reader["Climate"].ToString(),
-                    AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Math.Round(Convert.ToDouble(reader["AvgRating"]), 2, MidpointRounding.AwayFromZero),
-                    ImgURL = reader["ImgURL"].ToString(),
-                };
+
+                des.Id = (int)reader["Id"];
+                    
                 con.Close();
-                return desi;
+                return des;
 
             }
             catch (Exception ex)

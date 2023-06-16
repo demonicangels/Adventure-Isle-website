@@ -54,13 +54,6 @@ namespace BusinessLogic
 			var result = calculations.UserWithMostReviewWeight(reviews);
 			return result;
 		}
-		public Destination[] BestRatedDestinations()
-		{
-			var destinations = desService.GetAllDestinations().ToList();
-			var result = calculations.BestRatedDestinations(destinations);
-			return result;
-		}
-
 
 	}
 }

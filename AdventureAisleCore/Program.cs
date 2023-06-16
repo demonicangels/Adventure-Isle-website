@@ -35,11 +35,11 @@ builder.Services.AddTransient<ITravelListRepository>((sp) =>
 });
 builder.Services.AddTransient<ICalculationsRepository>((sp) =>
 {
-    return new CalculationsRepo();
+    return new Calculations();
 });
 builder.Services.AddTransient<IRecommendationsRepository>((sp) =>
 {
-    return new RecommendationsRepo();
+    return new Recommendations();
 });
 
 

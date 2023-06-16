@@ -17,7 +17,7 @@ namespace UnitTests
 		[TestMethod]
 		public void GetDestinationById()
 		{
-			DestinationDTO d = new DestinationDTO() { Id = 1, Name = "Paris", AvgRating = 4.5, Climate = "Continental" };
+			DestinationDTO d = new DestinationDTO() { Id = 5, Name = "Paris", AvgRating = 4.33, Climate = "Continental" };
 			desService.InsertDestination(d);
 
 			var result = desService.GetDesById(d.Id);
@@ -32,44 +32,35 @@ namespace UnitTests
 		[TestMethod]
 		public void GetDestinationsOfUser() 
 		{
-			DestinationDTO d = new DestinationDTO() { Id = 2, Name = "Eindhoven", UsrId = 234 };
-			DestinationDTO de = new DestinationDTO() { Id = 3, Name = "Sofia", UsrId = 234 };
-			DestinationDTO des = new DestinationDTO() { Id = 4, Name = "LA", UsrId = 123 };
-			desService.InsertDestination(d);
-			desService.InsertDestination(de);
-			desService.InsertDestination(des);
-			
-
 			var destinationsUser = desService.AllDesOfUser(234);
-
-			var expectedAtPositionZero = d;
 
 			Assert.IsNotNull(destinationsUser);
 			Assert.IsTrue(destinationsUser.Count() == 2);
-			Assert.AreEqual(destinationsUser.FirstOrDefault().Id, 2);
+			Assert.AreEqual(destinationsUser.FirstOrDefault().Id, 1);
 		}
 
 		[TestMethod]
 		public void UpdateDestination()
 		{
-			Destination des = new Destination(4, "LA", "","","","",5,null,123,null);
+			Destination des = new Destination(2, "Eindhoven", "","","","",5,null,234,null);
 
-			 var result = desService.UpdateDestination(des);
-			des.AvgRating = 5;
+			var result = desService.UpdateDestination(des);
 			var expected = des;
 
 			Assert.IsNotNull(result);
 			Assert.AreEqual(expected.Id, result.Id);
+			Assert.AreEqual(expected.Name, result.Name);
+			Assert.IsTrue(expected.UsrId == result.UsrId);
 			Assert.IsNotNull(result.AvgRating);
 		}
 
 		[TestMethod]
 		public void UodateDesStatus()
 		{
-			Destination des = new Destination(4, "LA", "", "", "", "", 5, null, 123, 1);
+            Destination des = new Destination(2, "Eindhoven", "", "", "", "", 5, null, 234, 1);
 
-			var expected = des;
-			var result = desService.UpdateStatusByUserIdAndDesId(des,123);
+            var expected = des;
+			var result = desService.UpdateStatusByUserIdAndDesId(des,234);
 
 			Assert.IsNotNull(result);
 			Assert.IsNotNull(result.DesStatus);
@@ -78,16 +69,14 @@ namespace UnitTests
 		[TestMethod]
 		public void SearchDestination()
 		{
-			var search = "Pa";
-			var d = new DestinationDTO() { Name = "Provence", Country = "France" };
-			var expectedDes = new DestinationDTO() { Name = "Paris", Country = "France" };
+			var search = "Ei";
 
-			_destinationRepository.InsertDestination(expectedDes);
-			_destinationRepository.InsertDestination(d);
+			var expectedDes = new DestinationDTO() { Id = 2, Name = "Eindhoven", Climate = "Continental", UsrId = 234 };
 
 			var actualDes = _destinationRepository.GetDestinationByName(search);
 
 			Assert.IsNotNull(actualDes);
+
             foreach(var des in actualDes)
             {
                 Assert.AreEqual(expectedDes.Name, des.Name);
