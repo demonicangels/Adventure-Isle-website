@@ -30,6 +30,17 @@ namespace UnitTests
 		}
 
 		[TestMethod]
+		public void GetDesOfUser()
+		{
+			var result = desService.AllDesOfUser(234);
+
+			var expected = 2;
+
+			Assert.IsNotNull(result);
+			Assert.AreEqual(expected, result.Length);
+		}
+
+		[TestMethod]
 		public void GetDestinationsOfUser() 
 		{
 			var destinationsUser = desService.AllDesOfUser(234);
@@ -73,7 +84,7 @@ namespace UnitTests
 
 			var expectedDes = new DestinationDTO() { Id = 2, Name = "Eindhoven", Climate = "Continental", UsrId = 234 };
 
-			var actualDes = _destinationRepository.GetDestinationByName(search);
+			var actualDes = desService.GetDestinationByName(search);
 
 			Assert.IsNotNull(actualDes);
 

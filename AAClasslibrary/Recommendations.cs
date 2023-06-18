@@ -69,7 +69,6 @@ namespace BusinessLogic
                 {
                     bestRateddesti.Add(destinations[i]);
                 }
-                countList--;
             }
             bestRateddesti = bestRateddesti.OrderByDescending(d => d.AvgRating).ToList();
             return bestRateddesti.ToArray();

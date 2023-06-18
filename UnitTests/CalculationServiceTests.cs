@@ -22,10 +22,9 @@ namespace UnitTests
         [TestMethod]
         public void UserWithMostReviewWeightReturnsTrueWeight()
         {
-            var reviews = _calculator.UserWithMostReviewWeight().ToList();
-            int weight = 0;
+            var reviews = r.GetReviews().ToList();
 
-            weight = calc.CalculateUserWeight(1, reviews);
+            int weight = calc.CalculateUserWeight(1, reviews);
 
             var expected = 3;
 

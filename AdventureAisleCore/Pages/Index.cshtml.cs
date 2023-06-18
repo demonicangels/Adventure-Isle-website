@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.SignalR;
-using System.Reflection;
 
 namespace AdventureAisleCore.Pages
 {
@@ -47,7 +45,7 @@ namespace AdventureAisleCore.Pages
 
                 if(userDes.Count > 0)
                 {
-					recommendationService.InitializeDictionary((int)UsrId, "", "");
+					recommendationService.InitializeDictionary((int)UsrId, "", ""); //because otherwise it shows the recommendations of the user that just logged out
 					Recommendations = recommendationService.Recommendations("");
                 }
             }

@@ -55,7 +55,7 @@ namespace BusinessLogic
                 }
 
             }
-            catch(System.IO.InvalidDataException ex)
+            catch(InvalidInformationException ex)
             {
                 Console.WriteLine(ex.Message);
                 throw new Exception("The information is not valid. Please try again.");

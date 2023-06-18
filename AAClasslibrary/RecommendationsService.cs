@@ -22,14 +22,14 @@ namespace BusinessLogic
             _recommendationsRepository = recs;
             desService = d;
 		}
-		public void InitializeDictionary(int? userId, string wantedValue, string option) 
+		public void InitializeDictionary(int? userId, string wantedValue) 
 		{
 			iDictionary.Clear();
 
 			iDictionary.Add("Climate", repository => userId != 0 && userId != null && string.IsNullOrEmpty(wantedValue)
 													  ? repository.RecommendationsByClimateUsers((int)userId, desService)
-													  : !string.IsNullOrEmpty(wantedValue) ? repository.RecommendationByClimateVisitors(wantedValue, desService)
-													  : repository.BestRatedDestinations(desService));
+													  : (!string.IsNullOrEmpty(wantedValue) ? repository.RecommendationByClimateVisitors(wantedValue, desService)
+													  : repository.BestRatedDestinations(desService)));
 
 			iDictionary.Add("Rating", repository => wantedValue != null ? repository.RecommendationByWantedRating(double.Parse(wantedValue), desService) : repository.BestRatedDestinations(desService));
 

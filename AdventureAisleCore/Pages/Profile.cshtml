@@ -12,7 +12,7 @@
             <div class="avatar-container">
 				    @if (Model.Usr != null && Model.Usr.ProfilePic != null)
 				    {
-				    	<img src="data:image/png;base64,@System.Convert.ToBase64String(@Model.Usr?.ProfilePic)" title="" id="avatar">
+				    	<img src="data:image/jpeg;base64,@System.Convert.ToBase64String(@Model.Usr?.ProfilePic)" title="" id="avatar"> //way of encoding binary data into characters
 				    }
             </div>
 

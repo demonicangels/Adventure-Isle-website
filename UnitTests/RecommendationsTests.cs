@@ -17,7 +17,7 @@ namespace UnitTests
         [TestMethod]
         public void BestRatedDestinationsRecs()
         {
-            recs.InitializeDictionary(null, null, "Rating");
+            recs.InitializeDictionary(null, null);
             var bestRated = recs.Recommendations("Rating");
 
             
@@ -29,7 +29,7 @@ namespace UnitTests
         [TestMethod]
         public void WantedRatingRecs()
         {
-            recs.InitializeDictionary(null, "3", "Rating");
+            recs.InitializeDictionary(null, "3");
             var wantedRatingDes = recs.Recommendations("Rating");
 
             Assert.IsNotNull(wantedRatingDes);
@@ -40,7 +40,7 @@ namespace UnitTests
         [TestMethod]
         public void WantedClimateRecs()
         {
-            recs.InitializeDictionary(null, "humid", "Climate");
+            recs.InitializeDictionary(null, "humid");
             var wantedClimateDes = recs.Recommendations("Climate");
 
             Assert.IsNotNull(wantedClimateDes);
@@ -51,7 +51,7 @@ namespace UnitTests
         [TestMethod]
         public void MostVisitedClimateUserRecs()
         {
-            recs.InitializeDictionary(234, null, "Climate");
+            recs.InitializeDictionary(234, null);
             var mostVisitedClimateRecs = recs.Recommendations("Climate");
 
             Assert.IsNotNull(mostVisitedClimateRecs);
