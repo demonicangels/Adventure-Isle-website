@@ -105,8 +105,8 @@ namespace AdventureAisleCore.Pages
                 {
                     if(Convert.ToDouble(CheckedValue) != 0 || Convert.ToDouble(CheckedValue) != null)
                     {
-                        d.AvgRating = algorithmService.CalculateAverageWeightDestination(Desi.FirstOrDefault().Id);
-						destinationService.UpdateDestination(d);
+                        Desi.FirstOrDefault().AvgRating = algorithmService.CalculateAverageWeightDestination(Desi.FirstOrDefault().Id);
+						destinationService.UpdateDestination(Desi.FirstOrDefault());
 					}
                 }
 
