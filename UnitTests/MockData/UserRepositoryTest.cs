@@ -22,11 +22,10 @@ namespace UnitTests.MockData
             UserDTO u = new UserDTO();
             return u;
         }
-        public void DeleteUser(string email)
+        public void DeleteUser(UserDTO u)
         {
-            var userDto = users.Where(x => x.Email == email).FirstOrDefault();
+            var userDto = users.Where(x => x.Id == u.Id).FirstOrDefault();
             users.Remove(userDto);
-            
         }
 
         public UserDTO[] GetAllUsers()

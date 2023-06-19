@@ -81,12 +81,12 @@ namespace UnitTests
 			var name = "test";
 			var birthday = DateTime.Parse("10/4/2002 4:20:00 PM");
 			var email = "test@gmail.com";
-			UserDTO user = new UserDTO() { Email = email, Password = "123", Username = name, Birthday = birthday, Bio = "Testing for bugs and eradicating them." };
+			UserDTO user = new UserDTO() {  Id = 786, Email = email, Password = "123", Username = name, Birthday = birthday, Bio = "Testing for bugs and eradicating them." };
 			_userRepository.InsertUser(user, "", "");
 
 			UserDTO expectedResult = null;
 
-			_userRepository.DeleteUser(email);
+			_userRepository.DeleteUser(user);
 
 			var actualResult = _userRepository.GetUserByEmail(email);
 
