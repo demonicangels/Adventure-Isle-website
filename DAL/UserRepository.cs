@@ -71,16 +71,16 @@ namespace DAL
                 throw new FailedToUpdateException(ex.Message);
             }
 		}
-		public void DeleteUser(string email)
+		public void DeleteUser(UserDTO u)
         {
-            var query = "DELETE FROM Users WHERE email = @email";
+            var query = "DELETE FROM Users WHERE Id = @ID";
             try
             {
                 using (con = new SqlConnection(connection))
                 {
                     con.Open();
                     cmd = new SqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@ID", u.Id);
                     cmd.ExecuteNonQuery();
                     con.Close();
                 }

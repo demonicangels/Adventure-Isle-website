@@ -24,16 +24,16 @@ namespace AdventureAisleCore.Pages
         public IActionResult OnPost()
         {
 			if (!ModelState.IsValid)
-                {
-                    return Page();
-                }
-                else
-                {
-                    var salt = security.CreateSalt();
-                    var hash = security.CreateHash(salt, Usr.Password);
-				    userService.InsertUser(Usr, salt, hash);
-                    return RedirectToPage("Login");
-                }
+            {
+                return Page();
+            }
+            else
+            {
+                var salt = security.CreateSalt();
+                var hash = security.CreateHash(salt, Usr.Password);
+			 userService.InsertUser(Usr, salt, hash);
+                return RedirectToPage("Login");
+            }
         }
     }
 }

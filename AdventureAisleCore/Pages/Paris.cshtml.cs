@@ -44,7 +44,7 @@ namespace AdventureAisleCore.Pages
 		}
 		public void OnGet()
         {
-            Destination = "Paris";
+            Destination = "Paris"; //because otherwise is null and if i don't refresh the page the avg rating doesn't update
             Desi = destinationService.GetDestinationByName(Destination);
             Reviews = algorithmService.UserWithMostReviewWeight();
             var userWithMostWeight = Reviews[0].UserId;
@@ -70,7 +70,26 @@ namespace AdventureAisleCore.Pages
 			Desi[0] = destinationService.GetDestinationWithStatus(Desi.FirstOrDefault(), usrid);
 			Reviews = algorithmService.UserWithMostReviewWeight();
 
-			if (Review.ReviewTxt != null && !Reviews.Any(u => u.UserId == usrid && string.IsNullOrEmpty(u.ReviewTxt)))
+            if (Desi[0].DesStatus != null && DesStatus != null)
+            {
+                Desi.FirstOrDefault().DesStatus = (int)DesStatus;
+                Desi[0] = destinationService.UpdateStatusByUserIdAndDesId(Desi.FirstOrDefault(), usrid);
+            }
+            else if (DesStatus == DestinationStatus.BeenTo)
+            {
+                Desi.FirstOrDefault().DesStatus = (int)DestinationStatus.BeenTo;
+                destinationService.SetDestinationStatus(Desi.FirstOrDefault(), usrid);
+            }
+            else if (DesStatus == DestinationStatus.GoingTo)
+            {
+                Desi.FirstOrDefault().DesStatus = (int)DestinationStatus.GoingTo;
+                destinationService.SetDestinationStatus(Desi.FirstOrDefault(), usrid);
+            }
+
+            Reviews = algorithmService.UserWithMostReviewWeight();
+            var userWithMostWeight = Reviews[0].UserId;
+
+            if (!Reviews.Any(u => u.UserId == usrid && u.DestinationId == Desi.FirstOrDefault().Id) && Desi.FirstOrDefault().DesStatus == (int?)DestinationStatus.BeenTo && !string.IsNullOrEmpty(CheckedValue))
             {
                 int amount;
                 int.TryParse(CheckedValue, out amount);
@@ -84,7 +103,7 @@ namespace AdventureAisleCore.Pages
 
                 foreach (var d in Desi)
                 {
-                    if(Convert.ToDouble(CheckedValue) != 0)
+                    if(Convert.ToDouble(CheckedValue) != 0 || Convert.ToDouble(CheckedValue) != null)
                     {
                         d.AvgRating = algorithmService.CalculateAverageWeightDestination(Desi.FirstOrDefault().Id);
 						destinationService.UpdateDestination(d);
@@ -100,40 +119,6 @@ namespace AdventureAisleCore.Pages
                 Reviews = reviews.GetReviewsByDesId(Desi.FirstOrDefault().Id);
                 DesReviews = Reviews.Where(d => d.DestinationId == Desi.FirstOrDefault().Id).ToArray();
             }
-            else
-            {
-                DesReviews = Reviews.Where(d => d.DestinationId == Desi.FirstOrDefault().Id).ToArray();
-				int amount;
-				int.TryParse(CheckedValue, out amount);
-				Review.UserId = User.Id;
-				Review.DestinationId = Desi.FirstOrDefault().Id;
-				Review.Rating = amount;
-				reviews.Insert(Review);
-				Desi.FirstOrDefault().AvgRating = algorithmService.CalculateAverageWeightDestination(Desi.FirstOrDefault().Id);
-				destinationService.UpdateDestination(Desi.FirstOrDefault());
-			}
-
-
-            
-			if (Desi[0].DesStatus != null && DesStatus != null)
-			{
-                Desi.FirstOrDefault().DesStatus = (int)DesStatus;
-                Desi[0] = destinationService.UpdateStatusByUserIdAndDesId(Desi.FirstOrDefault(), usrid);
-			}
-			else if (DesStatus == DestinationStatus.BeenTo)
-            {
-                Desi.FirstOrDefault().DesStatus = (int)DestinationStatus.BeenTo;
-                destinationService.SetDestinationStatus(Desi.FirstOrDefault(), usrid);
-			}
-            else if(DesStatus == DestinationStatus.GoingTo)
-            {
-				Desi.FirstOrDefault().DesStatus = (int)DestinationStatus.GoingTo;
-				destinationService.SetDestinationStatus(Desi.FirstOrDefault(), usrid);
-			}
-
-			Reviews = algorithmService.UserWithMostReviewWeight();
-			var userWithMostWeight = Reviews[0].UserId;
-
 			return RedirectToPage("/Paris");
         }
     }

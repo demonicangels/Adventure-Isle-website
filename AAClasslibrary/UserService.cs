@@ -69,7 +69,8 @@ namespace BusinessLogic
         {
             try
             {
-                _userRepository.DeleteUser(email);
+                var user = _userRepository.GetUserByEmail(email);
+                _userRepository.DeleteUser(user);
             }
             catch (CouldntDeleteException c)
             {

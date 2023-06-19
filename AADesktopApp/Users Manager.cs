@@ -86,14 +86,14 @@ namespace DesktopApp
             {
                 var usr = us.GetUserByEmail(searchByIdtxt.Text);
                 userScreen.MultiColumn = true;
-                userScreen.Items.Add(usr.Username);
+                userScreen.Items.Add(usr.Email);
                 Clear();
             }
         }
 
         private void userScreen_Click(object sender, EventArgs e)
         {
-            var usr = us.GetUserByName(userScreen.SelectedItem.ToString());
+            var usr = us.GetUserByEmail(userScreen.SelectedItem.ToString());
             MessageBox.Show(usr.UserInfo());
         }
     }

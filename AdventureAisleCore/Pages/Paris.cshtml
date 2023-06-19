@@ -116,7 +116,7 @@
 								}
 
 
-						@if (Model.User != null && Model.Desi.FirstOrDefault().DesStatus == 1 && !Model.Reviews.Any(r => r.UserId == Model.User.Id && !string.IsNullOrEmpty(r.ReviewTxt)))
+						@if (Model.User != null && Model.Desi.FirstOrDefault().DesStatus == 1 && !Model.Reviews.Any(r => r.UserId == Model.User.Id && r.DestinationId == Model.Desi.FirstOrDefault().Id && !string.IsNullOrEmpty(r.ReviewTxt)))
 								{
 									<div class="submit-review">
 										<form method="post">

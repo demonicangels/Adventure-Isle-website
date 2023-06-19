@@ -145,7 +145,12 @@ namespace BusinessLogic
                 cmd.Parameters.AddWithValue("@cu", des.Currency);
                 cmd.Parameters.AddWithValue("@hi", des.BriefDescription);
 			    cmd.Parameters.AddWithValue("@cli", des.Climate);
-                SqlDataReader reader = cmd.ExecuteReader();
+                cmd.ExecuteNonQuery();
+
+                var query2 = "SELECT * FROM [Destinations] WHERE Id = @ID";
+                SqlCommand cmd2 = new SqlCommand(query2, con);
+				cmd2.Parameters.AddWithValue("@ID", des.Id);
+				SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
                     des2 = new DestinationDTO()
@@ -159,7 +164,8 @@ namespace BusinessLogic
                         AvgRating = Convert.IsDBNull(reader["AvgRating"]) ? 0 : Math.Round(Convert.ToDouble(reader["AvgRating"]), 2, MidpointRounding.AwayFromZero),
                         ImgURL = reader["ImgURL"].ToString(),
                     };
-                    return des2;
+					con.Close();
+					return des2;
                 }
                 return des2;
 

@@ -46,7 +46,7 @@ namespace AdventureAisleCore.Pages
             try
             {
                 UserId = HttpContext.Session.GetInt32("userId");
-                recommendationService.InitializeDictionary(UserId == null ? 0 : UserId.Value, WantedClimate, option);
+                recommendationService.InitializeDictionary(UserId == null ? 0 : UserId.Value, WantedClimate);
                 Recommendations = recommendationService.Recommendations(option);
             }
             catch(InvalidInformationException i)

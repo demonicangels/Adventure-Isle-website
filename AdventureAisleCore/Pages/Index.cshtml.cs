@@ -29,7 +29,7 @@ namespace AdventureAisleCore.Pages
         public async void OnGet()
         {
             UsrId = HttpContext.Session.GetInt32("userId") ?? 0;
-			recommendationService.InitializeDictionary(0, "", "");
+			recommendationService.InitializeDictionary(0, "");
 
 			if (Logout != null)
             {
@@ -45,7 +45,7 @@ namespace AdventureAisleCore.Pages
 
                 if(userDes.Count > 0)
                 {
-					recommendationService.InitializeDictionary((int)UsrId, "", ""); //because otherwise it shows the recommendations of the user that just logged out
+					recommendationService.InitializeDictionary((int)UsrId, ""); //because otherwise it shows the recommendations of the user that just logged out
 					Recommendations = recommendationService.Recommendations("");
                 }
             }
